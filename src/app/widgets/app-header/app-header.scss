@@ -1,0 +1,18 @@
+
+.header{
+    height: 40px;
+    line-height: 40px;
+    background-color: #FA7298;
+    color: white;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0.3rem 0.5rem rgba(51, 51, 51, 0.25);
+    .icon-back
+    {
+        font-size: 30px;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+

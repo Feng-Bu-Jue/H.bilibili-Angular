@@ -1,0 +1,46 @@
+<app-header title="画友"></app-header>
+<ion-content class="outer-content">
+    <swiper *ngIf="data!=undefined" class="flow-container" (scroll)="onscroll($event)" [height]="height">
+        <swiper-item>
+            <ul>
+                <li *ngFor="let doc of data" class="flow-item-wrapper">
+                    <div class="flow-item" [routerLink]="'/draw/detail/'+doc.item.doc_id">
+                        <ngx-progressive-image-loader>
+                            <img [src]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
+                                [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
+                                ngxProgressiveImage />
+                        </ngx-progressive-image-loader>
+                        <div class="flow-item-content">
+                            <div>{{doc.item.title}}</div>
+                            <div>
+                                <i [style.background-image]="'url('+doc.user.head_url+'@32w_32h_1e.webp)'"></i>
+                                <span>{{doc.user.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </swiper-item>
+        <swiper-item>
+            <ul>
+                <li *ngFor="let doc of data" class="flow-item-wrapper">
+                    <div class="flow-item">
+                        <ngx-progressive-image-loader>
+                            <img [src]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
+                                [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
+                                ngxProgressiveImage />
+                        </ngx-progressive-image-loader>
+                        <div class="flow-item-content">
+                            <div>{{doc.item.title}}</div>
+                            <div>
+                                <i [style.background-image]="'url('+doc.user.head_url+'@32w_32h_1e.webp)'"></i>
+                                <span>{{doc.user.name}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </swiper-item>
+    </swiper>
+</ion-content>
+<app-tabs></app-tabs>

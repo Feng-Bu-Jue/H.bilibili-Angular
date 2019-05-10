@@ -1,0 +1,25 @@
+<app-header title="详情"></app-header>
+<ng-container *ngIf="data">
+    <ion-content>
+        <div class="detail-container">
+            <div class="detail-header">
+                <i [style.background-image]="'url('+data.user.head_url+'@64w_64h_1e.webp)'"></i>
+                <span>{{data.user.name}}</span>
+            </div>
+            <div class="detail-content">
+                <div class="discription">
+                    {{data.item.description}}
+                </div>
+                <div *ngFor="let picture of data.item.pictures">
+                    <ngx-progressive-image-loader>
+                        <img [src]="picture.img_src" [imageRatio]="picture.img_width/picture.img_height"
+                            ngxProgressiveImage />
+                    </ngx-progressive-image-loader>
+                </div>
+            </div>
+            <div class="detail-comment">
+                
+            </div>
+        </div>
+    </ion-content>
+</ng-container>

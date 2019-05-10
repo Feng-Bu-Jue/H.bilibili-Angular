@@ -1,0 +1,30 @@
+// http://ionicframework.com/docs/theming/
+/*--------------ionic---------------*/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+/*--------------imageloader---------------*/
+/* You can add global styles to this file, and also import other style files */
+@import '~ngx-progressive-image-loader/ngx-progressive-image-loader';
+
+$scale: 0.5; // the scale of loading image in place holder
+$transition: opacity 1s linear; // the transition of loading image in place holder, you could try: opacity .3s ease
+@include progressive-image-loader($scale, $transition);
+
+
+/*--------------icon-font---------------*/
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}

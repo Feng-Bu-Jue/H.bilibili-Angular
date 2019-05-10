@@ -1,0 +1,61 @@
+.flow-container
+{
+  background-color: #d4d0d0;
+  ul
+  {
+    column-count:2;
+    column-gap: 10px;
+    margin: 0;
+    padding:10px 10px 0px 10px; 
+    .flow-item-wrapper
+    {
+      padding-bottom: 10px;
+      height: 100%;
+      overflow: auto;
+      break-inside: avoid;
+      .flow-item
+      {
+          overflow: hidden;
+          background-color: #fff;
+          border-radius: 5px;
+          font-size: 14px;
+          img
+          {
+              width: 100%;
+              height: auto;
+          }
+          .flow-item-content
+          {
+            padding: 8px;
+            div
+            {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+            }
+            >div:nth-child(1)
+            {
+              margin-bottom: 5px;
+             
+            }
+            >div:nth-child(2)
+            {
+              height: 24px;
+              line-height: 24px;
+              color: #929191;
+              i
+              {
+                display:inline-block;
+                float: left;
+                background-size: cover;
+                border-radius: 50%;
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
+              }
+            }
+          }
+      }
+    } 
+  }
+}

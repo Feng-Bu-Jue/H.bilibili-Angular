@@ -1,0 +1,14 @@
+{
+  "name": "proxyserver",
+  "version": "0.0.1",
+  "description": "this is a proxy server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "author": "fengbujue",
+  "license": "MIT",
+  "dependencies": {
+    "http-proxy": "^1.17.0"
+  }
+}
