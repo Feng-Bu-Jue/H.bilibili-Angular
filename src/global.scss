@@ -13,12 +13,10 @@
 
 /*--------------imageloader---------------*/
 /* You can add global styles to this file, and also import other style files */
-@import '~ngx-progressive-image-loader/ngx-progressive-image-loader';
-
-$scale: 0.5; // the scale of loading image in place holder
-$transition: opacity 1s linear; // the transition of loading image in place holder, you could try: opacity .3s ease
-@include progressive-image-loader($scale, $transition);
-
+@import 'dist/ngx-progressive-image-loader/ngx-progressive-image-loader';
+$loading-image-scale: 0.5;
+$loading-image-transition: opacity 1s linear;
+@include progressive-image-loader($loading-image-scale, $loading-image-transition);
 
 /*--------------icon-font---------------*/
 .icon {

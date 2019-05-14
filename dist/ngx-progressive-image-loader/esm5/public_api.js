@@ -1,0 +1,14 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/*
+ * Public API Surface of ngx-progressive-image-loader
+ */
+export { ProgressiveImageLoaderComponent } from './lib/progressive-image-loader/progressive-image-loader.component';
+export { ProgressiveImageDirective } from './lib/progressive-image/progressive-image.directive';
+export { ImagePlaceholderComponent } from './lib/image-placeholder/image-placeholder.component';
+export { ConfigurationServiceFactory, NgxProgressiveImageLoaderModule } from './lib/ngx-progressive-image-loader.module';
+export { IMAGE_LOADER_CONFIG_TOKEN, DEFAULT_IMAGE_LOADER_OPTIONS } from './lib/config';
+export { isSupportIntersectionObserver, isImagePicture, setAttribute, isPictureElement, loadImage, isSpider } from './lib/util';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25neC1wcm9ncmVzc2l2ZS1pbWFnZS1sb2FkZXIvIiwic291cmNlcyI6WyJwdWJsaWNfYXBpLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSxnREFBYyxtRUFBbUUsQ0FBQztBQUNsRiwwQ0FBYyxxREFBcUQsQ0FBQztBQUNwRSwwQ0FBYyxxREFBcUQsQ0FBQztBQUNwRSw2RUFBYywyQ0FBMkMsQ0FBQztBQUMxRCx3RUFBYyxjQUFjLENBQUM7QUFDN0IsbUhBQWMsWUFBWSxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBuZ3gtcHJvZ3Jlc3NpdmUtaW1hZ2UtbG9hZGVyXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvcHJvZ3Jlc3NpdmUtaW1hZ2UtbG9hZGVyL3Byb2dyZXNzaXZlLWltYWdlLWxvYWRlci5jb21wb25lbnQnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvcHJvZ3Jlc3NpdmUtaW1hZ2UvcHJvZ3Jlc3NpdmUtaW1hZ2UuZGlyZWN0aXZlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2ltYWdlLXBsYWNlaG9sZGVyL2ltYWdlLXBsYWNlaG9sZGVyLmNvbXBvbmVudCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9uZ3gtcHJvZ3Jlc3NpdmUtaW1hZ2UtbG9hZGVyLm1vZHVsZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9jb25maWcnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvdXRpbCc7XG4iXX0=

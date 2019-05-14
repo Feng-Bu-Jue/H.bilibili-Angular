@@ -39,7 +39,9 @@
                 "input": "src/global.scss"
               }
             ],
-            "scripts": ["src/assets/font/iconfont.js"],
+            "scripts": [
+              "src/assets/font/iconfont.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -159,26 +161,34 @@
         }
       }
     },
-    "app-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+    "ngx-progressive-image-loader": {
+      "root": "projectsy/ngx-progressive-image-loader",
+      "sourceRoot": "projectsy/ngx-progressive-image-loader/src",
+      "projectType": "library",
+      "prefix": "ngx",
+      "targets": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "app:serve"
-          },
-          "configurations": {
-            "ci": {
-              "devServerTarget": "app:serve:ci"
-            }
+            "tsConfig": "projectsy/ngx-progressive-image-loader/tsconfig.lib.json",
+            "project": "projectsy/ngx-progressive-image-loader/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projectsy/ngx-progressive-image-loader/src/test.ts",
+            "tsConfig": "projectsy/ngx-progressive-image-loader/tsconfig.spec.json",
+            "karmaConfig": "projectsy/ngx-progressive-image-loader/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
+            "tsConfig": [
+              "projectsy/ngx-progressive-image-loader/tsconfig.lib.json",
+              "projectsy/ngx-progressive-image-loader/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

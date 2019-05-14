@@ -1,0 +1,10 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { ProgressiveImageLoaderComponent, ProgressiveImageDirective, ImagePlaceholderComponent, ConfigurationServiceFactory, NgxProgressiveImageLoaderModule, IMAGE_LOADER_CONFIG_TOKEN, DEFAULT_IMAGE_LOADER_OPTIONS, isSupportIntersectionObserver, isImagePicture, setAttribute, isPictureElement, loadImage, isSpider } from './public_api';
+export { ConfigurationService as ɵa } from './lib/configuration.service';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmd4LXByb2dyZXNzaXZlLWltYWdlLWxvYWRlci5qcyIsInNvdXJjZVJvb3QiOiJuZzovL25neC1wcm9ncmVzc2l2ZS1pbWFnZS1sb2FkZXIvIiwic291cmNlcyI6WyJuZ3gtcHJvZ3Jlc3NpdmUtaW1hZ2UtbG9hZGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSxpVUFBYyxjQUFjLENBQUM7QUFFN0IsT0FBTyxFQUFDLG9CQUFvQixJQUFJLEVBQUUsRUFBQyxNQUFNLDZCQUE2QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBHZW5lcmF0ZWQgYnVuZGxlIGluZGV4LiBEbyBub3QgZWRpdC5cbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL3B1YmxpY19hcGknO1xuXG5leHBvcnQge0NvbmZpZ3VyYXRpb25TZXJ2aWNlIGFzIMm1YX0gZnJvbSAnLi9saWIvY29uZmlndXJhdGlvbi5zZXJ2aWNlJzsiXX0=
