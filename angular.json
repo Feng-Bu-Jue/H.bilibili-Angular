@@ -162,32 +162,32 @@
       }
     },
     "ngx-progressive-image-loader": {
-      "root": "projectsy/ngx-progressive-image-loader",
-      "sourceRoot": "projectsy/ngx-progressive-image-loader/src",
+      "root": "projects/ngx-progressive-image-loader",
+      "sourceRoot": "projects/ngx-progressive-image-loader/src",
       "projectType": "library",
       "prefix": "ngx",
       "targets": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projectsy/ngx-progressive-image-loader/tsconfig.lib.json",
-            "project": "projectsy/ngx-progressive-image-loader/ng-package.json"
+            "tsConfig": "projects/ngx-progressive-image-loader/tsconfig.lib.json",
+            "project": "projects/ngx-progressive-image-loader/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projectsy/ngx-progressive-image-loader/src/test.ts",
-            "tsConfig": "projectsy/ngx-progressive-image-loader/tsconfig.spec.json",
-            "karmaConfig": "projectsy/ngx-progressive-image-loader/karma.conf.js"
+            "main": "projects/ngx-progressive-image-loader/src/test.ts",
+            "tsConfig": "projects/ngx-progressive-image-loader/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-progressive-image-loader/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projectsy/ngx-progressive-image-loader/tsconfig.lib.json",
-              "projectsy/ngx-progressive-image-loader/tsconfig.spec.json"
+              "projects/ngx-progressive-image-loader/tsconfig.lib.json",
+              "projects/ngx-progressive-image-loader/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
