@@ -2,18 +2,27 @@
 <ng-container *ngIf="data">
     <ion-content>
         <div class="detail-container">
-            <div class="detail-header">
+            <header>
                 <i [style.background-image]="'url('+data.user.head_url+'@64w_64h_1e.webp)'"></i>
-                <span>{{data.user.name}}</span>
-            </div>
-            <div class="detail-content">
-                <div class="discription">
-                    {{data.item.description}}
+                <div>
+                    <div class="user-name">{{data.user.name}}</div>
+                    <div class="view-info">
+                        {{datePipe.transform(data.item.upload_timestamp*1000,'yyyy-MM-dd')}}
+                    </div>
                 </div>
-                <div *ngFor="let picture of data.item.pictures">
+            </header>
+            <div class="detail-content">
+                <div class="desc">
+                    <p>{{data.item.title}}</p>
+                    <p>{{data.item.description}}</p>
+                </div>
+                <div class="img-box">
                     <ngx-progressive-image-loader>
-                        <img [src]="picture.img_src" [imageRatio]="picture.img_width/picture.img_height"
-                            ngxProgressiveImage />
+                        <div *ngFor="let picture of data.item.pictures;index as i;"  class="img-item">
+                            <ng-container *ngIf="i<9">
+                                <div [bgsrc]="picture.img_src" [imageRatio]="1" ngxProgressiveBGImage></div>
+                            </ng-container>
+                        </div>
                     </ngx-progressive-image-loader>
                 </div>
             </div>

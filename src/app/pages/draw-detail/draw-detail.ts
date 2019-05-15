@@ -3,6 +3,7 @@ import { TabEvent } from '../../Components/Tab/tab.item.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LinkDrawApi } from 'src/app/bilibiliApi/LinkDrawApi';
 import { DocResult } from 'src/app/bilibiliApi/Models/DocResult';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class DrawDetailPage implements OnInit {
 
   constructor(
     private linkDrawApi: LinkDrawApi,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public datePipe:DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -25,3 +27,4 @@ export class DrawDetailPage implements OnInit {
     });
   }
 }
+

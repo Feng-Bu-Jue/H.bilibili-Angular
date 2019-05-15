@@ -1,20 +1,26 @@
 
 .detail-container{
   padding: 10px;
-  .detail-header {
+  >header {
     margin-bottom: 10px;
-    height: 40px;
-    line-height: 40px;
-    font-weight: bolder;
     i
     {
-      display:inline-block;
-      float: left;
       background-size: cover;
       border-radius: 50%;
       width: 40px;
       height: 40px;
       margin-right: 10px;
+      display: inline-block;
+    }
+    >div{
+      display:inline-block;
+      .user-name{
+        padding-bottom: 6px;
+        font-weight: 400;
+      }
+      .view-info{
+        font-size: 12px;
+      }
     }
   }
   .detail-content
@@ -22,9 +28,22 @@
     font-size: 14px;
     word-break: break-all;
     color: #5a5a5a;
-    .discription{
+    .img-box
+    {
+      .img-item {
+        width: 31.33%;
+        float: left;
+        margin: 1%;
+        *[ngxProgressiveBGImage]
+        {
+          border-radius: 4%;
+          height: 100%;
+          background-size: cover;
+        }
+      }
+    }
+    .desc{
       white-space: pre-wrap;
-      margin: 15px 0;
     }
   }
 }

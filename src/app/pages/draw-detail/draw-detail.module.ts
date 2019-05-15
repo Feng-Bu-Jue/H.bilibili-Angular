@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
 import { IImageLoaderOptions } from 'ngx-progressive-image-loader';
@@ -30,6 +30,6 @@ import { LinkDrawApi } from 'src/app/bilibiliApi/LinkDrawApi';
     DrawDetailPageRoutingModule,
     AppHeaderWidgetModule
   ],
-  providers:[LinkDrawApi]
+  providers:[LinkDrawApi,DatePipe]
 })
 export class DrawDetailPageModule { }
