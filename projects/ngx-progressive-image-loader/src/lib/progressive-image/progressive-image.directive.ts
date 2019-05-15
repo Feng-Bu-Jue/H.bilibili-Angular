@@ -18,7 +18,7 @@ import { isPictureElement, loadImage } from '../util';
 
 @Directive({
   // make sure the element is an image element
-  selector: 'img[ngxProgressiveImage], source[ngxProgressiveImage]'
+  selector: 'img[ngxProgressiveImage], source[ngxProgressiveImage],*[ngxProgressiveBGImage]'
 })
 export class ProgressiveImageDirective implements OnInit, OnChanges {
   _imageRatio: number;
@@ -49,8 +49,12 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
   srcset: string;
 
   @Input()
+  bgsrc: string;
+
+  @Input()
   noPlaceholder = false;
   imageElement: HTMLImageElement;
+  bgImageElement: HTMLElement;
   isObserve = false;
   constructor(
     private _ElementRef: ElementRef,
@@ -62,7 +66,7 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
     private _ImagePlaceholder: ImagePlaceholderComponent,
     @Inject(ProgressiveImageLoaderComponent)
     private _ProgressiveImageLoader: ProgressiveImageLoaderComponent
-  ) {}
+  ) { }
   ngOnInit(): void {
     this.imageElement = this._ElementRef.nativeElement;
     this.setDataSrc('data-src', this.src);
@@ -76,6 +80,18 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
         this.imageElement.onload = () => {
           this.imageElement.classList.add('loaded');
         };
+        if (!this._ImagePlaceholder && !this.noPlaceholder) {
+          this.setPlaceholder();
+        }
+      }
+      else if (this._ElementRef.nativeElement instanceof HTMLElement) {
+        //TODO: improvement!!!
+        //The way of extend is dirty,Will improve this when I have time
+        this.bgImageElement = this._ElementRef.nativeElement;
+        this.setDataSrc('data-bgsrc', this.bgsrc);
+        this.isObserve = true;
+        this._ProgressiveImageLoader.intersectionObserver.observe(this.bgImageElement);
+
         if (!this._ImagePlaceholder && !this.noPlaceholder) {
           this.setPlaceholder();
         }

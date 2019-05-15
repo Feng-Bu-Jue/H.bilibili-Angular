@@ -16,7 +16,7 @@ export function isImagePicture(element: HTMLElement) {
 export function setAttribute(
   renderer: Renderer2,
   attribute: string,
-  element: HTMLImageElement | HTMLSourceElement
+  element: HTMLImageElement | HTMLSourceElement|HTMLElement
 ) {
   renderer.setAttribute(element, attribute, element.dataset[attribute]);
   // maybe doesn't matter
@@ -25,7 +25,7 @@ export function setAttribute(
 export function isPictureElement(element: HTMLElement) {
   return element.nodeName === 'PICTURE';
 }
-export function loadImage(renderer: Renderer2, image: HTMLImageElement) {
+export function loadImage(renderer: Renderer2, image: HTMLElement) {
   if (isPictureElement(image.parentElement)) {
     const sourceElms = image.parentElement.children;
     for (let index = 0; index < sourceElms.length; index++) {
@@ -38,10 +38,21 @@ export function loadImage(renderer: Renderer2, image: HTMLImageElement) {
     }
   } else {
     if (image.dataset.src) {
-      setAttribute(renderer, 'src', image);
+      setAttribute(renderer, 'src', <HTMLImageElement>image);
     }
     if (image.dataset.srcset) {
-      setAttribute(renderer, 'srcset', image);
+      setAttribute(renderer, 'srcset', <HTMLImageElement>image);
+    }
+    if(image.dataset.bgsrc)
+    {
+      console.log("loading img")
+      let img = new Image();
+      img.onload = () => {
+        image.classList.add('loaded');
+      };
+      img.src=image.dataset.bgsrc;//to loading
+      console.log(image.dataset.bgsrc)
+      renderer.setStyle(image,"background-image",`url(${image.dataset.bgsrc})`);
     }
   }
 }

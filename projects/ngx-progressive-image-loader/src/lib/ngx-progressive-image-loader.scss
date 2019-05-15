@@ -1,10 +1,14 @@
 @mixin progressive-image-loader($placeholder-loading-image-scale: 1, $placeholder-loading-image-transition: opacity 1s linear) {
+  
+  ngx-progressive-image-loader
+  {
+    display: block;
+  }
   .ngx-image-placeholder {
     display: block;
     width: 100%;
     position: relative;
     height: 0;
-    overflow: hidden;
     .placeholder-loading-image {
       width: 100%;
       height: 100%;
@@ -13,13 +17,27 @@
       opacity: 1;
     }
     img {
-      position: absolute;
+      opacity: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      transition: $placeholder-loading-image-transition;
+      &.placeholder-loading-image{
+        position: absolute;
+      }
+      &.loaded {
+        position: absolute;
+        opacity: 1;
+      }
+    }
+    *[ngxprogressivebgimage] {
       opacity: 0;
       top: 0;
       left: 0;
       width: 100%;
       transition: $placeholder-loading-image-transition;
       &.loaded {
+        position: absolute;
         opacity: 1;
       }
     }

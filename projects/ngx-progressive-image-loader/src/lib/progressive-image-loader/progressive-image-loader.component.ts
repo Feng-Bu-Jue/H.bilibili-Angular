@@ -67,14 +67,14 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
     entries.forEach(
       entry =>
         entry.isIntersecting &&
-        this.onImageAppearsInViewport(entry.target as HTMLImageElement, observer)
+        this.onImageAppearsInViewport(entry.target as HTMLElement, observer)
     );
   }
 
-  onImageAppearsInViewport(image: HTMLImageElement, observer: IntersectionObserver) {
+  onImageAppearsInViewport(element: HTMLElement, observer: IntersectionObserver) {
     // Stop observing the current target
-    observer.unobserve(image);
-    loadImage(this._Renderer, image);
+    observer.unobserve(element);
+    loadImage(this._Renderer, element);
   }
 
   ngOnDestroy(): void {
