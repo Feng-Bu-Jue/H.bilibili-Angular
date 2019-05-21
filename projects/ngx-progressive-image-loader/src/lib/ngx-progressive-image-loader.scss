@@ -1,9 +1,5 @@
 @mixin progressive-image-loader($placeholder-loading-image-scale: 1, $placeholder-loading-image-transition: opacity 1s linear) {
   
-  ngx-progressive-image-loader
-  {
-    display: block;
-  }
   .ngx-image-placeholder {
     display: block;
     width: 100%;

@@ -6,7 +6,6 @@ import { error } from '@angular/compiler/src/util';
 import { TabEvent } from './Components/Tab/tab.item.component';
 import { ReplyApi } from './bilibiliApi/ReplyApi';
 import { LinkDrawApi } from './bilibiliApi/LinkDrawApi';
-import { DocResult } from './bilibiliApi/Models/DocResult';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

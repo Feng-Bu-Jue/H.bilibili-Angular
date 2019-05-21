@@ -125,7 +125,6 @@ export class Swiper implements OnInit, AfterContentInit {
     @HostListener('touchmove', ['$event'])
     onTouchMove(event: TouchEvent): void {
         this.subject.next(event);
-
     }
 
     @HostListener('touchend', ['$event'])

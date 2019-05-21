@@ -6,7 +6,7 @@ export class Picture {
 }
 
 
-export class DocItem {
+export class LinkDrawItem {
   public already_liked: number;
   public already_voted: number;
   public category: string;
@@ -17,18 +17,18 @@ export class DocItem {
   public pictures: Array<Picture>;
 }
 
-export class DocUesr {
+export class LinkDrawUesr {
   public head_url: string;
   public name: string;
   public uid: number;
 }
 
-export class DocResult {
-  public item: DocItem;
-  public user: DocUesr;
+export class LinkDrawResult {
+  public item: LinkDrawItem;
+  public user: LinkDrawUesr;
 }
 
-export class DocResultList{
+export class LinkDrawResultList{
   public total_count: number;
-  public items: DocResult[];
+  public items: LinkDrawResult[];
 }

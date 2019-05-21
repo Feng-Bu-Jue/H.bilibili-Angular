@@ -26,7 +26,7 @@ import { LinkDrawApi } from 'src/app/bilibiliApi/LinkDrawApi';
     DrawListPageRoutingModule,
     NgxProgressiveImageLoaderModule.forRoot(<IImageLoaderOptions>{
       // rootMargin must be specified in pixels or percent
-      rootMargin: '0px',
+      rootMargin: '10px',
       threshold: 1,
       // css filter
       // loading image in placeholder. Can be URL or base64

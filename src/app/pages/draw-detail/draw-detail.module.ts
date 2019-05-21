@@ -8,11 +8,14 @@ import { DrawDetailPage } from './draw-detail';
 import { DrawDetailPageRoutingModule } from './draw-detail.routing.module';
 import { AppHeaderWidgetModule } from 'src/app/widgets/app-header/app-header.module';
 import { LinkDrawApi } from 'src/app/bilibiliApi/LinkDrawApi';
+import { ReplyApi } from 'src/app/bilibiliApi/ReplyApi';
+import { viewImg } from 'src/app/widgets/app-view-img/app-view-img';
 
 
 @NgModule({
   declarations:[
     DrawDetailPage,
+    viewImg
   ],
   imports: [
     IonicModule,
@@ -30,6 +33,11 @@ import { LinkDrawApi } from 'src/app/bilibiliApi/LinkDrawApi';
     DrawDetailPageRoutingModule,
     AppHeaderWidgetModule
   ],
-  providers:[LinkDrawApi,DatePipe]
+  providers:[
+    LinkDrawApi,
+    ReplyApi,
+    DatePipe
+  ],
+  entryComponents:[viewImg]
 })
 export class DrawDetailPageModule { }

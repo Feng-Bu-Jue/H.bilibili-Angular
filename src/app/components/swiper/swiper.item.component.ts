@@ -1,5 +1,4 @@
-import { OnInit, Component, ViewChild, ElementRef, HostBinding } from '@angular/core';
-
+import { OnInit, Component, ViewChild, ElementRef, HostBinding, HostListener, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: "swiper-item",
@@ -38,6 +37,19 @@ export class SwiperItem implements OnInit {
     }
 
     public moveX: number = 0;
+
+    @Output()
+    public onScrollLower: EventEmitter<Event> = new EventEmitter();
+
+    @HostListener('scroll', ['$event'])
+    onscroll(event:Event)
+    {
+        let el=this.elementRef.nativeElement;
+        if(el.scrollTop + el.clientHeight == el.scrollHeight)
+       {
+           this.onScrollLower.emit(event);
+       }
+    }
 
     ngOnInit(): void {
         

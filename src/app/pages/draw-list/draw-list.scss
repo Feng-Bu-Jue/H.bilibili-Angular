@@ -1,4 +1,4 @@
-.flow-container
+    .flow-container
 {
   background-color: #d4d0d0;
   ul
@@ -7,11 +7,12 @@
     column-gap: 10px;
     margin: 0;
     padding:10px 10px 0px 10px; 
+    li{
+      list-style-type:none;
+    }
     .flow-item-wrapper
     {
       padding-bottom: 10px;
-      height: 100%;
-      overflow: auto;
       break-inside: avoid;
       .flow-item
       {
@@ -19,11 +20,6 @@
           background-color: #fff;
           border-radius: 5px;
           font-size: 14px;
-          img
-          {
-              width: 100%;
-              height: auto;
-          }
           .flow-item-content
           {
             padding: 8px;
@@ -46,7 +42,7 @@
               i
               {
                 display:inline-block;
-                float: left;
+                vertical-align: top;
                 background-size: cover;
                 border-radius: 50%;
                 width: 24px;
@@ -59,3 +55,4 @@
     } 
   }
 }
+

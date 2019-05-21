@@ -1,34 +1,61 @@
-<app-header title="详情"></app-header>
-<ng-container *ngIf="data">
-    <ion-content>
+<app-header title="画友"></app-header>
+<ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)" #content>
+    <ng-container *ngIf="detailResult">
         <div class="detail-container">
-            <header>
-                <i [style.background-image]="'url('+data.user.head_url+'@64w_64h_1e.webp)'"></i>
-                <div>
-                    <div class="user-name">{{data.user.name}}</div>
-                    <div class="view-info">
-                        {{datePipe.transform(data.item.upload_timestamp*1000,'yyyy-MM-dd')}}
+            <div class="detail-content detail-block">
+                <header class="detail-block">
+                    <i [style.background-image]="'url('+detailResult.user.head_url+'@64w_64h_1e.webp)'"></i>
+                    <div>
+                        <div class="user-name">{{detailResult.user.name}}</div>
+                        <div class="view-info">
+                            {{datePipe.transform(detailResult.item.upload_timestamp*1000,'yyyy-MM-dd')}}
+                        </div>
                     </div>
-                </div>
-            </header>
-            <div class="detail-content">
+                </header>
                 <div class="desc">
-                    <p>{{data.item.title}}</p>
-                    <p>{{data.item.description}}</p>
+                    <p>{{detailResult.item.title}}</p>
+                    <p>{{detailResult.item.description}}</p>
                 </div>
                 <div class="img-box">
                     <ngx-progressive-image-loader>
-                        <div *ngFor="let picture of data.item.pictures;index as i;"  class="img-item">
-                            <ng-container *ngIf="i<9">
+                        <div *ngFor="let picture of detailResult.item.pictures.slice(0,9);index as i;"
+                            class="img-item {{getImgItemW(detailResult.item.pictures.length)}}" (click)="goImgView(i)">
                                 <div [bgsrc]="picture.img_src" [imageRatio]="1" ngxProgressiveBGImage></div>
-                            </ng-container>
                         </div>
                     </ngx-progressive-image-loader>
                 </div>
             </div>
-            <div class="detail-comment">
-                
+            <div class="detail-comment detail-block" *ngIf="replyResult">
+                <header>
+                    评论 {{replyResult.page.count}}
+                </header>
+                <div class="replies-box">
+                    <div class="reply-wrap" *ngFor="let reply of replyResult.replies">
+                        <div class="user-face">
+                            <img [src]="reply.member.avatar+'@64w_64h.webp'">
+                        </div>
+                        <div class="con-wrap">
+                            <div class="user">
+                                {{reply.member.uname}}
+                            </div>
+                            <div class="con">
+                                <div class="info">
+                                    {{reply.floor?'#'+reply.floor:''}} {{datePipe.transform(reply.ctime*1000,'yyyy-MM-dd')}}
+                                </div>
+                                <p>
+                                    {{reply.content.message}}
+                                </p>
+                                <div class="sub-con" *ngIf="reply.replies">
+                                    <p *ngFor="let subReply of reply.replies">
+                                        <a>{{subReply.member.uname}}</a>
+                                        <span>: {{subReply.content.message}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </ion-content>
-</ng-container>
+    </ng-container>
+</ion-content>
