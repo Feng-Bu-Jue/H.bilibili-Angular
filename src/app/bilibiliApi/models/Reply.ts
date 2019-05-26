@@ -1,4 +1,4 @@
-import { Member } from './Member';
+import { Member } from './member';
 
 export class ReplyResult {
     public blacklist: number;//这个非常棒 帮助我发现世界很小
@@ -31,4 +31,18 @@ export class ReplyContent {
     public members: Array<string>;
     public message: string;
     public plat: number;//plat 1=web? 2=android 
+}
+
+
+export class AddReplyResult {
+    dialog: number;
+    dialog_str: number;
+    need_captcha: boolean;
+    parent: number;
+    parent_str: string;
+    root: number;
+    root_str: string;
+    rpid: number;
+    rpid_str: string;
+    url: string;
 }

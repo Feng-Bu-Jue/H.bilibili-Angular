@@ -1,5 +1,5 @@
 <app-header title="画友"></app-header>
-<ion-content [scrollEvents]="true" (ionScroll)="onContentScroll($event)" #content>
+<ion-content [scrollEvents]="true">
     <ng-container *ngIf="detailResult">
         <div class="detail-container">
             <div class="detail-content detail-block">
@@ -20,7 +20,7 @@
                     <ngx-progressive-image-loader>
                         <div *ngFor="let picture of detailResult.item.pictures.slice(0,9);index as i;"
                             class="img-item {{getImgItemW(detailResult.item.pictures.length)}}" (click)="goImgView(i)">
-                                <div [bgsrc]="picture.img_src" [imageRatio]="1" ngxProgressiveBGImage></div>
+                            <div [bgsrc]="picture.img_src" [imageRatio]="1" ngxProgressiveBGImage></div>
                         </div>
                     </ngx-progressive-image-loader>
                 </div>
@@ -30,26 +30,25 @@
                     评论 {{replyResult.page.count}}
                 </header>
                 <div class="replies-box">
-                    <div class="reply-wrap" *ngFor="let reply of replyResult.replies">
+                    <div class="reply" *ngFor="let reply of replyResult.replies">
                         <div class="user-face">
-                            <img [src]="reply.member.avatar+'@64w_64h.webp'">
+                            <ion-img [src]="reply.member.avatar+'@64w_64h.webp'"></ion-img>
                         </div>
-                        <div class="con-wrap">
+                        <div class="con">
                             <div class="user">
                                 {{reply.member.uname}}
                             </div>
-                            <div class="con">
-                                <div class="info">
-                                    {{reply.floor?'#'+reply.floor:''}} {{datePipe.transform(reply.ctime*1000,'yyyy-MM-dd')}}
-                                </div>
-                                <p>
-                                    {{reply.content.message}}
-                                </p>
-                                <div class="sub-con" *ngIf="reply.replies">
-                                    <p *ngFor="let subReply of reply.replies">
-                                        <a>{{subReply.member.uname}}</a>
-                                        <span>: {{subReply.content.message}}</span>
-                                    </p>
+                            <div class="info">
+                                {{reply.floor?'#'+reply.floor:''}}
+                                {{datePipe.transform(reply.ctime*1000,'yyyy-MM-dd')}}
+                            </div>
+                            <p>
+                                {{reply.content.message}}
+                            </p>
+                            <div class="sub-con" *ngIf="reply.replies">
+                                <div *ngFor="let subReply of reply.replies">
+                                    <a>{{subReply.member.uname}}</a>
+                                    <span>: {{subReply.content.message}}</span>
                                 </div>
                             </div>
                         </div>

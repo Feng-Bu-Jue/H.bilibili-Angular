@@ -13,13 +13,12 @@ export class ReplyApi {
         //private userData:UserData
     ) { }
 
-    public getReplies(oid: number): Observable<ReplyResult> {
+    public getUser(uid: number): Observable<ReplyResult> {
         return this.client.get<BiliBiliProtocal<ReplyResult>>("api/x/v2/reply", {
-            oid: oid,
-            type: 11,
-            pn: 1,
-            sort: 0,
-            jsonp: 'jsonp'
+            uid:uid,
+            user: ['info','level'],
+            room: ['live_status','room_link'],
+            feed: ['fans_count','feed_count','is_followed']
         }).pipe(map(x => x.data));
     }
 

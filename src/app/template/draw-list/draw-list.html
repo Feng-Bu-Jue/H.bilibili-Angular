@@ -1,0 +1,19 @@
+<div class="list-box">
+    <div *ngFor="let doc of data" class="list-item-wrapper">
+        <div class="list-item" [routerLink]="'./detail/'+doc.item.doc_id">
+            <ngx-progressive-image-loader>
+                <div class="picture" [bgsrc]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
+                    [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
+                    ngxProgressiveBGImage>
+                </div>
+            </ngx-progressive-image-loader>
+            <div class="list-item-content">
+                <div>{{doc.item.title}}</div>
+                <div>
+                    <i [style.background-image]="'url('+doc.user.head_url+'@32w_32h_1e.webp)'"></i>
+                    <span>{{doc.user.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<app-header title="摄影"></app-header>
+
+<ion-content class="outer-content">
+        <template-draw-list [data]="data"></template-draw-list>
+
+        <ion-infinite-scroll threshold="10%" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content>
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+</ion-content>

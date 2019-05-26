@@ -5,17 +5,17 @@ import { IonicModule } from '@ionic/angular';
 import { AppTabsWidget } from './app-tabs';
 import { Tab } from 'src/app/Components/Tab/tab.component';
 import { TabItem } from 'src/app/Components/Tab/tab.item.component';
+import { ComponentModule } from 'src/app/components/componetModule';
 
 
 
 @NgModule({
     declarations: [
-        Tab,
-        TabItem,
         AppTabsWidget
     ],
     imports: [
         CommonModule,
+        ComponentModule,
         IonicModule
     ],
     exports: [

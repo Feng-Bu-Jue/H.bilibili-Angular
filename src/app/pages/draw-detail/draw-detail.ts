@@ -1,10 +1,10 @@
 import { Component, OnInit, ElementRef, QueryList, ContentChildren, ContentChild, ViewChild, ViewContainerRef, TemplateRef } from '@angular/core';
 import { TabEvent } from '../../Components/Tab/tab.item.component';
 
-import { LinkDrawApi } from 'src/app/bilibiliApi/LinkDrawApi';
+import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { DatePipe } from '@angular/common';
-import { ReplyApi } from 'src/app/bilibiliApi/ReplyApi';
-import { ReplyResult } from 'src/app/bilibiliApi/models/Reply';
+import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
+import { ReplyResult } from 'src/app/bilibiliApi/models/reply';
 import { LinkDrawResult } from 'src/app/bilibiliApi/models/LinkDrawResult';
 import { PopoverController, ModalController, IonContent } from '@ionic/angular';
 import { viewImg } from '../../widgets/app-view-img/app-view-img';
@@ -128,14 +128,6 @@ export class DrawDetailPage implements OnInit {
       },
     });
     await popover.present();
-  }
-
-  public onContentScroll(event: Event): void {
-    var content = <HTMLElement>this.el.nativeElement.querySelector("ion-content");
-    if (content.scrollTop + content.clientHeight == content.scrollHeight) {
-      var repliesBox = <HTMLElement>this.el.nativeElement.querySelector(".replies-box");
-      repliesBox.classList.add("scroll-y");
-    }
   }
 }
 

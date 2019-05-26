@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
-import { DrawListPage } from './draw-list';
-import { DrawListPageRoutingModule } from './draw-list.routing.module';
 import { IImageLoaderOptions } from 'ngx-progressive-image-loader';
 import { NgxProgressiveImageLoaderModule } from 'ngx-progressive-image-loader';
 import { SwiperItem } from 'src/app/components/swiper/swiper.item.component';
@@ -14,13 +12,15 @@ import { AppHeaderWidgetModule } from 'src/app/widgets/app-header/app-header.mod
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { Scroll } from 'src/app/components/scroll/scroll.component';
 import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
+import { PhotoListPageRoutingModule } from './photo-list.routing.module';
+import { PhotoListPage } from './photo-list';
 import { ComponentModule } from 'src/app/components/componetModule';
 import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.module';
 
 
 @NgModule({
   declarations: [
-    DrawListPage
+    PhotoListPage
   ],
   entryComponents:[
     DrawListTemplate
@@ -29,11 +29,11 @@ import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.mod
     CommonModule,
     ComponentModule,
     IonicModule,
-    DrawListPageRoutingModule,
+    PhotoListPageRoutingModule,
     AppTabsWidgetModule,
     AppHeaderWidgetModule,
     DrawListTemplateModule
   ],
   providers:[LinkDrawApi]
 })
-export class DrawListPageModule { }
+export class PhotoListPageModule { }

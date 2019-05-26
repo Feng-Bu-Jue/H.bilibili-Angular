@@ -7,10 +7,10 @@ import { NgxProgressiveImageLoaderModule } from 'ngx-progressive-image-loader';
 import { DrawDetailPage } from './draw-detail';
 import { DrawDetailPageRoutingModule } from './draw-detail.routing.module';
 import { AppHeaderWidgetModule } from 'src/app/widgets/app-header/app-header.module';
-import { LinkDrawApi } from 'src/app/bilibiliApi/LinkDrawApi';
-import { ReplyApi } from 'src/app/bilibiliApi/ReplyApi';
+import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
+import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
 import { viewImg } from 'src/app/widgets/app-view-img/app-view-img';
-
+import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.module';
 
 @NgModule({
   declarations:[

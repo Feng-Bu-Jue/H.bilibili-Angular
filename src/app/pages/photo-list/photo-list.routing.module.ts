@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
-import { DrawDetailPage } from './draw-detail';
+import { PhotoListPage } from './photo-list';
+
 
 const routes: Routes = [
   {
     path: '',
-    component: DrawDetailPage
+    component: PhotoListPage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DrawDetailPageRoutingModule { }
+export class PhotoListPageRoutingModule { }

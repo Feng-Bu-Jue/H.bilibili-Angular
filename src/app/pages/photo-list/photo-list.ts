@@ -7,37 +7,32 @@ import { IonInfiniteScroll } from '@ionic/angular';
 
 
 @Component({
-  selector: "page-draw-list",
-  templateUrl: './draw-list.html',
-  styleUrls: ['./draw-list.scss']
+  selector: "page-photo-list",
+  templateUrl: './photo-list.html',
+  styleUrls: ['./photo-list.scss']
 })
-export class DrawListPage implements OnInit {
-
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-
+export class PhotoListPage implements OnInit {
   public data: LinkDrawResult[] = new Array<LinkDrawResult>();
   public pageNum = 0;
+
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   constructor(private linkDrawApi: LinkDrawApi) { }
 
   async ngOnInit() {
-    await this.loadData();
-  }
-
-  onScrollLower(event: Event, category: string) {
-    //this.loadData();
+    this.loadData()
   }
 
   loadData(event = null) {
-    this.linkDrawApi.getDocList(this.pageNum, 10, "illustration", "hot")
+    this.linkDrawApi.getPhotoList(this.pageNum, 10, "cos", "hot")
       .subscribe(res => {
         this.pageNum++;
         this.data = this.data.concat(res);
 
         if (event)
           event.target.complete();
-        if(this.pageNum>=100)
-          this.infiniteScroll.disabled=true;
+        if (this.pageNum >= 100)
+          this.infiniteScroll.disabled = true;
       })
   }
 }

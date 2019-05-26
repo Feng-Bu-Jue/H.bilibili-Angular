@@ -14,8 +14,8 @@ const enum Position {
     styleUrls: ['./swiper.component.scss']
 })
 export class Swiper implements OnInit, AfterContentInit {
-
-    constructor() { }
+    //Todo use linkList improve this component
+    constructor() {}
 
     private sX: number = 0;
     private sY: number = 0;
@@ -28,20 +28,6 @@ export class Swiper implements OnInit, AfterContentInit {
 
     @ContentChildren(SwiperItem, { descendants: true })
     public swiperItems: QueryList<SwiperItem>;
-
-    @ViewChildren(SwiperItem)
-    public swiperItemsref: QueryList<any>;
-
-    private _height: string;
-    @Input("height")
-    @HostBinding('style.height')
-    public set height(value) {
-        this._height = value;
-        this.onResize();
-    }
-    public get height() {
-        return this._height;
-    }
 
     ngOnInit(): void {
 
@@ -56,13 +42,8 @@ export class Swiper implements OnInit, AfterContentInit {
 
     @HostListener('window:resize', [])
     onResize(): void {
-        if (this.swiperItems) {
-            this.offsetWidth = this.swiperItems.first.self.nativeElement.offsetWidth;
-            this.swiperItems.forEach((el, index) => {
-                el.positionX = el.positionIndex * this.offsetWidth;
-                el.height = this.height;
-            });
-        }
+        this.offsetWidth = this.swiperItems.first.self.nativeElement.offsetWidth;
+        this.itemPosition();
     }
 
     @HostListener('touchstart', ['$event'])
@@ -70,15 +51,15 @@ export class Swiper implements OnInit, AfterContentInit {
         this.subject.pipe(
             throttleTime(20),
             bufferCount(2),
-            map(events=>{
-                if(events.length<2)
+            map(events => {
+                if (events.length < 2)
                     return false;
-                
-                const first = events[0], second = events[1];
-                this.sX=first.changedTouches[0].clientX;
-                this.sY=first.changedTouches[0].clientY;
-                const distanceX = Math.abs(first.changedTouches[0].clientX - second.changedTouches[0].clientX);
-                const distanceY = Math.abs(first.changedTouches[0].clientY - second.changedTouches[0].clientY);
+                    
+                const firstTouches = events[0].changedTouches[0], secondTouches = events[1].changedTouches[0];
+                this.sX = firstTouches.clientX;
+                this.sY = secondTouches.clientY;
+                const distanceX = Math.abs(firstTouches.clientX - secondTouches.clientX);
+                const distanceY = Math.abs(firstTouches.clientY - secondTouches.clientY);
                 return distanceX > distanceY;
             }),
             first()
@@ -93,33 +74,28 @@ export class Swiper implements OnInit, AfterContentInit {
                         el.moveX = el.positionX - this.mX;
                     });
                 },
-                (e) =>{},
-                ()=> {
-                    const factor = 3;
-                    let position = this.mX > 0 ? Position.Left : Position.Right;
-                    const canMove =
-                        (this.activeIndex == 0 ?
-                            position == Position.Left :
-                            this.activeIndex == this.swiperItems.length - 1 ?
-                                position == Position.Right :
-                                true
-                        )
-                        &&
-                        Math.abs(this.mX) > this.offsetWidth / factor;
-                    if (canMove) {
-                        this.activeIndex += position;
-                    }
-                    //change the item position
-                    this.swiperItems.forEach((el, index) => {
-                        el.isMoving = false;
-                        el.positionIndex = index - this.activeIndex;
-                        el.positionX = el.positionIndex * this.offsetWidth;
-                    });
-                })
+                    (e) => { },
+                    () => {
+                        const factor = 3;
+                        let position = this.mX > 0 ? Position.Left : Position.Right;
+                        const canMove =
+                            (this.activeIndex == 0 ?
+                                position == Position.Left :
+                                this.activeIndex == this.swiperItems.length - 1 ?
+                                    position == Position.Right :
+                                    true
+                            )
+                            &&
+                            Math.abs(this.mX) > this.offsetWidth / factor;
+                        if (canMove) {
+                            this.activeIndex += position;
+                        }
+                        this.itemPosition();
+                    })
             }
         });
         this.subject.next(event);
-        
+
     }
 
     @HostListener('touchmove', ['$event'])
@@ -130,6 +106,14 @@ export class Swiper implements OnInit, AfterContentInit {
     @HostListener('touchend', ['$event'])
     onTouchEnd(event: TouchEvent): void {
         this.subject.complete();
-        this.subject=new Subject<TouchEvent>();//give new object to subject,old has been completed
+        this.subject = new Subject<TouchEvent>();//give new object to subject,old has been completed
+    }
+
+    itemPosition() {
+        this.swiperItems.forEach((el, index) => {
+            el.isMoving = false;
+            el.positionIndex = index - this.activeIndex;
+            el.positionX = el.positionIndex * this.offsetWidth;
+        });
     }
 }

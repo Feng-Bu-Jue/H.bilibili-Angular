@@ -12,7 +12,7 @@ export class AppTabsWidget implements OnInit {
     private routeMap: { [key: string]: string; } =
     {
         "draw": "/draw",
-        "picture": "/picture",
+        "photo": "/photo",
         "rank": "/rank",
         "me": "/me"
     };
