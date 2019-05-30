@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar class="bgcolor">
+        <ion-buttons slot="start">
+            <ion-button (click)="dismiss()">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-back"></use>
+                </svg>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content (click)="contentClick()" class="bgcolor">
+    <ion-slides class="swiper" pager="false" [options]="slidesOpts" style="left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);">
+        <ion-slide (click)="slideClick($event)" *ngFor="let url of urls;index as i;">
+            <ion-img class="image" [src]="url"></ion-img>
+        </ion-slide>
+    </ion-slides>
+</ion-content>

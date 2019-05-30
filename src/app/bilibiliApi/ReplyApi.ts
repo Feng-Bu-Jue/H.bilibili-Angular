@@ -13,7 +13,7 @@ export class ReplyApi {
         //private userData:UserData
     ) { }
 
-    public getReplies(oid: number): Observable<ReplyResult> {
+    public getReplies(oid: number,pn:number): Observable<ReplyResult> {
         return this.client.get<BiliBiliProtocal<ReplyResult>>("api/x/v2/reply", {
             oid: oid,
             type: 11,

@@ -9,13 +9,15 @@ import { DrawDetailPageRoutingModule } from './draw-detail.routing.module';
 import { AppHeaderWidgetModule } from 'src/app/widgets/app-header/app-header.module';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
-import { viewImg } from 'src/app/widgets/app-view-img/app-view-img';
+import { ImgViewer } from 'src/app/widgets/img-viewer/img-viewer';
 import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.module';
+import { TapRipple } from 'src/app/components/tapDirective/tapRipple';
 
 @NgModule({
-  declarations:[
+  declarations: [
     DrawDetailPage,
-    viewImg
+    ImgViewer,
+    TapRipple
   ],
   imports: [
     IonicModule,
@@ -33,11 +35,11 @@ import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.mod
     DrawDetailPageRoutingModule,
     AppHeaderWidgetModule
   ],
-  providers:[
+  providers: [
     LinkDrawApi,
     ReplyApi,
     DatePipe
   ],
-  entryComponents:[viewImg]
+  entryComponents: [ImgViewer]
 })
 export class DrawDetailPageModule { }

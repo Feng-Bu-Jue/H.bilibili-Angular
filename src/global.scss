@@ -26,3 +26,20 @@ $loading-image-transition: opacity 1s linear;
     fill: currentColor;
     overflow: hidden;
 }
+
+
+/*-------custom global style---------*/
+body{
+    font-size: 14px;
+}
+a {
+    color: #000000;
+    text-decoration: none;
+}
+.swiper
+{
+    .swiper-wrapper
+    {
+        align-items: Center;
+    }
+}

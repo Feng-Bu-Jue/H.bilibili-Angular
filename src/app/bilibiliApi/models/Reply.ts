@@ -20,10 +20,10 @@ export class Reply {
 }
 
 export class ReplyPage {
-    public acount: string;
-    public count: string;
-    public num: string;
-    public size: string;
+    public acount: number;
+    public count: number;
+    public num: number;
+    public size: number;
 }
 
 export class ReplyContent {

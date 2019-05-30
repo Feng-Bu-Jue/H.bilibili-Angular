@@ -4,14 +4,14 @@ import { TabEvent } from '../../Components/Tab/tab.item.component';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { DatePipe } from '@angular/common';
 import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
-import { ReplyResult } from 'src/app/bilibiliApi/models/reply';
+import { ReplyResult, Reply } from 'src/app/bilibiliApi/models/reply';
 import { LinkDrawResult } from 'src/app/bilibiliApi/models/LinkDrawResult';
-import { PopoverController, ModalController, IonContent } from '@ionic/angular';
-import { viewImg } from '../../widgets/app-view-img/app-view-img';
+import { PopoverController, ModalController, IonContent, IonInfiniteScroll } from '@ionic/angular';
+import { ImgViewer } from '../../widgets/img-viewer/img-viewer';
 import { promise } from 'selenium-webdriver';
 import { AnimationBuilder, Animation } from '@ionic/core';
 import { ActivatedRoute } from '@angular/router';
-
+import * as util from "./util";
 
 @Component({
   selector: "page-draw-detail",
@@ -19,10 +19,16 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./draw-detail.scss']
 })
 export class DrawDetailPage implements OnInit {
+  public util = util;
+
   public detailResult: LinkDrawResult;
-  public replyResult: ReplyResult;
+  public replies: Array<Reply> = new Array<Reply>();
+  public repliesCount: number = 0;
 
   public contentSscrollAtBottom: boolean = false;
+  public commentPageNum = 1;
+
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
   constructor(
     private linkDrawApi: LinkDrawApi,
@@ -39,93 +45,31 @@ export class DrawDetailPage implements OnInit {
       this.detailResult = res;
     });
 
-    this.replyApi.getReplies(uid).subscribe(res => {
-      this.replyResult = res;
-    });
+    this.loadMoreComment();
   }
 
-  public getImgItemW(count: number): string {
-    let wClass: string;
-    let wClassMap: { [name: string]: () => boolean } =
-    {
-      "w-1": () => {
-        return count == 1;
-      },
-      "w-2": () => {
-        return count == 2 || count == 4;
-      },
-      "w-3": () => {
-        return true;
-      }
-    }
-    Object.keys(wClassMap).every((key, index) => {
-      if (wClassMap[key]()) {
-        wClass = key;
-        return false;
-      }
-      return true;
-    })
-    return wClass;
+  public loadMoreComment(event = null): void {
+    this.replyApi.getReplies(23279864, this.commentPageNum)
+      .subscribe(res => {
+        this.commentPageNum++;
+        this.replies = this.replies.concat(res.replies);
+        if (event)
+          event.target.complete();
+        if (this.commentPageNum >= Math.ceil(res.page.count / res.page.size))
+          this.infiniteScroll.disabled = true;
+      })
   }
 
-  public async goImgView(index: number): Promise<void> {
+  public async popUpImgView(index: number): Promise<void> {
     const popover = await this.modalController.create({
-      component: viewImg,
+      component: ImgViewer,
       componentProps: {
         urls: this.detailResult.item.pictures.map(x => x.img_src),
         currentIndex: index
       },
       //logic need to migrate 
-      enterAnimation: async (animation: Animation, baseEl: HTMLElement, opts: any) => {
-        const baseAnimation = new animation();
-
-        const backdropAnimation = new animation();
-        backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-
-        const wrapperAnimation = new animation();
-        wrapperAnimation.addElement(baseEl.querySelector('.modal-wrapper'));
-
-        wrapperAnimation
-          .fromTo('opacity', 0.01, 1)
-          .duration(280)
-          .fromTo('translateY', '40px', '0px')
-          .duration(0);
-
-        backdropAnimation.fromTo('opacity', 0.01, 0.32);
-
-        return baseAnimation
-          .addElement(baseEl)
-          .easing('cubic-bezier(0.36,0.66,0.04,1)')
-          .duration(280)
-          .beforeAddClass('show-modal')
-          .add(backdropAnimation)
-          .add(wrapperAnimation);
-      },
-      leaveAnimation: async (animation: Animation, baseEl: HTMLElement, opts: any) => {
-        const baseAnimation = new animation();
-
-        const backdropAnimation = new animation();
-        backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-
-        const wrapperAnimation = new animation();
-        wrapperAnimation.addElement(baseEl.querySelector('.modal-wrapper'));
-
-        wrapperAnimation
-          .fromTo('opacity', 0.99, 0)
-          .duration(280)
-          .fromTo('translateY', '0px', '40px')
-          .duration(0);
-
-        backdropAnimation.fromTo('opacity', 0.32, 0);
-
-        return baseAnimation
-          .addElement(baseEl)
-          .easing('cubic-bezier(0.36,0.66,0.04,1)')
-          .duration(280)
-          .beforeAddClass('show-modal')
-          .add(backdropAnimation)
-          .add(wrapperAnimation);
-      },
+      enterAnimation: util.imgViewEnterAnimation,
+      leaveAnimation: util.imgViewLeaveAnimation
     });
     await popover.present();
   }

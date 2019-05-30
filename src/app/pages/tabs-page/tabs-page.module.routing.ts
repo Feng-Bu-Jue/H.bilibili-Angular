@@ -17,7 +17,7 @@ const routes: Routes = [
           },
           {
             path: 'detail/:uid',
-            loadChildren: './pages/draw-detail/draw-detail.module#DrawDetailPageModule',
+            loadChildren: '../draw-detail/draw-detail.module#DrawDetailPageModule',
           },
         ]
       },
@@ -26,14 +26,15 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: './pages/photo-list/photo-list.module#PhotoListPageModule',
+            loadChildren: '../photo-list/photo-list.module#PhotoListPageModule',
           },
           {
             path: 'detail/:uid',
-            loadChildren: './pages/draw-detail/draw-detail.module#DrawDetailPageModule',
+            loadChildren: '../draw-detail/draw-detail.module#DrawDetailPageModule',
           },
         ]
       },
+      /*
       {
         path: 'rank',
         children: [
@@ -52,6 +53,7 @@ const routes: Routes = [
           }
         ]
       },
+      */
       {
         path: '',
         redirectTo: '/app/tabs/draw',

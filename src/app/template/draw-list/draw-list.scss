@@ -18,44 +18,64 @@
       border-radius: 5px;
       font-size: 14px;
       transform: translateZ(0);//to resolve can't hidden on absolute position
-      .picture
-      {
-        background-size: contain;
-        height: 100%;
-      }
-      .list-item-content
-      {
-        padding: 8px;
-        div
-        {
-          text-overflow: ellipsis;
-          overflow: hidden;
-          white-space: nowrap;
-        }
-        >div:nth-child(1)
-        {
-          margin-bottom: 5px;
-         
-        }
-        >div:nth-child(2)
-        {
-          height: 24px;
-          line-height: 24px;
-          color: #929191;
-          i
-          {
-            display:inline-block;
-            vertical-align: top;
-            background-size: cover;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-          }
-        }
-      }
   }
 } 
+
+.picture
+{
+  background-size: contain;
+  height: 100%;
+  .pictrue-amount
+  {
+    padding: 0 3px;
+    position: absolute;
+    background-color: black;
+    color: #FFFFFF;
+    border-radius: 3px;
+    opacity:0.4;     
+    bottom:5px;
+    right:5px;   
+  }
+}
   
+.list-item-content
+{
+  padding: 8px;
+  >div
+  {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.item-title
+{
+  margin-bottom: 5px;
+}
+.item-user
+{
+  height: 24px;
+  line-height: 24px;
+  color: #929191;
+  i
+  {
+    display:inline-block;
+    vertical-align: top;
+    background-size: cover;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+  }
+}
+
+.item-amount
+{
+  position:absolute;
+  bottom:5px;
+  right:5px;
+  padding: 3px;
+}
 
 

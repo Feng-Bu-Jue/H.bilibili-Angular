@@ -5,11 +5,12 @@
                 <div class="picture" [bgsrc]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
                     [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
                     ngxProgressiveBGImage>
+                    <span class="pictrue-amount">{{doc.item.pictures.length}}p</span>
                 </div>
             </ngx-progressive-image-loader>
             <div class="list-item-content">
-                <div>{{doc.item.title}}</div>
-                <div>
+                <div class="item-title">{{doc.item.title}}</div>
+                <div class="item-user">
                     <i [style.background-image]="'url('+doc.user.head_url+'@32w_32h_1e.webp)'"></i>
                     <span>{{doc.user.name}}</span>
                 </div>
