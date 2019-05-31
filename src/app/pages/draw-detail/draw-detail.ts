@@ -49,7 +49,8 @@ export class DrawDetailPage implements OnInit {
   }
 
   public loadMoreComment(event = null): void {
-    this.replyApi.getReplies(23279864, this.commentPageNum)
+    const uid = Number(this.route.snapshot.paramMap.get('uid'));
+    this.replyApi.getReplies(uid, this.commentPageNum)
       .subscribe(res => {
         this.commentPageNum++;
         this.replies = this.replies.concat(res.replies);
