@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TabEvent } from 'src/app/Components/Tab/tab.item.component';
+import { TabEvent } from 'src/app/components/tab/tab.item.component';
 
 
 @Component({

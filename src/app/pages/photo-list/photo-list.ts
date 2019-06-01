@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TabEvent } from '../../Components/Tab/tab.item.component';
+import { TabEvent } from '../../components/tab/tab.item.component';
 import { Router } from '@angular/router';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
-import { LinkDrawResult } from 'src/app/bilibiliApi/models/LinkDrawResult';
+import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 import { IonInfiniteScroll } from '@ionic/angular';
 
 

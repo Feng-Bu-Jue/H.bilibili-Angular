@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, range, Subject, from, of } from 'rxjs';
 import { catchError, filter, map, groupBy, reduce, mergeMap, mergeAll, mapTo, scan, mergeScan } from 'rxjs/operators';
 import { error } from '@angular/compiler/src/util';
-import { TabEvent } from './Components/Tab/tab.item.component';
+import { TabEvent } from './components/tab/tab.item.component';
 import { ReplyApi } from './bilibiliApi/replyApi';
 import { LinkDrawApi } from './bilibiliApi/linkDrawApi';
 import { ActivatedRoute } from '@angular/router';

@@ -1,11 +1,10 @@
 import { Component, OnInit, ElementRef, QueryList, ContentChildren, ContentChild, ViewChild, ViewContainerRef, TemplateRef } from '@angular/core';
-import { TabEvent } from '../../Components/Tab/tab.item.component';
 
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { DatePipe } from '@angular/common';
 import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
 import { ReplyResult, Reply } from 'src/app/bilibiliApi/models/reply';
-import { LinkDrawResult } from 'src/app/bilibiliApi/models/LinkDrawResult';
+import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 import { PopoverController, ModalController, IonContent, IonInfiniteScroll } from '@ionic/angular';
 import { ImgViewer } from '../../widgets/img-viewer/img-viewer';
 import { promise } from 'selenium-webdriver';
