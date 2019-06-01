@@ -35,21 +35,23 @@ export class HttpClientWrapper {
     }
 
     private ToQueryString(param: { [name: string]: any }): string {
-        const separator = '&';
         let queryString = '';
-        if (param)
-        {
+        if (param) {
             const keys = Object.keys(param);
-            keys.forEach((key, i) => {
+            queryString = keys.map(key => {
                 const value = param[key];
-                //value.toString(); todo
-                queryString += key + '=' + value.toString();
-                if (i + 1 < keys.length) {
-                    queryString += separator;
-                }
-            });
+                return this.paramParser(key, value);
+            }).join('&');
         }
         return queryString;
+    }
+
+    private paramParser(key: string, value: any): string {
+        //TODO x.toString(); 
+        if (value instanceof Array) {
+            return value.map(x => `${key}[]=${x.toString()}`).join('&');
+        }
+        return `${key}=${value}`;
     }
 
     private HandleError(error: HttpErrorResponse): Promise<any> {

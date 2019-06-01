@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently \"npm run proxy\" \"npm run ng-start\"",
-    "ng-start":"ng serve --port 2233",
+    "ng-start": "ng serve --port 2233",
     "proxy": "cd proxyServer && npm run start",
     "build": "ng build",
     "build:lib": "ng build ngx-progressive-image-loader && npm run copy-scss",
@@ -33,6 +33,7 @@
     "core-js": "^2.5.4",
     "ngx-window-token": "^2.0.1",
     "rxjs": "~6.3.3",
+    "ts-md5": "^1.2.4",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.29"
   },

@@ -11,17 +11,13 @@ import { IonContent } from '@ionic/angular';
 export class TapRipple {
 
   public rippleElement: HTMLElement;
+  public containerElement: HTMLElement;
   public isRemoved: boolean = true;
 
-  //TODO: should not change style with parent element,create container is a better way
-  @HostBinding("style.overflow")
-  overflow: string = "hidden";
-  @HostBinding("style.transform")
-  transform: string = "translateZ(0)"
-  @HostBinding("style.position")
-  position: string = "relative"
+  public initOffset: number = 10;
 
-  initSize: number = 10
+  @HostBinding("style.position")
+  public position = "relative";
 
   constructor(
     private element: ElementRef,
@@ -33,63 +29,88 @@ export class TapRipple {
     let el = <HTMLElement>this.element.nativeElement;
     fromEvent(el, "touchstart")
       .subscribe((touchEvent: TouchEvent) => {
-
-        this.rippleElement = this.createRippleElement(el, touchEvent);
-        this.renderer.appendChild(el, this.rippleElement);
-
-        setTimeout(() => {
-          let targetDistance = (el.offsetWidth > el.offsetHeight ? el.offsetWidth : el.offsetHeight) * 3;
-          let magn = Math.ceil(targetDistance / this.initSize);
-          this.renderer.setStyle(this.rippleElement, "transform", "scale(" + magn + ")");
-        }, 10);
+        this.addRipple(el, touchEvent);
       });
+
     fromEvent(el, "touchmove")
       .subscribe((touchEvent: TouchEvent) => {
-        if (!this.isRemoved) {
-          this.renderer.removeChild(el, this.rippleElement);
-          this.isRemoved = true;
-        }
+        this.removeRipple(el);
       });
 
     fromEvent(el, "touchend")
       .subscribe((touchEvent: TouchEvent) => {
-        if (!this.isRemoved) {
-          this.renderer.removeChild(el, this.rippleElement);
-          this.isRemoved = true;
-        }
+        this.removeRipple(el);
       });
   }
 
+  private addRipple(parentElment: HTMLElement, touchEvent: TouchEvent) {
+    this.rippleElement = this.createRippleElement(parentElment, touchEvent);
+    this.containerElement = this.createContainerElement();
+
+    this.renderer.appendChild(this.containerElement, this.rippleElement);
+    this.renderer.appendChild(parentElment, this.containerElement);
+    this.isRemoved = false;
+
+    setTimeout(() => {
+      let targetDistance = (parentElment.offsetWidth > parentElment.offsetHeight ? parentElment.offsetWidth : parentElment.offsetHeight) * 3;
+      let factor = Math.ceil(targetDistance / this.initOffset);
+      this.renderer.setStyle(this.rippleElement, "transform", "scale(" + factor + ")");
+
+      fromEvent(this.rippleElement, "transitionend")
+        .subscribe(() => {
+          this.removeRipple(parentElment);
+        })
+
+    }, 10);
+  }
+
+  private removeRipple(parentElment: HTMLElement) {
+    if (!this.isRemoved) {
+      this.renderer.removeChild(parentElment, this.containerElement);
+      this.isRemoved = true;
+    }
+  }
+
   private createRippleElement(parentElment: HTMLElement, touchEvent: TouchEvent): HTMLElement {
-    let height = parentElment.offsetHeight;
-    let width = parentElment.offsetWidth;
     let rect = parentElment.getBoundingClientRect();
 
     let rippleElemnt = this.renderer.createElement("div");
+
     this.setRippleElementStyle(
       rippleElemnt,
       touchEvent.changedTouches[0].clientX - rect.left,
       touchEvent.changedTouches[0].clientY - rect.top);
-    this.isRemoved = false;
     return rippleElemnt;
   }
 
-  private removeRippleElement(parentElment: HTMLElement) {
-    if (!this.isRemoved) {
-      this.renderer.removeChild(parentElment, this.rippleElement);
-      this.isRemoved = true;
-    }
+  private createContainerElement(): HTMLElement {
+    let containerElemnt = <HTMLElement>this.renderer.createElement("div");
+    this.setContaierElementStyle(containerElemnt);
+    return containerElemnt;
   }
 
   private setRippleElementStyle(element: HTMLElement, left: number, top: number): void {
     element.style.position = "absolute";
     element.style.transition = "all 0.8s ease-in-out";
-    element.style.height = this.initSize + "px";
-    element.style.width = this.initSize + "px";
-    element.style.backgroundColor = "rgb(240,240,240,0.3)";
+    element.style.height = this.initOffset + "px";
+    element.style.width = this.initOffset + "px";
+    element.style.backgroundColor = "rgb(240,240,240)";
+    element.style.opacity = "0.6";
     element.style.borderRadius = "50%";
     element.style.left = left + "px";
     element.style.top = top + "px";
+  }
+
+  private setContaierElementStyle(element: HTMLElement): void {
+    element.style.position = "absolute";
+    element.style.top = "0";
+    element.style.bottom = "0";
+    element.style.left = "0";
+    element.style.right = "0";
+    element.style.pointerEvents = "none";
+    element.style.borderRadius = "inherit";
+    element.style.overflow = "hidden";
+    element.style.transform = "translateZ(0)";
   }
 
 }

@@ -3,15 +3,29 @@ var http = require('http'),
 
 const endpoint = 3000;
 
-const rules = [{
+const prefixSettings = [{
     matchRegex: /\/api.vc\//,
-    replaceRegex: /\/api.vc/,
-    targetUrl: "http://api.vc.bilibili.com/"
+    replace: {
+        searchValue: /\/api.vc/,
+        replaceValue: "",
+    },
+    host: "http://api.vc.bilibili.com/"
 },
 {
     matchRegex: /\/api\//,
-    replaceRegex: /\/api/,
-    targetUrl: "http://api.bilibili.com/"
+    replace: {
+        searchValue: /\/api/,
+        replaceValue: "",
+    },
+    host: "http://api.bilibili.com/"
+},
+{
+    matchRegex: /\/passport.api\//,
+    replace: {
+        searchValue: /\/passport.api/,
+        replaceValue: "",
+    },
+    host: "http://passport.bilibili.com/"
 }];
 
 var proxy = httpProxy.createProxyServer({});
@@ -26,11 +40,14 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
 
 var server = http.createServer(function (req, res) {
     delete req.headers.host;
-    rules.forEach((rule, index) => {
-        if (rule.matchRegex.test(req.url)) {
-            req.url = req.url.replace(rule.replaceRegex, "");
+    prefixSettings.forEach((setting, index) => {
+
+        let isMatch = setting.matchRegex.test(req.url);
+        if (isMatch) {
+            req.url = req.url.replace(setting.replace.searchValue, setting.replace.replaceValue);
+
             proxy.web(req, res, {
-                target: rule.targetUrl
+                target: setting.host
             });
         }
     })
