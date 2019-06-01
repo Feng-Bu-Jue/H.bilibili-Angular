@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LinkDrawResult, LinkDrawResultList } from './models/LinkDrawResult';
+import { LinkDrawResult, LinkDrawResultList } from './models/linkDrawResult';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClientWrapper } from '../code/HttpClientWrapper';
