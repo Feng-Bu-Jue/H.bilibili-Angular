@@ -8,14 +8,15 @@ export class SignHelper {
 
     //这种写法是真的蠢 ts设计者怎么想的
     static md5Sign(): string {
-        if (this.arguments.length > 0) {
+        if (arguments.length > 0) {
             let signString: string;
-            if (typeof this.arguments[0] == "string") {
-                signString = this.arguments[0];
+            if (typeof arguments[0] == "string") {
+                signString = <string>Md5.hashStr(arguments[0]);
             }
             else {
-                this.md5Sign(this.generateSignString(this.arguments[0], this.arguments[1]));
+                signString = this.md5Sign(this.generateSignString(arguments[0], arguments[1]));
             }
+            return signString.toLowerCase();
         }
         throw new error("not support");
     }
@@ -23,12 +24,12 @@ export class SignHelper {
     static generateSignString(param: { [name: string]: any }, specialHandle: (signString: string) => string = null): string {
         let signString = Object.keys(param)
             .sort()
-            .map(key => param[key])
-            .filter(value => value.length > 0)
+            .map(key => `${key}=${encodeURIComponent(param[key])}`)
             .join("&")
 
+        debugger
         if (signString)
-            specialHandle(signString);
+            signString=specialHandle(signString);
 
         return signString;
     }

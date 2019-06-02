@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -9,12 +9,24 @@ export class HttpClientWrapper {
         private httpclient: HttpClient
     ) { }
 
+    private headers: HttpHeaders =
+        new HttpHeaders({
+            'Content-Type': 'application/x-www-form-urlencoded'
+        });
+
+
     public get<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
         return this.httpclient.get<TResult>(this.GetUrlWithQueryString(path, param)).pipe(catchError(this.HandleError));
     }
 
     public post<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
-        return this.httpclient.post<TResult>(this.GetUrl(path), param).pipe(catchError(this.HandleError));
+        return this.httpclient.post<TResult>(
+            this.GetUrl(path),
+            this.ToQueryString(param),
+            {
+                headers: this.headers
+            }
+        ).pipe(catchError(this.HandleError));
     }
 
     public jsonp<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
@@ -47,11 +59,10 @@ export class HttpClientWrapper {
     }
 
     private paramParser(key: string, value: any): string {
-        //TODO x.toString(); 
         if (value instanceof Array) {
-            return value.map(x => `${key}[]=${x.toString()}`).join('&');
+            return value.map(x => this.paramParser(`${key}[]`, x)).join('&');
         }
-        return `${key}=${value}`;
+        return `${key}=${encodeURIComponent(value)}`;
     }
 
     private HandleError(error: HttpErrorResponse): Promise<any> {

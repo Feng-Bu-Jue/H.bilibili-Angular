@@ -12,9 +12,9 @@ const prefixSettings = [{
     host: "http://api.vc.bilibili.com/"
 },
 {
-    matchRegex: /\/api\//,
+    matchRegex: /^\/api\//,
     replace: {
-        searchValue: /\/api/,
+        searchValue: /^\/api/,
         replaceValue: "",
     },
     host: "http://api.bilibili.com/"
@@ -25,8 +25,17 @@ const prefixSettings = [{
         searchValue: /\/passport.api/,
         replaceValue: "",
     },
-    host: "http://passport.bilibili.com/"
+    host: "https://passport.bilibili.com/"
+},
+{
+    matchRegex: /\/kaaass.net\//,
+    replace: {
+        searchValue: /\/kaaass.net/,
+        replaceValue: "",
+    },
+    host: "https://api.kaaass.net/"
 }];
+//
 
 var proxy = httpProxy.createProxyServer({});
 
@@ -40,6 +49,8 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
 
 var server = http.createServer(function (req, res) {
     delete req.headers.host;
+    req.headers.referer="https://www.bilibili.com";
+
     prefixSettings.forEach((setting, index) => {
 
         let isMatch = setting.matchRegex.test(req.url);
@@ -47,7 +58,8 @@ var server = http.createServer(function (req, res) {
             req.url = req.url.replace(setting.replace.searchValue, setting.replace.replaceValue);
 
             proxy.web(req, res, {
-                target: setting.host
+                target: setting.host,
+                secure: false
             });
         }
     })

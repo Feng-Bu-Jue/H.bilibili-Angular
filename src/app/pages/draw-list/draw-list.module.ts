@@ -16,6 +16,7 @@ import { Scroll } from 'src/app/components/scroll/scroll.component';
 import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
 import { ComponentModule } from 'src/app/components/componetModule';
 import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.module';
+import { UserApi } from 'src/app/bilibiliApi/userApi';
 
 
 @NgModule({
@@ -34,6 +35,6 @@ import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.mod
     AppHeaderWidgetModule,
     DrawListTemplateModule
   ],
-  providers:[LinkDrawApi]
+  providers:[LinkDrawApi,UserApi]
 })
 export class DrawListPageModule { }

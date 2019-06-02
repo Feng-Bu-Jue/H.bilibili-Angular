@@ -1,13 +1,15 @@
 import { Injectable, TypeDecorator, Type } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
+import { Buffer } from 'buffer';
 import { HttpClientWrapper } from '../code/HttpClientWrapper';
 import { BiliBiliProtocal } from './models/bilibiliProtocal';
 import { ReplyResult, AddReplyResult } from './models/reply';
-import { defineDirective } from '@angular/core/src/render3';
-import { ANNOTATIONS } from '@angular/core/src/util/decorators';
-import { Md5 } from "ts-md5";
 import { SignHelper } from '../code/SignHelper';
+import { utf8Encode } from '@angular/compiler/src/util';
+import { RSAPublicKeyResult, AuthToken, AuthResult, SSOResult } from './models/auth';
+import { promise } from 'selenium-webdriver';
+import * as JsEncryptModule from 'jsencrypt';
 
 @Injectable()
 export class UserApi {
@@ -25,31 +27,49 @@ export class UserApi {
         }).pipe(map(x => x.data));
     }
 
-    public login(username: string, password: string) {
+    public async login(userName: string, password: string): Promise<AuthResult> {
+        //encode handling
+        password = await this.encryptPassword(password);
+
+        //TODO migrate to config
         let requetData = {
             appkey: '1d8b6e7d45233436',
             build: '5290000',
             mobi_app: 'android',
-            password: encodeURIComponent(password),
+            password: password,
             platform: 'android',
             ts: Date.now(),
-            username: username,
+            username: userName,
+            captcha: ""
         };
-        //todo migration to config
+
+        //sign
         const appSecret = '560c52ccd288fed045859ed18bffd973';
-        let sign = SignHelper.md5Sign(requetData, (signString) => signString.concat(appSecret));
-        requetData["sign"] = sign;
-        return this.client.post<BiliBiliProtocal<ReplyResult>>("passport.api/api/v3/oauth2/login", requetData).pipe(map(x => x.data));
+        requetData["sign"] = SignHelper.md5Sign(requetData, (signString) => signString.concat(appSecret));
+        debugger
+        return this.client.post<BiliBiliProtocal<AuthResult>>("passport.api/api/v3/oauth2/login", requetData)
+            .pipe(map(x => {
+                return x.data;
+            })).toPromise();
     }
 
-    public getPublicKey(): Observable<string> {
-        return this.client.get<BiliBiliProtocal<ReplyResult>>("passport.api/login", {
+    public encryptPassword(password: string): Promise<string> {
+        return this.client.get<RSAPublicKeyResult>("passport.api/login", {
             act: 'getkey',
             _: Date.now()
-        }).pipe(map(x => {
-            
-            return "";
-        }))
+        }).pipe(map(res => {
+            let encoding = 'base64';//todo
+            let encrypt = new JsEncryptModule.JSEncrypt();
+            encrypt.setPublicKey(res.key);
+            let result = encrypt.encrypt(res.hash.concat(password)).toString(encoding);
+            return result;
+        })).toPromise();
+    }
+
+    public freshSSO(accessToken: string): Promise<SSOResult> {
+        return this.client.get<SSOResult>("kaaass.net/biliapi/user/sso", {
+            access_key: accessToken,
+        }).pipe().toPromise();
     }
 }
 
