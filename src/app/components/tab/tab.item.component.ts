@@ -1,4 +1,4 @@
-import { OnInit, Component, ViewChild, ContentChildren, QueryList, ElementRef, AfterViewInit, AfterViewChecked, AfterContentChecked, AfterContentInit, ViewChildren, HostBinding, HostListener, Self, Input, Output, EventEmitter } from '@angular/core';
+import { OnInit, Component,AfterViewInit, AfterViewChecked,  AfterContentInit,  HostBinding, HostListener, Input} from '@angular/core';
 
 export class TabEvent extends MouseEvent {
     public name: string;

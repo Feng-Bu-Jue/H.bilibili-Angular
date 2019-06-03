@@ -1,0 +1,44 @@
+<ion-app>
+    <app-header title="登录"></app-header>
+    <ion-content>
+        <ion-grid class="logo-box">
+            <ion-row>
+                <ion-col>
+                    {{onPasswordInput?"闭眼":"睁眼"}}
+                </ion-col>
+                <ion-col size="8">
+                    <svg class="icon" aria-hidden="true" style="font-size:100px">
+                        <use xlink:href="#icon-bilibili"></use>
+                    </svg>
+                </ion-col>
+                <ion-col>
+                    {{onPasswordInput?"闭眼":"睁眼"}}
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-list class="form">
+            <ion-item>
+                <ion-label position="fixed" style="width:30px">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-people"></use>
+                    </svg>
+                </ion-label>
+                <ion-input [(ngModel)]="username" color="primary" placeholder="你的手机号/邮箱">
+                </ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="fixed" style="width:30px">
+                    <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-lock"></use>
+                    </svg>
+                </ion-label>
+                <ion-input [(ngModel)]="password" (ionBlur)="onPasswordInput=false" (ionFocus)="onPasswordInput=true"
+                    color="primary" placeholder="请输入密码" type="password" inputMode="password">
+                </ion-input>
+            </ion-item>
+        </ion-list>
+        <ion-button [(disabled)]="isDisable" (click)="login($event)" class="btn-login" expand="block">
+            登录
+        </ion-button>
+    </ion-content>
+</ion-app>

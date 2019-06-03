@@ -1,9 +1,0 @@
-<ion-content (click)="contentClick()" style="--background:rgb(28,28,28);">
-    <ion-slides (click)="slideClick($event)" pager="false" [options]="slideOpts" style="left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);">
-        <ion-slide *ngFor="let url of urls;index as i;">
-            <img [src]="url">
-        </ion-slide>
-    </ion-slides>
-</ion-content>

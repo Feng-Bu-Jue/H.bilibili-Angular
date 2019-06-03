@@ -4,6 +4,7 @@ import { ComponentModule } from 'src/app/components/componetModule';
 import { IonicModule } from '@ionic/angular';
 import { MePage } from './me';
 import { NgModule } from '@angular/core';
+import { MePageRoutingModule } from './me.routing.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { NgModule } from '@angular/core';
     CommonModule,
     ComponentModule,
     IonicModule,
+    MePageRoutingModule
   ],
-  providers:[UserApi]
+  providers: []
 })
 export class MePageModule { }

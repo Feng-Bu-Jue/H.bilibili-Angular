@@ -1,16 +1,13 @@
-import { Component, OnInit, ElementRef, QueryList, ContentChildren, ContentChild, ViewChild, ViewContainerRef, TemplateRef } from '@angular/core';
-
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { DatePipe } from '@angular/common';
 import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
-import { ReplyResult, Reply } from 'src/app/bilibiliApi/models/reply';
-import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
-import { PopoverController, ModalController, IonContent, IonInfiniteScroll } from '@ionic/angular';
+import { Reply } from 'src/app/bilibiliApi/models/replyResult';
+import { LinkDrawResult } from 'src/app/bilibiliApi/models/LinkDrawResult';
+import { ModalController, IonInfiniteScroll } from '@ionic/angular';
 import { ImgViewer } from '../../widgets/img-viewer/img-viewer';
-import { promise } from 'selenium-webdriver';
-import { AnimationBuilder, Animation } from '@ionic/core';
-import { ActivatedRoute } from '@angular/router';
 import * as util from "./util";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "page-draw-detail",
@@ -32,7 +29,6 @@ export class DrawDetailPage implements OnInit {
   constructor(
     private linkDrawApi: LinkDrawApi,
     private replyApi: ReplyApi,
-    private el: ElementRef,
     public datePipe: DatePipe,
     public route: ActivatedRoute,
     public modalController: ModalController
@@ -49,6 +45,7 @@ export class DrawDetailPage implements OnInit {
 
   public loadMoreComment(event = null): void {
     const uid = Number(this.route.snapshot.paramMap.get('uid'));
+
     this.replyApi.getReplies(uid, this.commentPageNum)
       .subscribe(res => {
         this.commentPageNum++;
@@ -60,14 +57,13 @@ export class DrawDetailPage implements OnInit {
       })
   }
 
-  public async popUpImgView(index: number): Promise<void> {
+  public async popUpImgViewer(index: number): Promise<void> {
     const popover = await this.modalController.create({
       component: ImgViewer,
       componentProps: {
         urls: this.detailResult.item.pictures.map(x => x.img_src),
         currentIndex: index
       },
-      //logic need to migrate 
       enterAnimation: util.imgViewEnterAnimation,
       leaveAnimation: util.imgViewLeaveAnimation
     });

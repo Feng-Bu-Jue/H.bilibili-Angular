@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 
 

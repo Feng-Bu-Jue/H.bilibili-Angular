@@ -1,7 +1,5 @@
-import { Component, OnInit, HostBinding, HostListener, Output, EventEmitter, ElementRef, Input, DoCheck, AfterContentInit, Directive, Renderer2 } from '@angular/core';
-import { fromEvent, Observable, Subject } from 'rxjs';
-import { throttleTime, map } from 'rxjs/operators';
-import { promise } from 'selenium-webdriver';
+import { HostBinding, ElementRef, Directive, Renderer2 } from '@angular/core';
+import { fromEvent } from 'rxjs';
 import { IonContent } from '@ionic/angular';
 
 
@@ -56,11 +54,11 @@ export class TapRipple {
       let factor = Math.ceil(targetDistance / this.initOffset);
       this.renderer.setStyle(this.rippleElement, "transform", "scale(" + factor + ")");
 
-      fromEvent(this.rippleElement, "transitionend")
-        .subscribe(() => {
+      fromEvent(this.rippleElement,"transitionend")
+        .subscribe(()=>{
           this.removeRipple(parentElment);
         })
-
+      
     }, 10);
   }
 
@@ -101,7 +99,7 @@ export class TapRipple {
     element.style.top = top + "px";
   }
 
-  private setContaierElementStyle(element: HTMLElement): void {
+  private setContaierElementStyle(element: HTMLElement) {
     element.style.position = "absolute";
     element.style.top = "0";
     element.style.bottom = "0";

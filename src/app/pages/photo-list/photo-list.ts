@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TabEvent } from '../../components/tab/tab.item.component';
-import { Router } from '@angular/router';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 import { IonInfiniteScroll } from '@ionic/angular';
@@ -24,7 +22,7 @@ export class PhotoListPage implements OnInit {
   }
 
   loadData(event = null) {
-    this.linkDrawApi.getPhotoList(this.pageNum, 10, "cos", "hot")
+    this.linkDrawApi.getPhotos(this.pageNum, 10, "cos", "hot")
       .subscribe(res => {
         this.pageNum++;
         this.data = this.data.concat(res);

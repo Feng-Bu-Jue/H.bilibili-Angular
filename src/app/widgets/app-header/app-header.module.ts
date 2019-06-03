@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
-import { AppHeaderWidget } from './app-header';
+import { AppHeader } from './app-header';
 
 
 
 @NgModule({
     declarations: [
-        AppHeaderWidget
+        AppHeader
     ],
     imports: [
         CommonModule,
         IonicModule
     ],
     exports: [
-        AppHeaderWidget
+        AppHeader
     ]
 })
-export class AppHeaderWidgetModule { }
+export class AppHeaderModule { }

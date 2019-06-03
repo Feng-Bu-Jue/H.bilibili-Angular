@@ -50,7 +50,7 @@ proxy.on('proxyRes', function (proxyRes, req, res) {
 var server = http.createServer(function (req, res) {
     delete req.headers.host;
     req.headers.referer="https://www.bilibili.com";
-
+    req.headers.cookie=req.headers["x-headerkey"];
     prefixSettings.forEach((setting, index) => {
 
         let isMatch = setting.matchRegex.test(req.url);

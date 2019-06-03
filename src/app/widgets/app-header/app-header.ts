@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: './app-header.html',
     styleUrls: ['./app-header.scss']
 })
-export class AppHeaderWidget {
+export class AppHeader {
     @Input()
     public title: string;
 

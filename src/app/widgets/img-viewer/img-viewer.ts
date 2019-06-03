@@ -90,8 +90,7 @@ export class ImgViewer implements OnInit {
     private modalController: ModalController
   ) { }
 
-  dismiss()
-  {
+  dismiss() {
     this.modalController.dismiss();
   }
 

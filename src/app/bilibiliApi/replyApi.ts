@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClientWrapper } from '../code/HttpClientWrapper';
+import { HttpClientWrapper } from '../code/httpClientWrapper';
 import { BiliBiliProtocal } from './models/bilibiliProtocal';
-import { ReplyResult, AddReplyResult } from './models/reply';
+import { ReplyResult, AddReplyResult } from './models/replyResult';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ReplyApi {
 
     constructor(

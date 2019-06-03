@@ -1,7 +1,5 @@
-import { Component, OnInit, HostBinding, HostListener, Output, EventEmitter, ElementRef, Input, DoCheck, AfterContentInit, Directive } from '@angular/core';
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { Output, EventEmitter, ElementRef, Input, Directive } from '@angular/core';
 import { throttleTime } from 'rxjs/operators';
-import { promise } from 'selenium-webdriver';
 import { IonContent } from '@ionic/angular';
 
 @Directive({
@@ -33,7 +31,6 @@ export class IonContentEx {
         this.onScrollUpper.emit(event);
       }
       if (el.scrollTop + el.clientHeight >= (el.scrollHeight - this.lowerOffset)) {
-        debugger
         this.onScrollLower.emit(event);
       }
     });
