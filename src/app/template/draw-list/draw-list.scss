@@ -1,8 +1,12 @@
+:host
+{
+  display: block;
+  width: 100%;
+}
+
 .list-box
 {
   background-color: #d4d0d0;
-  column-count:2;
-  column-gap: 10px;
   margin: 0;
   padding:10px 10px 0px 10px; 
 }
@@ -32,42 +36,41 @@
     background-color: black;
     color: #FFFFFF;
     border-radius: 3px;
-    opacity:0.4;     
+    opacity:0.5;     
     bottom:5px;
     right:5px;   
   }
 }
   
+
+
 .list-item-content
 {
   padding: 8px;
-  >div
+  font-size: 12px;
+  .title
   {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    margin-bottom: 5px;
   }
 }
 
-.item-title
+.user-face
 {
-  margin-bottom: 5px;
-}
-.item-user
-{
+  background-size: cover;
+  border-radius: 50%;
+  width: 24px;
   height: 24px;
-  line-height: 24px;
+  margin-right: 10px;
+}
+
+.user-name{
   color: #929191;
-  i
-  {
-    display:inline-block;
-    vertical-align: top;
-    background-size: cover;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    margin-right: 10px;
-  }
+  max-width: calc(100% - 64px);
+}
+
+.vote-bar{
+  float: right;
+  font-size: 24px;
 }
 
 .item-amount

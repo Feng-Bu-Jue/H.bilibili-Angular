@@ -5,7 +5,7 @@ import { BiliBiliProtocal } from './models/bilibiliProtocal';
 import { SignHelper } from '../code/signHelper';
 import { RSAPublicKeyResult, AuthResult, SSOResult } from './models/authResult';
 import { JSEncrypt } from 'jsencrypt';
-import { BusinessError } from '../code/error/businessException';
+import { ServiceError } from '../code/error/serviceError';
 
 
 
@@ -35,12 +35,7 @@ export class AuthApi {
         const appSecret = '560c52ccd288fed045859ed18bffd973';
         requetData["sign"] = SignHelper.md5Sign(requetData, (signString) => signString.concat(appSecret));
         return this.client.post<BiliBiliProtocal<AuthResult>>("passport.api/api/v3/oauth2/login", requetData)
-            .pipe(map(x => {
-                //TODO handling in AOP
-                if (x.code != 0)
-                    throw new BusinessError(x.code, x.message);
-                return x.data;
-            })).toPromise();
+            .pipe(map(x => x.data)).toPromise();
     }
 
     public encryptPassword(password: string): Promise<string> {
@@ -59,7 +54,7 @@ export class AuthApi {
     public freshSSO(accessToken: string): Promise<SSOResult> {
         return this.client.get<SSOResult>("kaaass.net/biliapi/user/sso", {
             access_key: accessToken,
-        }).pipe().toPromise();
+        }).toPromise();
     }
 }
 

@@ -29,4 +29,14 @@ export class UserApi {
             jsonp: 'jsonp'
         }).pipe(map(x => x.data));
     }
+
+    public getMyFav(page: number, pageSize: number) {
+        return this.client.get<BiliBiliProtocal<any>>("api.vc/user_plus/v1/Fav/getMyFav", {
+            biz_type: 2,
+            page: 1,
+            pagesize: 30,
+            _: Date.now
+        }).pipe(map(x => x.data));
+    }
+
 }

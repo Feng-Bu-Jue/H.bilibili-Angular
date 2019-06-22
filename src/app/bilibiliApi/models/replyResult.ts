@@ -1,5 +1,5 @@
 export class ReplyResult {
-    public blacklist: number;//这个非常棒 帮助我发现世界很小
+    public blacklist: number;
     public page: ReplyPage;
     public hots: Array<Reply>;
     public replies: Array<Reply>;

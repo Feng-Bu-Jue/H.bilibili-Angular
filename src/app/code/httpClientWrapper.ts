@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -12,41 +12,29 @@ export class HttpClientWrapper {
         private httpclient: HttpClient,
     ) { }
 
-    private headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-
     public get<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
-        debugger
         return this.httpclient.get<TResult>(
-            this.makeUrlWithQueryString(path, param),
-            {
-                headers: new HttpHeaders(this.headers)
-            }
+            this.makeUrlWithQueryString(path, param)
         ).pipe(catchError(this.HandleError));
     }
 
     public post<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
         return this.httpclient.post<TResult>(
             this.makeUrl(path),
-            this.toQueryString(param),
-            {
-                headers: new HttpHeaders(this.headers)
-            }
+            this.toQueryString(param)
         ).pipe(catchError(this.HandleError));
     }
 
     public jsonp<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
         if (!param.hasOwnProperty("callback"))
-            param.callback = `bilibili${new Date().getTime()}`;
+            param.callback = `bilibili${Date.now}`;
         const callback = param.callback;
         return this.httpclient.jsonp<TResult>(this.makeUrlWithQueryString(path, param), callback).pipe(catchError(this.HandleError));
     }
 
     //#region 
     private makeUrl(path: string): string {
-        //TODO
-        const host = 'http://localhost:3000/';
+        const host = environment.host;
         return `${host}${path}`;
     }
 

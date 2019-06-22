@@ -28,7 +28,7 @@ export class SignHelper {
             .join("&")
 
         if (signString)
-            signString=specialHandle(signString);
+            signString = specialHandle(signString);
 
         return signString;
     }

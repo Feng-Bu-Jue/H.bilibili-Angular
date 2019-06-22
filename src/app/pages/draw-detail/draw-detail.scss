@@ -1,21 +1,18 @@
-
-.container{
+.container {
   background-color: #d4d0d0;
-  .block
-  {
+  margin-bottom: 40px;
+  .block {
     background-color: #fff;
   }
 }
 
-.content
-{
+.content {
   padding: 10px;
   word-break: break-all;
   color: #5a5a5a;
 }
 
-.author-face
-{
+.author-face {
   height: 48px;
   width: 48px;
   float: left;
@@ -23,67 +20,56 @@
   overflow: hidden;
 }
 
-.view-box{
+.view-box {
   margin-left: 60px;
   min-height: 48px;
-  color: #FA7298;
-  .author-name
-  {
+  color: #fa7298;
+  .author-name {
     font-weight: 600;
     padding: 5px 0;
   }
-  .info
-  {
+  .info {
     font-size: 11px;
     padding: 5px 0;
     color: rgb(153, 153, 153);
   }
 }
 
-.img-box
-{
-  .img-item
-  {
-    display:inline-block;
-    vertical-align: top;
-    overflow: hidden;
-    &.w-1{
-      width: calc(100% / 1);
-      border-radius: 1%;
+.img-item {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  &.w-1 {
+    width: calc(100% / 1);
+    border-radius: 1%;
+  }
+  &.w-2 {
+    width: calc((100% / 2) - 2%);
+    border-radius: 2%;
+    margin-right: 2%;
+    margin-bottom: 2%;
+    &:nth-child(2n) {
+      margin-right: 0%;
     }
-    &.w-2{
-      width: calc((100% / 2) - 2%);
-      border-radius: 2%;
-      margin-left: 2%;
-      margin-bottom: 2%;
-      &:nth-last-child(2n)
-      {
-        margin-left: 0%;
-      }
+  }
+  &.w-3 {
+    width: calc((100% / 3) - (2% / 3));
+    border-radius: 4%;
+    margin-right: 1%;
+    margin-bottom: 1%;
+    &:nth-child(3n) {
+      margin-right: 0%;
     }
-    &.w-3 {
-      width: calc((100% / 3) - 2%);
-      border-radius: 4%;
-      margin-left: 1%;
-      margin-bottom: 1%;
-      &:nth-last-child(3n)
-      {
-        margin-left: 0%;
-      }
-    }
-    div[ngxProgressiveBGImage]
-    {
-      height: 100%;
-      background-size: cover;
-    }
+  }
+  div[ngxProgressiveBGImage] {
+    height: 100%;
+    background-size: cover;
   }
 }
 
-.user-face
-{
+.user-face {
   float: left;
-  ion-img
-  {
+  ion-img {
     height: 32px;
     width: 32px;
     border-radius: 50%;
@@ -91,54 +77,70 @@
   }
 }
 
-
-.comment
-{
+.reply {
   padding: 10px;
-  .comment-item
-  {
+  .reply-item {
     padding: 10px 0;
-    border-bottom: 1px solid rgb(244,244,244);
+    border-bottom: 1px solid rgb(244, 244, 244);
   }
 }
 
-.comment-item-con
-{
+.reply-item-con {
   margin-left: 45px;
-  .user
-  {
+  .user {
     color: #6d757a;
     font-size: 12px;
     font-weight: 700;
   }
-  .info
-  {
+  .info {
     margin-top: 5px;
     font-size: 10px;
     color: rgb(153, 153, 153);
   }
-  .text{
+  .text {
     margin: 10px 0;
     line-height: 1.5;
     white-space: pre-wrap;
+    img {
+      height: 2rem;
+      width: 2rem;
+    }
   }
 }
 
-.sub-comment
-{
+.sub-reply {
   padding: 8px;
-  background-color:rgb(244,244,244);
-  border-radius:3px;
+  background-color: rgb(244, 244, 244);
+  border-radius: 3px;
 }
 
-.sub-comment-item
-{
+.sub-reply-item {
   padding: 3px 0;
-  >a
-  {
+  > a {
     outline: none;
-    color:rgb(80,144,204);
+    color: rgb(80, 144, 204);
     text-decoration: none;
     cursor: pointer;
+  }
+}
+
+.comment {
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  .input
+  {
+    border-radius: 15px;
+    background-color: #d4d0d0;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --padding-bottom: 5px;
+    --padding-top: 5px;
+  }
+  .button {
+    flex-basis: 50px;
   }
 }

@@ -1,0 +1,28 @@
+.radius
+{
+    margin: 10px;
+    --border-radius:5px;
+}
+
+.none-padding
+{
+    --padding-start: 0px;
+}
+
+.sign-text
+{
+    margin-top: 5px;
+    font-size: 12px;
+    color: rgb(153, 153, 153)
+}
+
+.fun-box
+{
+    width:100%;
+    margin-bottom: 0px;
+    padding: 10px 0;
+    ion-item
+    {
+        --padding-start: 0px;
+    }
+}

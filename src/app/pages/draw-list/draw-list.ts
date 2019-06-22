@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked, AfterViewChecked } from '@angular/core';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 import { IonInfiniteScroll } from '@ionic/angular';
+import { NgxWaterfallComponent } from 'ngx-waterfall';
+import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
 
 
 @Component({
@@ -9,21 +11,29 @@ import { IonInfiniteScroll } from '@ionic/angular';
   templateUrl: './draw-list.html',
   styleUrls: ['./draw-list.scss']
 })
-export class DrawListPage implements OnInit {
+export class DrawListPage implements OnInit, AfterViewChecked {
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(DrawListTemplate) template: DrawListTemplate;
 
   public data: LinkDrawResult[] = new Array<LinkDrawResult>();
   public pageNum = 0;
+  protected sourceRefresh: boolean;
 
-  constructor(private linkDrawApi: LinkDrawApi) { }
+  constructor(
+    private linkDrawApi: LinkDrawApi,
 
-  async ngOnInit() {
-    await this.loadData();
+  ) { }
+
+  ngOnInit() {
+    this.loadData();
   }
 
-  onScrollLower(event: Event, category: string) {
-    //this.loadData();
+  ngAfterViewChecked(): void {
+    if (this.sourceRefresh) {
+      this.template.resetWaterfall();
+      this.sourceRefresh = false;
+    }
   }
 
   loadData(event = null) {
@@ -34,8 +44,20 @@ export class DrawListPage implements OnInit {
 
         if (event)
           event.target.complete();
-        if(this.pageNum>=100)
-          this.infiniteScroll.disabled=true;
+        if (this.pageNum >= 100)
+          this.infiniteScroll.disabled = true;
+      })
+  }
+
+  doRefresh(event) {
+    this.pageNum = 0;
+    this.linkDrawApi.getDocs(this.pageNum, 10, "illustration", "hot")
+      .subscribe(res => {
+        this.pageNum = 1;
+        this.data = res;
+
+        this.sourceRefresh = true;
+        event.target.complete();
       })
   }
 }

@@ -27,7 +27,6 @@ $loading-image-transition: opacity 1s linear;
     overflow: hidden;
 }
 
-
 /*-------custom global style---------*/
 body{
     font-size: 14px;
@@ -36,10 +35,25 @@ a {
     color: #000000;
     text-decoration: none;
 }
+
 .swiper
 {
     .swiper-wrapper
     {
         align-items: Center;
     }
+}
+
+
+.text-ellipsis
+{    
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.inline
+{
+  vertical-align: middle;
+  display:inline-block;
 }

@@ -8,17 +8,19 @@ import { DrawDetailPage } from './draw-detail';
 import { DrawDetailPageRoutingModule } from './draw-detail.routing.module';
 import { AppHeaderModule } from 'src/app/widgets/app-header/app-header.module';
 import { ImgViewer } from 'src/app/widgets/img-viewer/img-viewer';
-import { TapRipple } from 'src/app/components/tapDirective/tapRipple';
+import { HtmlPipe } from 'src/app/pipe/htmlPipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     DrawDetailPage,
     ImgViewer,
-    TapRipple
+    HtmlPipe
   ],
   imports: [
     IonicModule,
     CommonModule,
+    FormsModule,
     NgxProgressiveImageLoaderModule.forRoot(<IImageLoaderOptions>{
       // rootMargin must be specified in pixels or percent
       rootMargin: '0px',

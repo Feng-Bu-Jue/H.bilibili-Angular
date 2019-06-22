@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { HttpClientWrapper } from './code/httpClientWrapper';
 import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
-import { CookieService } from 'ngx-cookie-service';
+import { File } from '@ionic-native/file/ngx';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { CookieService } from 'ngx-cookie-service';
   ],
   providers: [
     HttpClientWrapper,
-    CookieService 
+    File
     //{ provide: ErrorHandler, useClass: AppExceptionHandler }
   ],
   bootstrap: [AppComponent]

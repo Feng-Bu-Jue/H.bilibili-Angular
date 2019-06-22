@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LinkDrawResult, LinkDrawResultList } from './models/linkDrawResult';
+import { LinkDrawResult, LinkDrawResultList, LinkDrawResultV1List, LinkDrawResultV1 } from './models/linkDrawResult';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClientWrapper } from '../code/httpClientWrapper';
@@ -15,18 +15,27 @@ export class LinkDrawApi {
     ) { }
 
     public getDocs(num: number, pageSize: number, category: string, type: string): Observable<LinkDrawResult[]> {
-        return this.client.get<BiliBiliProtocal<LinkDrawResultList>>("api.vc/link_draw/v2/Doc/list", {
-            category: category,
-            type: type,
+        return this.client.get<BiliBiliProtocal<LinkDrawResultList>>("api.vc/link_draw/v2/doc/list", {
+            category: category,//all,illustration,comic,other
+            type: type,//new,hot
             page_num: num,
             page_size: pageSize
         }).pipe(map(x => x.data.items));
     }
 
+    public getDocsByUid(uid: number, biz: number, pageNum: string, pageSize: string): Observable<LinkDrawResultV1[]> {
+        return this.client.get<BiliBiliProtocal<LinkDrawResultV1List>>("api.vc/link_draw/v1/doc/doc_list", {
+            uid: uid,
+            biz: biz,//all,draw,photo,daily
+            page_num: pageNum,
+            page_size: pageSize
+        }).pipe(map(x => x.data.items));
+    }
+
     public getPhotos(num: number, pageSize: number, category: string, type: string): Observable<LinkDrawResult[]> {
-        return this.client.get<BiliBiliProtocal<LinkDrawResultList>>("api.vc/link_draw/v2/Photo/list", {
-            category: category,
-            type: type,
+        return this.client.get<BiliBiliProtocal<LinkDrawResultList>>("api.vc/link_draw/v2/photo/list", {
+            category: category,//cos,sifu
+            type: type,//new,hot
             page_num: num,
             page_size: pageSize
         }).pipe(map(x => x.data.items));

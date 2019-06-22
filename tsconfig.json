@@ -25,6 +25,12 @@
       "ngx-progressive-image-loader/*": [
         "dist/ngx-progressive-image-loader/*"
       ],
+      "ngx-waterfall": [
+        "dist/ngx-waterfall"
+      ],
+      "ngx-waterfall/*": [
+        "dist/ngx-waterfall/*"
+      ]
     }
   }
 }

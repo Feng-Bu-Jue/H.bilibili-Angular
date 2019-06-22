@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClientWrapper } from '../code/httpClientWrapper';
-import { UserApi } from '../bilibiliApi/userApi';
 import { Storage } from '@ionic/storage';
 import { AuthApi } from '../bilibiliApi/authApi';
-import { CookieService } from 'ngx-cookie-service';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Injectable({
     providedIn: 'root'
@@ -11,20 +10,21 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthService {
 
     public readonly LOGIN_COOKIE = "login_cookie";
+    
+    public isLoggedin = false;
 
     private hasSetCookie: boolean = false;
 
     constructor(
         private client: HttpClientWrapper,
+        @Inject(DOCUMENT) private document: any,
         private authApi: AuthApi,
         private storage: Storage,
-        private cookieService:CookieService
-    ) { }
+    ) {}
 
     public async login(username: string, password: string): Promise<void> {
         let encryptedPassword = await this.authApi.encryptPassword(password);
         let authResult = await this.authApi.login(username, encryptedPassword);
-
         let ssoResult = await this.authApi.freshSSO(authResult.token_info.access_token);
 
         return this.storage.set(this.LOGIN_COOKIE, ssoResult.cookie).then((value) => {
@@ -34,17 +34,16 @@ export class AuthService {
 
     public async checkLoggedIn() {
         let value = await this.storage.get(this.LOGIN_COOKIE)
-        let hasLoggedIn = value != null && value.length > 0;
-        if (hasLoggedIn)
+        this.isLoggedin = value != null && value.length > 0;
+        if (this.isLoggedin)
             this.setCookie(value)
-        return hasLoggedIn;
+        return this.isLoggedin;
     }
 
     private setCookie(value: string) {
         if (!this.hasSetCookie) {
-            window.document.cookie=value;//TODO..............
+            this.document.cookie = value;//TODO..............
             this.hasSetCookie = true;
         }
     }
-
 }

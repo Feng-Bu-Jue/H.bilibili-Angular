@@ -1,8 +1,12 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import { AuthService } from 'src/app/services/authService';
 import { ToastController, LoadingController } from '@ionic/angular';
+import { LoadingService } from 'src/app/services/loadingService';
+import { async } from '@angular/core/testing';
+import { ToastService } from 'src/app/services/toastService';
 
 @Component({
+  selector: 'page-login',
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
@@ -13,10 +17,11 @@ export class LoginPage implements OnInit, DoCheck {
   public username: string;
   public password: string;
 
+
   constructor(
     private auhService: AuthService,
-    public toastController: ToastController,
-    public loadingController: LoadingController
+    public loadingService: LoadingService,
+    public toastService: ToastService,
   ) { }
 
   ngOnInit() {
@@ -30,24 +35,13 @@ export class LoginPage implements OnInit, DoCheck {
     this.isDisable = !(validateUserName && validatePassword);
   }
 
-  async login() {
-    const loading = await this.loadingController.create({
-      message: '登录中请稍后',
-    });
-    await loading.present()
-
-    await this.auhService.login(this.username, this.password).then(() => {
-      loading.dismiss();
-      history.back;
-    }).catch(async error => {
-      loading.dismiss();
-      const toast = await this.toastController.create({
-        message: error.message,
-        position: 'bottom',
-        duration: 1500
+  async signin() {
+    await this.loadingService.presentWithAction("signing in...", () => this.auhService.login(this.username, this.password))
+      .then(() => {
+        history.back;//TODO use 
+      }).catch(error => {
+        this.toastService.present(error.message);
       });
-      toast.present();
-    });
   }
 
 }

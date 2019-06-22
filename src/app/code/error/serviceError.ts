@@ -1,4 +1,4 @@
-export class BusinessError implements Error {
+export class ServiceError implements Error {
 
     constructor(code: number, message: string) {
         this.code = code;

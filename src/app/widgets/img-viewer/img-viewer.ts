@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
+import { ModalController, ActionSheetController } from '@ionic/angular';
+import { DownloadService } from 'src/app/services/dowloadservice';
 
 
 @Component({
@@ -13,7 +14,6 @@ export class ImgViewer implements OnInit {
   urls: Array<string>;
   @Input()
   currentIndex: number = 0;
-
   /*
     slidesOpts = {
       initialSlide: 0,
@@ -79,27 +79,59 @@ export class ImgViewer implements OnInit {
     */
   slidesOpts = {
     initialSlide: 1,
+    zoom: true,
     speed: 400
   };
+  longPressTask = null;
 
   ngOnInit(): void {
     this.slidesOpts.initialSlide = this.currentIndex;
   }
 
   constructor(
-    private modalController: ModalController
-  ) { }
+    private modalController: ModalController,
+    private actionSheetController: ActionSheetController,
+    private downloadService: DownloadService
+  ) {
+
+  }
 
   dismiss() {
     this.modalController.dismiss();
   }
 
-
-  contentClick(): void {
-    this.dismiss();
+  onTouchstart(url: string) {
+    this.longPressTask = setTimeout(async () => {
+      let options = {
+        buttons: []
+      }
+      options.buttons.push({
+        text: 'Download',
+        handler: () => {
+          this.downloadService.save(url);
+        }
+      })
+      if (this.urls.length > 1) {
+        options.buttons.push({
+          text: 'Download All',
+          handler: () => {
+            this.downloadService.batchSave(this.urls);
+          }
+        })
+      }
+      options.buttons.push({
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      });
+      const actionSheet = await this.actionSheetController.create(options);
+      await actionSheet.present();
+    }, 1000)
   }
 
-  slideClick(evetn: Event): void {
-    evetn.stopPropagation();
+  onTouchend() {
+    clearTimeout(this.longPressTask);
   }
 }

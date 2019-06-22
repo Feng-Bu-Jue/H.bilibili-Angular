@@ -195,6 +195,41 @@
           }
         }
       }
+    },
+    "ngx-waterfall": {
+      "root": "projects/ngx-waterfall",
+      "sourceRoot": "projects/ngx-waterfall/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-waterfall/tsconfig.lib.json",
+            "project": "projects/ngx-waterfall/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-waterfall/src/test.ts",
+            "tsConfig": "projects/ngx-waterfall/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-waterfall/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-waterfall/tsconfig.lib.json",
+              "projects/ngx-waterfall/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

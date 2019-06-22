@@ -1,20 +1,26 @@
 <div class="list-box">
-    <div *ngFor="let doc of data" class="list-item-wrapper">
-        <div class="list-item" [routerLink]="'./detail/'+doc.item.doc_id">
+    <ngx-waterfall [gap]="gap" [itemWidth]="itemWidth" class="list-item-wrapper">
+        <div class="list-item" *ngFor="let doc of data" ngx-waterfall-item [routerLink]="'./detail/'+doc.item.doc_id">
             <ngx-progressive-image-loader>
                 <div class="picture" [bgsrc]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
-                    [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
-                    ngxProgressiveBGImage>
+                    [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height" ngxProgressiveBGImage>
                     <span class="pictrue-amount">{{doc.item.pictures.length}}p</span>
                 </div>
             </ngx-progressive-image-loader>
             <div class="list-item-content">
-                <div class="item-title">{{doc.item.title}}</div>
-                <div class="item-user">
-                    <i [style.background-image]="'url('+doc.user.head_url+'@32w_32h_1e.webp)'"></i>
-                    <span>{{doc.user.name}}</span>
+                <div class="title text-ellipsis">{{doc.item.title}}</div>
+                <div>
+                    <i class="user-face inline"
+                        [style.background-image]="'url('+doc.user.head_url+'@32w_32h_1e.webp)'"></i>
+                    <span class="user-name text-ellipsis inline">{{doc.user.name}}</span>
+                    <svg class="icon vote-bar inline" aria-hidden="true"
+                        (click)="vote(doc.item.doc_id,doc.item.already_voted)">
+                        <use
+                            [attr.xlink:href]="doc.item.already_voted==0?'#icon-appreciate_light':'#icon-appreciate_fill_light'">
+                        </use>
+                    </svg>
                 </div>
             </div>
         </div>
-    </div>
+    </ngx-waterfall>
 </div>

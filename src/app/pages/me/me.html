@@ -1,3 +1,31 @@
-<ion-content *ngIf="userInfo">
-    <div>{{userInfo.name}}</div>
-</ion-content>
+<ion-app>
+    <ion-content color="tertiary">
+        <ion-item lines="none" class="radius">
+            <ion-list class="fun-box">
+                <ion-item lines="none">
+                    <ion-avatar slot="start">
+                        <ion-img [src]="userInfo2.face"></ion-img>
+                    </ion-avatar>
+                    <div>
+                        <span>{{userInfo2.name}}</span>
+                        <icon-gender class="inline" [sex]="userInfo2.sex"></icon-gender>
+                        <icon-level class="inline" [level]="userInfo2.level"></icon-level>
+                    </div>
+                </ion-item>
+                <ion-item lines="none" class="sign-text">
+                    {{userInfo2.sign}}
+                </ion-item>
+            </ion-list>
+        </ion-item>
+        <ion-item lines="none" class="radius">
+            <ion-list class="fun-box">
+                <ion-item lines="none" button>
+                    <ion-label>favorites</ion-label>
+                </ion-item>
+                <ion-item lines="none" button>
+                    <ion-label>offline</ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-item>
+    </ion-content>
+</ion-app>

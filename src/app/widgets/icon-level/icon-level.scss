@@ -1,0 +1,32 @@
+.level-tag
+{
+    padding: 1px 3px;
+    color: white;
+    font-size: 10px;
+    border-radius:2px;
+}
+
+.level-tag[lvl="1"]
+{
+    background-color:#bfbfbf;
+}
+.level-tag[lvl="2"]
+{
+    background-color:#c3e6d1;
+}
+.level-tag[lvl="2"]
+{
+    background-color:#92d1e5;
+}
+.level-tag[lvl="4"]
+{
+    background-color:#ffb37c;
+}
+.level-tag[lvl="5"]
+{
+    background-color:#ff6c00;
+}
+.level-tag[lvl="6"]
+{
+    background-color:#ff0000;
+}
