@@ -29,7 +29,7 @@ export class DrawDetailPage implements OnInit, DoCheck {
   public commnentButtonDisabled: boolean = true;
 
   public commentPageNum = 1;
-  public uid = 1069168;
+  public uid :number;
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
@@ -37,13 +37,13 @@ export class DrawDetailPage implements OnInit, DoCheck {
     private linkDrawApi: LinkDrawApi,
     private replyApi: ReplyApi,
     public datePipe: DatePipe,
-    //public route: ActivatedRoute,
-    //public router: Router,
+    public route: ActivatedRoute,
+    public router: Router,
     public modalController: ModalController,
     public toastervice: ToastService,
     public authService: AuthService,
   ) {
-    //this.uid=Number(this.route.snapshot.paramMap.get('uid'));
+    this.uid=Number(this.route.snapshot.paramMap.get('uid'));
   }
 
   async ngOnInit(): Promise<void> {
