@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: './app-header.html',
     styleUrls: ['./app-header.scss']
 })
-export class AppHeaderWidget {
+export class AppHeader {
     @Input()
     public title: string;
 
@@ -15,12 +15,12 @@ export class AppHeaderWidget {
     public showBack: boolean = false;
 
     constructor(
-        private router: Router,
+        //private router: Router,
     ) { }
 
     public goBack(): void {
         if (history.length == 1) {
-            this.router.navigate(['']);//go to default page
+            //this.router.navigate(['']);//go to default page
         } else {
             history.back();
         }

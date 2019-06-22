@@ -1,7 +1,6 @@
-import { Component, OnInit, HostBinding, HostListener, Output, EventEmitter, ElementRef, Input, DoCheck, AfterContentInit } from '@angular/core';
+import { Component, OnInit, HostBinding, Output, EventEmitter, ElementRef, Input} from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
-import { promise } from 'selenium-webdriver';
 
 @Component({
   selector: 'scroll',

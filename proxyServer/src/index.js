@@ -44,12 +44,12 @@ proxy.on('proxyReq', function (proxyReq, req, res, options) {
 });
 
 proxy.on('proxyRes', function (proxyRes, req, res) {
-    proxyRes.headers["access-control-allow-origin"] = "*";
+    proxyRes.headers["Access-Control-Allow-Origin"] = "*";
 });
 
 var server = http.createServer(function (req, res) {
     delete req.headers.host;
-    req.headers.referer="https://www.bilibili.com";
+    req.headers.referer = "https://www.bilibili.com";
 
     prefixSettings.forEach((setting, index) => {
 

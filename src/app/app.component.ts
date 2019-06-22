@@ -1,18 +1,17 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, range, Subject, from, of } from 'rxjs';
-import { catchError, filter, map, groupBy, reduce, mergeMap, mergeAll, mapTo, scan, mergeScan } from 'rxjs/operators';
-import { error } from '@angular/compiler/src/util';
-import { TabEvent } from './components/tab/tab.item.component';
-import { ReplyApi } from './bilibiliApi/replyApi';
-import { LinkDrawApi } from './bilibiliApi/linkDrawApi';
-import { ActivatedRoute } from '@angular/router';
+
+import { Storage } from '@ionic/storage';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent  {
-    
+export class AppComponent {
+  constructor(
+    private storage: Storage,
+    private router: Router,
+  ) { }
 }

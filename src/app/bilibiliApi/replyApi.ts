@@ -1,38 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClientWrapper } from '../code/HttpClientWrapper';
+import { HttpClientWrapper } from '../code/httpClientWrapper';
 import { BiliBiliProtocal } from './models/bilibiliProtocal';
-import { ReplyResult, AddReplyResult } from './models/reply';
+import { ReplyResult, AddReplyResult } from './models/replyResult';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ReplyApi {
 
     constructor(
         private client: HttpClientWrapper,
-        //private userData:UserData
     ) { }
 
-    public getReplies(oid: number,pn:number): Observable<ReplyResult> {
+    public getReplies(oid: number, pn: number): Observable<ReplyResult> {
         return this.client.get<BiliBiliProtocal<ReplyResult>>("api/x/v2/reply", {
             oid: oid,
             type: 11,
-            pn: 1,
+            pn: pn,
             sort: 0,
             jsonp: 'jsonp'
         }).pipe(map(x => x.data));
     }
 
-    /*
-    oid: 3105
-    type: 11
-    root: 1628504189
-    parent: 1628504189
-    message: mmmmmm
-    plat: 1
-    jsonp: jsonp
-    csrf: 
-    */
     public add(oid: number, message: string, root: number = null, parent: number = null): Observable<AddReplyResult> {
         return this.client.post<BiliBiliProtocal<AddReplyResult>>("api/x/v2/reply/add", {
             oid: oid,

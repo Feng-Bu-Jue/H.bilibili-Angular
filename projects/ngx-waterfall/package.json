@@ -1,0 +1,22 @@
+{
+  "name": "ngx-waterfall",
+  "version": "0.1.2",
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bsdfzzzy/ngx-waterfall"
+  },
+  "keywords": [
+    "angular",
+    "waterfall",
+    "ngx-waterfall"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bsdfzzzy/ngx-waterfall/issues"
+  },
+  "homepage": "https://github.com/bsdfzzzy/ngx-waterfall#readme"
+}

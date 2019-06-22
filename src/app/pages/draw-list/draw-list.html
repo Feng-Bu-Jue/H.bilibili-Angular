@@ -1,12 +1,19 @@
-<app-header title="画友"></app-header>
+<ion-app>
+    <app-header title="画友"></app-header>
 
-<ion-content class="flow-container">
+    <ion-content style="width:100%">
 
-    <template-draw-list [data]="data"></template-draw-list>
+        <ion-refresher (ionRefresh)="doRefresh($event)" pullFactor="0.5" pullMin="100" pullMax="200">
+            <ion-refresher-content>
+            </ion-refresher-content>
+        </ion-refresher>
 
-    <ion-infinite-scroll threshold="10%" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content>
-        </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+        <template-draw-list [data]="data"></template-draw-list>
 
-</ion-content>
+        <ion-infinite-scroll threshold="10%" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content>
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+    </ion-content>
+</ion-app>

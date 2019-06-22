@@ -44,16 +44,16 @@ const routes: Routes = [
           }
         ]
       },
+      */
       {
         path: 'me',
         children: [
           {
             path: '',
-            loadChildren: '../about/about.module#AboutModule'
+            loadChildren: '../me/me.module#MePageModule'
           }
         ]
       },
-      */
       {
         path: '',
         redirectTo: '/app/tabs/draw',

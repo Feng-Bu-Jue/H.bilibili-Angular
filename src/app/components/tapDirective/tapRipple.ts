@@ -1,7 +1,5 @@
-import { Component, OnInit, HostBinding, HostListener, Output, EventEmitter, ElementRef, Input, DoCheck, AfterContentInit, Directive, Renderer2 } from '@angular/core';
-import { fromEvent, Observable, Subject } from 'rxjs';
-import { throttleTime, map } from 'rxjs/operators';
-import { promise } from 'selenium-webdriver';
+import { HostBinding, ElementRef, Directive, Renderer2, Input } from '@angular/core';
+import { fromEvent } from 'rxjs';
 import { IonContent } from '@ionic/angular';
 
 
@@ -14,14 +12,16 @@ export class TapRipple {
   public containerElement: HTMLElement;
   public isRemoved: boolean = true;
 
-  public initOffset: number = 10;
-
   @HostBinding("style.position")
   public position = "relative";
 
+  @Input("transition")
+  public transition = "all 1.5s ease-in-out"
+  @Input("initOffset")
+  public initOffset: number = 10;
+
   constructor(
     private element: ElementRef,
-    private component: IonContent,
     private renderer: Renderer2
   ) { }
 
@@ -60,7 +60,6 @@ export class TapRipple {
         .subscribe(() => {
           this.removeRipple(parentElment);
         })
-
     }, 10);
   }
 
@@ -91,17 +90,17 @@ export class TapRipple {
 
   private setRippleElementStyle(element: HTMLElement, left: number, top: number): void {
     element.style.position = "absolute";
-    element.style.transition = "all 0.8s ease-in-out";
+    element.style.transition = this.transition;
     element.style.height = this.initOffset + "px";
     element.style.width = this.initOffset + "px";
-    element.style.backgroundColor = "rgb(240,240,240)";
+    element.style.backgroundColor = "rgb(140,140,140)";
     element.style.opacity = "0.6";
     element.style.borderRadius = "50%";
     element.style.left = left + "px";
     element.style.top = top + "px";
   }
 
-  private setContaierElementStyle(element: HTMLElement): void {
+  private setContaierElementStyle(element: HTMLElement) {
     element.style.position = "absolute";
     element.style.top = "0";
     element.style.bottom = "0";

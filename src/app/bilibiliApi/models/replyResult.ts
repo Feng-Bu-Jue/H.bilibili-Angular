@@ -1,7 +1,5 @@
-import { Member } from './member';
-
 export class ReplyResult {
-    public blacklist: number;//这个非常棒 帮助我发现世界很小
+    public blacklist: number;
     public page: ReplyPage;
     public hots: Array<Reply>;
     public replies: Array<Reply>;
@@ -45,4 +43,23 @@ export class AddReplyResult {
     rpid: number;
     rpid_str: string;
     url: string;
+}
+
+export class Member {
+    public mid: string;
+    public avatar: string;
+    public uname: string;
+    public sign: string;
+    public sex: string;
+    public rank: number;
+    public level_info: MemberLevel;
+    public vip: MemberVip;
+}
+
+export class MemberLevel {
+    public current_level: number;
+}
+export class MemberVip {
+    public vipStatus: number;
+    public type: number;
 }

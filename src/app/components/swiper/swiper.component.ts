@@ -1,4 +1,4 @@
-import { OnInit, Component, ViewChild, ContentChildren, QueryList, ElementRef, AfterViewInit, AfterViewChecked, AfterContentChecked, AfterContentInit, ViewChildren, HostBinding, HostListener, Self, Input } from '@angular/core';
+import { OnInit, Component, ContentChildren, QueryList, AfterContentInit, HostListener } from '@angular/core';
 import { SwiperItem } from './swiper.item.component';
 import { Subject, timer } from 'rxjs';
 import { map, throttleTime, bufferCount, first, takeUntil } from 'rxjs/operators';

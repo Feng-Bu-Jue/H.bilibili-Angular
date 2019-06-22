@@ -1,4 +1,4 @@
-import { OnInit, Component, ViewChild, ElementRef, HostBinding, HostListener, EventEmitter, Input, Output } from '@angular/core';
+import { OnInit, Component, ElementRef, HostBinding } from '@angular/core';
 
 @Component({
     selector: "swiper-item",

@@ -1,0 +1,36 @@
+.fav-box{
+    padding: 10px;    
+}
+
+.fav-item
+{
+    display:inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    position: relative;
+    width: calc((100% - 4%) / 3);
+    border-radius: 4%;
+    margin-left: 2%;
+    margin-bottom: 2%;
+    &:nth-last-child(3n)
+    {
+      margin-left: 0%;
+    }
+    div[ngxProgressiveBGImage]
+    {
+      height: 100%;
+      background-size: cover;
+    }
+}
+
+.amount{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 2px 3px;
+    font-size: 12px;
+    background-color: black;
+    opacity: 0.4;
+    color:white;
+    border-radius: 3px;
+}

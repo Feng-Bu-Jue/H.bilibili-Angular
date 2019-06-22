@@ -1,19 +1,34 @@
-.image
-{
- width: 100%;
- height: auto;    
-}
-
-.bgcolor
-{
-    --background:rgb(28,28,28);
-    --color:rgb(255,255,255);
-}
-
-.swiper
-{
-    .swiper-wrapper
-    {
-        align-items: Center;
+.content{
+  ion-slides{
+    height: 100%;
+    ion-slide{
+      position: relative;
+      height: 100%;
     }
+  }
+}
+
+.swiper-zoom-container {
+  position: absolute;
+  width: 100%;
+  height: auto;//overwritten
+  img{
+    height: auto;
+    max-height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+.dark
+{
+  --background:rgb(28,28,28);
+  --color:rgb(255,255,255);
+  background:rgb(28,28,28);
+}
+
+.bg-mask
+{
+  height: 100%;
+  width: 100%;
 }

@@ -1,10 +1,12 @@
 <ion-header>
-    <div class="header">
-        <span class="icon-back" (click)="goBack()">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-back"></use>
-            </svg>
-        </span>
-        <div>{{title}}</div>
-    </div>
+    <ion-toolbar class="toolbar" color="primary">
+        <ion-buttons slot="start">
+            <ion-button (click)="goBack()">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-back"></use>
+                </svg>
+            </ion-button>
+        </ion-buttons>
+        <div class="title">{{title}}</div>
+    </ion-toolbar>
 </ion-header>

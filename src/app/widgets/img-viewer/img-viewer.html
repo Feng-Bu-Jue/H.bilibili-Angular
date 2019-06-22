@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar class="bgcolor">
+    <ion-toolbar class="dark">
         <ion-buttons slot="start">
             <ion-button (click)="dismiss()">
                 <svg class="icon" aria-hidden="true">
@@ -9,12 +9,13 @@
         </ion-buttons>
     </ion-toolbar>
 </ion-header>
-<ion-content (click)="contentClick()" class="bgcolor">
-    <ion-slides class="swiper" pager="false" [options]="slidesOpts" style="left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);">
-        <ion-slide (click)="slideClick($event)" *ngFor="let url of urls;index as i;">
-            <ion-img class="image" [src]="url"></ion-img>
+<ion-content class="content dark">
+    <ion-slides #slider class="swiper" pager="false" [options]="slidesOpts">
+        <ion-slide *ngFor="let url of urls;index as i;" (touchstart)="onTouchstart(url)" (touchend)="onTouchend()">
+            <div class="bg-mask dark" (click)="dismiss()"></div>
+            <div class="swiper-zoom-container">
+                <img class="image " [src]="url" />
+            </div>
         </ion-slide>
     </ion-slides>
 </ion-content>
