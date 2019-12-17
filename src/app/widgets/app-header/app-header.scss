@@ -1,9 +1,16 @@
-
-.toolbar
-{
-    --min-height:30px;
+.toolbar {
+    --min-height: 40px;
 }
 
-.title{
+.title {
     text-align: center;
+}
+
+.back-btn {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
 }

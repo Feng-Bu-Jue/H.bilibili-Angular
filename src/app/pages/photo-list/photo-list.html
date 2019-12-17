@@ -1,15 +1,18 @@
-<app-header title="摄影"></app-header>
-
-<ion-content class="outer-content">
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.5" pullMin="100" pullMax="200">
-        <ion-refresher-content>
-        </ion-refresher-content>
-    </ion-refresher>
-
-    <template-draw-list [data]="data"></template-draw-list>
-
-    <ion-infinite-scroll threshold="10%" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content>
-        </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+<ion-header>
+    <tab class="tab" [activeIndex]="activeIndex" (onChange)="onTabChange($event)">
+        <tab-item class="tab-item" *ngFor="let category of categories;index as i">
+            {{tabTitle[i]}}
+        </tab-item>
+    </tab>
+</ion-header>
+<ion-content #ionContent style="width:100%">
+    <ion-slides #slides pager="true" [options]="slideOpts" [pager]="false" (ionSlideDidChange)="ionSlideDidChange()">
+        <ng-container *ngFor="let category of categories;index as i">
+            <ion-slide>
+                <scroll [height]="scorllHeight" [lowerOffset]="100" (onScrollLower)="loadData($event)">
+                    <template-draw-list [data]="data[i]"></template-draw-list>
+                </scroll>
+            </ion-slide>
+        </ng-container>
+    </ion-slides>
 </ion-content>

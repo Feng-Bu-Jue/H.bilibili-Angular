@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Output, EventEmitter, ElementRef, Input} from '@angular/core';
+import { Component, OnInit, HostBinding, Output, EventEmitter, ElementRef, Input } from '@angular/core';
 import { fromEvent, Observable } from 'rxjs';
 import { throttleTime } from 'rxjs/operators';
 
@@ -27,6 +27,8 @@ export class Scroll implements OnInit {
   @Output()
   public onScrollUpper: EventEmitter<Event> = new EventEmitter();
 
+
+
   @HostBinding("class.scroll-y")
   get class() {
     return this.scrollY;
@@ -35,6 +37,7 @@ export class Scroll implements OnInit {
   @Input()
   @HostBinding("style.height")
   public height: number;
+  public loading: boolean = false
 
   constructor(
     private element: ElementRef
@@ -47,11 +50,21 @@ export class Scroll implements OnInit {
       throttleTime(20)
     ).subscribe((event) => {
       this.onScroll.emit(event);
+      /*
       if (el.scrollTop == 0 + this.upperOffset) {
         this.onScrollUpper.emit(event);
       }
-      if (el.scrollTop + el.clientHeight >= (el.scrollHeight - this.lowerOffset)) {
-        this.onScrollLower.emit(event);
+      */
+      if (!this.loading) {
+
+        if (el.scrollTop + el.clientHeight >= (el.scrollHeight - this.lowerOffset)) {
+          var that = this;
+          this.loading = true;
+          event.target["complete"] = () => {
+            that.loading = false;
+          }
+          this.onScrollLower.emit(event);
+        }
       }
     });
   }

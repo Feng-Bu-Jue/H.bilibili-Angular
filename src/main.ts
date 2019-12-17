@@ -10,5 +10,6 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic([{ provide: "Foo", useClass: Foo, deps: [] }]).bootstrapModule(AppModule).catch(err => console.log(err));
+platformBrowserDynamic([{ provide: "Foo", useClass: Foo, deps: [] }])
+  .bootstrapModule(AppModule).catch(err => console.log(err));
 

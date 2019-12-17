@@ -7,6 +7,7 @@ import { TabsPageRoutingModule } from './tabs-page.module.routing';
 import { DrawListPageModule } from '../draw-list/draw-list.module';
 import { PhotoListPageModule } from '../photo-list/photo-list.module';
 import { DrawDetailPageModule } from '../draw-detail/draw-detail.module';
+import { RankListPageModule } from '../rank-list/rank-list.module';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { DrawDetailPageModule } from '../draw-detail/draw-detail.module';
     TabsPageRoutingModule,
     DrawListPageModule,
     PhotoListPageModule,
+    RankListPageModule,
     DrawDetailPageModule
   ],
   declarations: [

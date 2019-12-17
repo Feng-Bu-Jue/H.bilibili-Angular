@@ -5,9 +5,8 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"npm run proxy\" \"npm run ng-start\"",
+    "start": "npm run ng-start",
     "ng-start": "ng serve --port 2233",
-    "proxy": "cd proxyServer && npm run start",
     "build": "ng build --base-href ./",
     "build:lib": "ng build ngx-progressive-image-loader && npm run copy-scss && ng build ngx-waterfall",
     "copy-scss": "cpx \"./projects/ngx-progressive-image-loader/src/lib/*.scss\" \"./dist/ngx-progressive-image-loader/\" --verbose",

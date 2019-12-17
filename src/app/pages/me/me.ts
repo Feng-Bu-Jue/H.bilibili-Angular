@@ -20,14 +20,8 @@ export class MePage implements OnInit {
     //private router: Router
   ) { }
 
-  ngOnInit() {
-    /*
-    this.authService.checkLoggedIn().then((loggedIn) => {
-      if (!loggedIn) {
-        this.router.navigateByUrl("/login");
-      }
-    });
-    */
+  async ngOnInit() {
+    await this.userApi.getSpaceInfo(1549302);
   }
 
 }

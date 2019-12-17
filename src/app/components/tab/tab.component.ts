@@ -1,4 +1,4 @@
-import { OnInit, Component, ContentChildren, QueryList, AfterViewInit, AfterViewChecked, Input, EventEmitter, Output, AfterContentInit } from '@angular/core';
+import { OnInit, Component, ContentChildren, QueryList, AfterViewInit, AfterViewChecked, Input, EventEmitter, Output, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
 import { TabItem, TabEvent } from './tab.item.component';
 
 @Component({
@@ -9,45 +9,44 @@ import { TabItem, TabEvent } from './tab.item.component';
 export class Tab implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit {
 
     @Input()
-    public height: string = "45px";
-    @Input()
-    public activeTabIndex: number;
+    public activeIndex: number = 0;
     @Output()
     public onChange: EventEmitter<TabEvent> = new EventEmitter()
     @Output()
     public onClick: EventEmitter<TabEvent> = new EventEmitter()
 
-    @ContentChildren(TabItem, { descendants: true })
-    public tabItems: QueryList<TabItem>;
+    @ContentChildren(TabItem, { descendants: true }) tabItems: QueryList<TabItem>;
+    @ViewChild('underline') underline: ElementRef;
+
+    private get width() {
+        return 100 / this.tabItems.length || 0;
+    }
+    private get left() {
+        return (100 / this.tabItems.length) * this.activeIndex;
+    }
 
     ngOnInit(): void {
 
     }
 
     onItemClick(event: TabEvent): void {
-        const isChanged = this.activeTabIndex != undefined && this.activeTabIndex != event.index;
-
+        const isChanged = this.activeIndex != event.index;
         if (isChanged) {
-            //set old active as opposite value
-            var item = this.tabItems.find(x => x.index == this.activeTabIndex);
+            var item = this.tabItems.find(x => x.index == this.activeIndex);
             item.isActive = !item.isActive;
 
             this.onChange.emit(event);
         }
         this.onClick.emit(event);
-        this.activeTabIndex = event.index;
+        this.activeIndex = event.index;
     }
 
     ngAfterContentInit(): void {
-        var length = this.tabItems.length;
-        this.tabItems.forEach((el, index) => {
-            el.onClick = this.onItemClick;
-            //use the bind action to change point of this 
-            el.onClick = el.onClick.bind(this);
-            el.index = index;
-            el.width = `${100 / length}%`;
-            el.height = this.height;
-            el.isActive = index === this.activeTabIndex;
+        this.tabItems.forEach((item, index) => {
+            item.onClick = this.onItemClick.bind(this);
+            item.index = index;
+            item.width = `${this.width}%`;
+            item.isActive = index === this.activeIndex;
         });
     }
 

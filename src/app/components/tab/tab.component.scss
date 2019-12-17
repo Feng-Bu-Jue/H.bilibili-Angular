@@ -1,6 +1,13 @@
-:host
-{
-    display:flex;
+:host {
+    display: flex;
     width: 100%;
     flex-direction: row;
+}
+
+.underline {
+    left: 0;
+    border: 1px solid white;
+    position: absolute;
+    bottom: 0;
+    transition: left .3s cubic-bezier(.35, 0, .25, 1);
 }

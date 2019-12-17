@@ -4,16 +4,17 @@ import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 import { IonInfiniteScroll, IonSlide, IonSlides, IonContent } from '@ionic/angular';
 import { NgxWaterfallComponent } from 'ngx-waterfall';
 import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
-import { Enum_DrawCategory } from 'src/app/bilibiliApi/models/Enum';
+import { Enum_DrawCategory, Enum_Biz, Enum_RankType } from 'src/app/bilibiliApi/models/Enum';
 import { LoadingService } from 'src/app/services/loadingService';
 import { async } from '@angular/core/testing';
 
+
 @Component({
-  selector: "page-photo-list",
-  templateUrl: './photo-list.html',
-  styleUrls: ['./photo-list.scss']
+  selector: "page-rank-list",
+  templateUrl: './rank-list.html',
+  styleUrls: ['./rank-list.scss']
 })
-export class PhotoListPage implements OnInit, AfterViewChecked {
+export class RankListPage implements OnInit, AfterViewChecked {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(DrawListTemplate) template: DrawListTemplate;
   @ViewChild('ionContent') content: IonContent;
@@ -23,12 +24,10 @@ export class PhotoListPage implements OnInit, AfterViewChecked {
     return height + 'px';
   }
 
-  public readonly tabTitle = ['cos', '私服']
+  public readonly tabTitle = ['画友', '摄影']
 
-  public readonly categories: Array<Enum_DrawCategory> =
-    new Array<Enum_DrawCategory>(
-      Enum_DrawCategory.cos,
-      Enum_DrawCategory.sifu)
+  public readonly categories: Array<Enum_DrawCategory> = [Enum_DrawCategory.all, Enum_DrawCategory.all]
+  public readonly biz: Array<Enum_Biz> = [Enum_Biz.draw, Enum_Biz.photo]
 
   private _activeIndex: number = 0;
 
@@ -67,7 +66,7 @@ export class PhotoListPage implements OnInit, AfterViewChecked {
   }
   async loadData(event = null, loading = false) {
     let doLoadData = async () => {
-      let res = await this.linkDrawApi.getPhotos(this.pageNum[this.activeIndex], 20, this.categories[this.activeIndex], "hot");
+      let res = await this.linkDrawApi.getRankList(this.pageNum[this.activeIndex], 50, this.biz[this.activeIndex], this.categories[this.activeIndex], Enum_RankType.week);
       this.pageNum[this.activeIndex]++;
       this.data[this.activeIndex] = this.data[this.activeIndex].concat(res);
 

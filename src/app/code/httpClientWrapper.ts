@@ -12,17 +12,17 @@ export class HttpClientWrapper {
         private httpclient: HttpClient,
     ) { }
 
-    public get<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
+    public get<TResult>(path: string, param: { [name: string]: any } = null): Promise<TResult> {
         return this.httpclient.get<TResult>(
             this.makeUrlWithQueryString(path, param)
-        ).pipe(catchError(this.HandleError));
+        ).pipe(catchError(this.HandleError)).toPromise();
     }
 
-    public post<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
+    public post<TResult>(path: string, param: { [name: string]: any } = null): Promise<TResult> {
         return this.httpclient.post<TResult>(
             this.makeUrl(path),
             this.toQueryString(param)
-        ).pipe(catchError(this.HandleError));
+        ).pipe(catchError(this.HandleError)).toPromise();
     }
 
     public jsonp<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
@@ -35,7 +35,7 @@ export class HttpClientWrapper {
     //#region 
     private makeUrl(path: string): string {
         const host = environment.host;
-        return `${host}${path}`;
+        return `${path}`;
     }
 
     private makeUrlWithQueryString(path: string, param: { [name: string]: any }): string {

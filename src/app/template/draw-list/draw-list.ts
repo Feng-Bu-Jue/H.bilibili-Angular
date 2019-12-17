@@ -16,7 +16,7 @@ export class DrawListTemplate implements OnInit {
 
   @ViewChild(NgxWaterfallComponent) waterfall: NgxWaterfallComponent;
 
-  private gap: number = 20;
+  private gap: number = 10;
   private clumn = 2;
   private get itemWidth() {
     let containerWidth = this.waterfall.waterfallContainerElement.nativeElement.clientWidth;
@@ -33,29 +33,26 @@ export class DrawListTemplate implements OnInit {
   }
 
   private clacItemWidth(containerWidth: number) {
-    return (containerWidth - this.gap) / 2;
+    return (containerWidth - this.gap) / this.clumn;
   }
 
   public resetWaterfall() {
     this.waterfall.reset();
   }
 
-  vote(docId: number, actionType: number) {
+  async vote(docId: number, actionType: number) {
     actionType = actionType ? 1 : 0;
-    this.linkDrawApi.vote(docId, actionType).subscribe(
-      async (res) => {
-        if (res) {
-          //find it and update vote status
-          this.data.find(x => x.item.doc_id == docId).item.already_voted = actionType;
-          const toast = await this.toastController.create({
-            message: "点赞成功",
-            position: 'bottom',
-            duration: 1500
-          });
-          toast.present();
-        }
-      },
-      async (error) => {
+    await this.linkDrawApi.vote(docId, actionType)
+      .then(async (res) => {
+        this.data.find(x => x.item.doc_id == docId).item.already_voted = actionType;
+        const toast = await this.toastController.create({
+          message: "点赞成功",
+          position: 'bottom',
+          duration: 1500
+        });
+        toast.present();
+      })
+      .catch(async error => {
         const toast = await this.toastController.create({
           message: error.message,
           position: 'bottom',

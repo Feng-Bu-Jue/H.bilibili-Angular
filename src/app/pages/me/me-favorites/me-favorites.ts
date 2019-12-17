@@ -22,16 +22,14 @@ export class MineFavoritesPage implements OnInit {
     await this.loadData();
   }
 
-  loadData(event = null) {
-    this.userApi.getMyFav(this.pageNum, 30)
-      .subscribe(res => {
-        this.pageNum++;
+  async loadData(event = null) {
+    var res= await this.userApi.getMyFav(this.pageNum, 30)
+    this.pageNum++;
         this.data = this.data.concat(res.list);
 
         if (event)
           event.target.complete();
         if (this.pageNum >= res.pageinfo.totalpage || this.pageNum >= 100)
           this.infiniteScroll.disabled = true;
-      })
   }
 }

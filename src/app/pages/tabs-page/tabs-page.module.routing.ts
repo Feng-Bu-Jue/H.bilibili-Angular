@@ -34,17 +34,19 @@ const routes: Routes = [
           },
         ]
       },
-      /*
       {
         path: 'rank',
         children: [
           {
             path: '',
-            loadChildren: '../map/map.module#MapModule'
-          }
+            loadChildren: '../rank-list/rank-list.module#RankListPageModule',
+          },
+          {
+            path: 'detail/:uid',
+            loadChildren: '../draw-detail/draw-detail.module#DrawDetailPageModule',
+          },
         ]
       },
-      */
       {
         path: 'me',
         children: [

@@ -7,16 +7,19 @@ import { Router, ActivatedRoute } from '@angular/router';
     templateUrl: './app-header.html',
     styleUrls: ['./app-header.scss']
 })
-export class AppHeader {
+export class AppHeader implements OnInit {
     @Input()
     public title: string;
-
     @Input()
-    public showBack: boolean = false;
+    public showBack: boolean = true;
 
     constructor(
         //private router: Router,
     ) { }
+
+    ngOnInit(): void {
+        console.log(this.showBack)
+    }
 
     public goBack(): void {
         if (history.length == 1) {

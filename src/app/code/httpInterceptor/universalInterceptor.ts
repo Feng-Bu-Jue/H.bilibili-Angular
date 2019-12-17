@@ -10,19 +10,11 @@ export class UniversalInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    req.clone({
+    let newReq =req.clone({
       setHeaders: { "Content-Type": "application/x-www-form-urlencoded" },
-      withCredentials: true
+      withCredentials: false
     });
-    return next
-      .handle(req).pipe(
-        map(x => {
-          if (x instanceof BiliBiliProtocal) {
-            if (x.code != 0)
-              throw new ServiceError(x.code, x.message);
-          }
-          return x;
-        })
-      );
+    
+    return next.handle(newReq)
   }
 }

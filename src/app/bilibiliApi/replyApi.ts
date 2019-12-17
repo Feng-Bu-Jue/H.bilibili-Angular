@@ -14,17 +14,17 @@ export class ReplyApi {
         private client: HttpClientWrapper,
     ) { }
 
-    public getReplies(oid: number, pn: number): Observable<ReplyResult> {
+    public getReplies(oid: number, pn: number): Promise<ReplyResult> {
         return this.client.get<BiliBiliProtocal<ReplyResult>>("api/x/v2/reply", {
             oid: oid,
             type: 11,
             pn: pn,
             sort: 0,
             jsonp: 'jsonp'
-        }).pipe(map(x => x.data));
+        }).then(x => x.data);
     }
 
-    public add(oid: number, message: string, root: number = null, parent: number = null): Observable<AddReplyResult> {
+    public add(oid: number, message: string, root: number = null, parent: number = null): Promise<AddReplyResult> {
         return this.client.post<BiliBiliProtocal<AddReplyResult>>("api/x/v2/reply/add", {
             oid: oid,
             type: 11,
@@ -34,10 +34,10 @@ export class ReplyApi {
             plat: 1,
             jsonp: 'jsonp',
             csrf: '',
-        }).pipe(map(x => x.data));
+        }).then(x => x.data);
     }
 
-    public action(oid: number, rpid: number, action: number = 1): Observable<boolean> {
+    public action(oid: number, rpid: number, action: number = 1): Promise<boolean> {
         return this.client.post<BiliBiliProtocal<any>>("api/x/v2/reply/action", {
             oid: oid,
             type: 11,
@@ -45,10 +45,10 @@ export class ReplyApi {
             action: action,
             jsonp: 'jsonp',
             csrf: '',
-        }).pipe(map(x => x.code == 0));
+        }).then(x => x.code == 0);
     }
 
-    public hate(oid: number, rpid: number, action: number = 1): Observable<boolean> {
+    public hate(oid: number, rpid: number, action: number = 1): Promise<boolean> {
         return this.client.post<BiliBiliProtocal<any>>("api/x/v2/reply/hate", {
             oid: oid,
             type: 11,
@@ -56,6 +56,6 @@ export class ReplyApi {
             action: action,
             jsonp: 'jsonp',
             csrf: '',
-        }).pipe(map(x => x.code == 0));
+        }).then(x => x.code == 0);
     }
 }

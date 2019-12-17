@@ -1,12 +1,11 @@
 <ion-header>
     <ion-toolbar class="toolbar" color="primary">
-        <ion-buttons slot="start">
-            <ion-button (click)="goBack()">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-back"></use>
-                </svg>
-            </ion-button>
-        </ion-buttons>
+        <div (click)="goBack()" class="back-btn" *ngIf="showBack">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-back"></use>
+            </svg>
+        </div>
         <div class="title">{{title}}</div>
+        <ng-content></ng-content>
     </ion-toolbar>
 </ion-header>

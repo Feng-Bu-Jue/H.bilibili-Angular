@@ -14,29 +14,28 @@ export class UserApi {
         private client: HttpClientWrapper,
     ) { }
 
-    public getUser(uid: number): Observable<UesrInfoResult> {
+    public getUser(uid: number): Promise<UesrInfoResult> {
         return this.client.get<BiliBiliProtocal<UesrInfoResult>>("api/x/v2/reply", {
             uid: uid,
             user: ['info', 'level'],
             room: ['live_status', 'room_link'],
             feed: ['fans_count', 'feed_count', 'is_followed']
-        }).pipe(map(x => x.data));
+        }).then(r => r.data);
     }
 
-    public getSpaceInfo(mid: number): Observable<UesrInfoResult> {
+    public getSpaceInfo(mid: number): Promise<UesrInfoResult> {
         return this.client.get<BiliBiliProtocal<UesrInfoResult>>("api/x/space/acc/info", {
-            mid: 1549302,
+            mid: mid,
             jsonp: 'jsonp'
-        }).pipe(map(x => x.data));
+        }).then(r => r.data);
     }
 
-    public getMyFav(page: number, pageSize: number) {
+    public getMyFav(page: number, pageSize: number): Promise<any> {
         return this.client.get<BiliBiliProtocal<any>>("api.vc/user_plus/v1/Fav/getMyFav", {
             biz_type: 2,
             page: 1,
             pagesize: 30,
             _: Date.now
-        }).pipe(map(x => x.data));
+        }).then(r => r.data);
     }
-
 }

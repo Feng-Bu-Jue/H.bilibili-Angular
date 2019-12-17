@@ -10,7 +10,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 export class AuthService {
 
     public readonly LOGIN_COOKIE = "login_cookie";
-    
+
     public isLoggedin = false;
 
     private hasSetCookie: boolean = false;
@@ -20,7 +20,7 @@ export class AuthService {
         @Inject(DOCUMENT) private document: any,
         private authApi: AuthApi,
         private storage: Storage,
-    ) {}
+    ) { }
 
     public async login(username: string, password: string): Promise<void> {
         let encryptedPassword = await this.authApi.encryptPassword(password);
@@ -42,7 +42,9 @@ export class AuthService {
 
     private setCookie(value: string) {
         if (!this.hasSetCookie) {
-            this.document.cookie = value;//TODO..............
+            value.split(";").forEach(cookie => {
+                this.document.cookie = cookie;
+            })
             this.hasSetCookie = true;
         }
     }

@@ -10,12 +10,14 @@ import { AppHeaderModule } from 'src/app/widgets/app-header/app-header.module';
 import { ImgViewer } from 'src/app/widgets/img-viewer/img-viewer';
 import { HtmlPipe } from 'src/app/pipe/htmlPipe';
 import { FormsModule } from '@angular/forms';
+import { LoginCheck } from 'src/app/directive/logincheck';
 
 @NgModule({
   declarations: [
     DrawDetailPage,
     ImgViewer,
-    HtmlPipe
+    HtmlPipe,
+    LoginCheck
   ],
   imports: [
     IonicModule,

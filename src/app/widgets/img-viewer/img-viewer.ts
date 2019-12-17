@@ -128,7 +128,7 @@ export class ImgViewer implements OnInit {
       });
       const actionSheet = await this.actionSheetController.create(options);
       await actionSheet.present();
-    }, 1000)
+    }, 600)
   }
 
   onTouchend() {

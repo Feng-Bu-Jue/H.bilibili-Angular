@@ -1,4 +1,4 @@
-import { OnInit, Component,AfterViewInit, AfterViewChecked,  AfterContentInit,  HostBinding, HostListener, Input} from '@angular/core';
+import { OnInit, Component, AfterViewInit, AfterViewChecked, AfterContentInit, HostBinding, HostListener, Input } from '@angular/core';
 
 export class TabEvent extends MouseEvent {
     public name: string;
@@ -11,23 +11,15 @@ export class TabEvent extends MouseEvent {
     templateUrl: './tab.item.component.html',
     styleUrls: ['./tab.item.component.scss']
 })
-export class TabItem implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit {
+export class TabItem {
 
-    @HostBinding("class")
+    @HostBinding("class.tab-item-active")
     get active() {
-        return this.isActive ? "tab-item-active" : "";
+        return this.isActive;
     }
 
     @HostBinding("style.width")
     public width: string;
-
-    @HostBinding("style.height")
-    public height: string;
-
-    @HostBinding("style.lineHeight")
-    get lineHeight() {
-        return this.height;
-    }
 
     @HostListener('click', ["$event"])
     private _onClickWapper(event: TabEvent) {
@@ -40,29 +32,10 @@ export class TabItem implements OnInit, AfterViewInit, AfterViewChecked, AfterCo
 
     public onClick: (event: TabEvent) => void;
 
-
     @Input()
     public name: string;
 
     public isActive: boolean = false;
 
     public index: number;
-
-
-    ngOnInit(): void {
-
-    }
-
-    ngAfterContentInit(): void {
-
-    }
-
-
-    ngAfterViewInit(): void {
-
-    }
-
-    ngAfterViewChecked(): void {
-
-    }
 }

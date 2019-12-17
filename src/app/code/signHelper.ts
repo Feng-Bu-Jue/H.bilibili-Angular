@@ -9,14 +9,14 @@ export class SignHelper {
     //这种写法是真的蠢 ts设计者怎么想的
     static md5Sign(): string {
         if (arguments.length > 0) {
-            let hash: string;
+            let signString: string;
             if (typeof arguments[0] == "string") {
-                hash = <string>Md5.hashStr(arguments[0]);
+                signString = <string>Md5.hashStr(arguments[0]);
             }
             else {
-                hash = this.md5Sign(this.generateSignString(arguments[0], arguments[1]));
+                signString = this.md5Sign(this.generateSignString(arguments[0], arguments[1]));
             }
-            return hash.toLowerCase();
+            return signString.toLowerCase();
         }
         throw new error("not support");
     }

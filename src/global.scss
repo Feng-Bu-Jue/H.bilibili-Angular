@@ -28,32 +28,30 @@ $loading-image-transition: opacity 1s linear;
 }
 
 /*-------custom global style---------*/
-body{
+$c-rl:#FA7298;
+
+body {
     font-size: 14px;
 }
+
 a {
     color: #000000;
     text-decoration: none;
 }
 
-.swiper
-{
-    .swiper-wrapper
-    {
+.swiper {
+    .swiper-wrapper {
         align-items: Center;
     }
 }
 
-
-.text-ellipsis
-{    
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+.text-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
-.inline
-{
-  vertical-align: middle;
-  display:inline-block;
+.inline {
+    vertical-align: middle;
+    display: inline-block;
 }

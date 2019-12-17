@@ -29,7 +29,7 @@ export class DrawDetailPage implements OnInit, DoCheck {
   public commnentButtonDisabled: boolean = true;
 
   public commentPageNum = 1;
-  public uid :number;
+  public uid: number;
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
@@ -43,14 +43,12 @@ export class DrawDetailPage implements OnInit, DoCheck {
     public toastervice: ToastService,
     public authService: AuthService,
   ) {
-    this.uid=Number(this.route.snapshot.paramMap.get('uid'));
+    this.uid = Number(this.route.snapshot.paramMap.get('uid'));
   }
 
   async ngOnInit(): Promise<void> {
-    this.linkDrawApi.getDocDetail(this.uid).subscribe(async res => {
-      this.detailResult = res;
-    });
-
+    let res = await this.linkDrawApi.getDocDetail(this.uid)
+    this.detailResult = res;
     this.loadMoreComment();
   }
 
@@ -58,9 +56,9 @@ export class DrawDetailPage implements OnInit, DoCheck {
     this.commnentButtonDisabled = !(this.commentMessage && this.commentMessage.length > 0);
   }
 
-  public loadMoreComment(event = null): void {
-    this.replyApi.getReplies(this.uid, this.commentPageNum)
-      .subscribe(res => {
+  public async loadMoreComment(event = null): Promise<void> {
+    await this.replyApi.getReplies(this.uid, this.commentPageNum)
+      .then(res => {
         this.commentPageNum++;
         this.replyPageInfo = res.page;//update count for each call
         this.replies = this.replies.concat(res.replies);
@@ -87,7 +85,7 @@ export class DrawDetailPage implements OnInit, DoCheck {
   }
 
   public comment(message: string) {
-    this.replyApi.add(this.uid, message, 0, 0).subscribe(
+    this.replyApi.add(this.uid, message, 0, 0).then(
       (res) => {
         this.toastervice.present("comment successful");
         this.commentMessage = null;

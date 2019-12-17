@@ -18,7 +18,7 @@ export class LoginCheck {
         let el = <HTMLElement>this.element.nativeElement;
         fromEvent(el, "click")
             .subscribe((event: Event) => {
-                if (!this.authService.checkLoggedIn) {
+                if (!this.authService.checkLoggedIn()) {
                     this.router.navigateByUrl("/login");
                     console.log("等等我 我还没上车呢.png");
                 }
