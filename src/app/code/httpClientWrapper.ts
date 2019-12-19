@@ -15,14 +15,14 @@ export class HttpClientWrapper {
     public get<TResult>(path: string, param: { [name: string]: any } = null): Promise<TResult> {
         return this.httpclient.get<TResult>(
             this.makeUrlWithQueryString(path, param)
-        ).pipe(catchError(this.HandleError)).toPromise();
+        ).toPromise();
     }
 
     public post<TResult>(path: string, param: { [name: string]: any } = null): Promise<TResult> {
         return this.httpclient.post<TResult>(
             this.makeUrl(path),
             this.toQueryString(param)
-        ).pipe(catchError(this.HandleError)).toPromise();
+        ).toPromise();
     }
 
     public jsonp<TResult>(path: string, param: { [name: string]: any } = null): Observable<TResult> {
@@ -62,7 +62,7 @@ export class HttpClientWrapper {
     }
 
     private HandleError(error: HttpErrorResponse): Promise<any> {
-        return Promise.reject(error);
+        return null;
     }
     //#endregion
 }

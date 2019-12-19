@@ -3,6 +3,7 @@ import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { ToastController } from '@ionic/angular';
 import { NgxWaterfallComponent } from 'ngx-waterfall';
+import { ToastService } from 'src/app/services/toastService';
 
 @Component({
   selector: "template-draw-list",
@@ -25,7 +26,7 @@ export class DrawListTemplate implements OnInit {
 
   constructor(
     private linkDrawApi: LinkDrawApi,
-    private toastController: ToastController,
+    private toastService: ToastService,
   ) { }
 
   async ngOnInit() {
@@ -41,24 +42,12 @@ export class DrawListTemplate implements OnInit {
   }
 
   async vote(docId: number, actionType: number) {
+    console.log("calling")
     actionType = actionType ? 1 : 0;
     await this.linkDrawApi.vote(docId, actionType)
       .then(async (res) => {
         this.data.find(x => x.item.doc_id == docId).item.already_voted = actionType;
-        const toast = await this.toastController.create({
-          message: "点赞成功",
-          position: 'bottom',
-          duration: 1500
-        });
-        toast.present();
-      })
-      .catch(async error => {
-        const toast = await this.toastController.create({
-          message: error.message,
-          position: 'bottom',
-          duration: 1500
-        });
-        toast.present();
+        await this.toastService.present('点赞成功')
       });
   }
 }

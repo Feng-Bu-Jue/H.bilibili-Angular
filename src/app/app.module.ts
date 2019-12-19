@@ -8,6 +8,10 @@ import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/file/ngx';
 import { UniversalInterceptor } from './code/httpInterceptor/universalInterceptor';
+import { CookieService } from 'ngx-cookie-service';
+import { NgxsModule } from '@ngxs/store';
+import { UserState } from './store/user.state';
+import { AppErrorHandler } from './code/appErrorHandler';
 
 @NgModule({
   declarations: [
@@ -20,12 +24,14 @@ import { UniversalInterceptor } from './code/httpInterceptor/universalIntercepto
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    NgxsModule.forRoot([UserState])
   ],
   providers: [
     HttpClientWrapper,
     File,
-    //{ provide: ErrorHandler, useClass: AppExceptionHandler }
-    {provide: HTTP_INTERCEPTORS, useClass: UniversalInterceptor, multi: true }
+    CookieService,
+    { provide: ErrorHandler, useClass: AppErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: UniversalInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
