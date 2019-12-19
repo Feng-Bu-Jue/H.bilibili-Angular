@@ -5,7 +5,7 @@ import { AuthApi } from '../bilibiliApi/authApi';
 import { DOCUMENT } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Store, Select } from '@ngxs/store';
-import { SetToken, UserState } from '../store/user.state';
+import { SetUserSate, UserState } from '../store/user.state';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -29,7 +29,8 @@ export class AuthService {
         this.setCookie(cookies);
         //set token
         let csrf_token = cookies.find(x => <boolean><unknown>(~x.search("bili_jct")));
-        return this.store.dispatch(new SetToken({ csrf_token }))
+        let mid = parseInt(cookies.find(x => <boolean><unknown>(~x.search("DedeUserID"))));
+        return this.store.dispatch(new SetUserSate({ csrf_token, mid }))
     }
 
     public async isLoggedIn(): Promise<boolean> {

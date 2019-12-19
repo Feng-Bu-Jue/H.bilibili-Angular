@@ -4,16 +4,16 @@
             <ion-list class="fun-box">
                 <ion-item lines="none">
                     <ion-avatar slot="start">
-                        <ion-img [src]="userInfo2.face"></ion-img>
+                        <ion-img [src]="userInfo.face"></ion-img>
                     </ion-avatar>
                     <div>
-                        <span>{{userInfo2.name}}</span>
-                        <icon-gender class="inline" [sex]="userInfo2.sex"></icon-gender>
-                        <icon-level class="inline" [level]="userInfo2.level"></icon-level>
+                        <span>{{userInfo.name}}</span>
+                        <icon-gender class="inline" [sex]="userInfo.sex"></icon-gender>
+                        <icon-level class="inline" [level]="userInfo.level"></icon-level>
                     </div>
                 </ion-item>
                 <ion-item lines="none" class="sign-text">
-                    {{userInfo2.sign}}
+                    {{userInfo.sign}}
                 </ion-item>
             </ion-list>
         </ion-item>
