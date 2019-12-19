@@ -65,6 +65,9 @@ export class UniversalInterceptor implements HttpInterceptor {
     if ([401, 403].includes(httpResponse.status) || httpResponse.body.code === 3) {
       subject.error(new ServiceError(httpResponse.status, '你还没有登录呢'))
     }
+    else if (httpResponse.body.code && httpResponse.body.code !== 0) {
+      subject.error(httpResponse)
+    }
     else {
       subject.next(httpResponse);
       subject.complete()

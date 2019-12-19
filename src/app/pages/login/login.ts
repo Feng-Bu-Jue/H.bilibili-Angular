@@ -23,7 +23,8 @@ export class LoginPage implements OnInit, DoCheck {
   constructor(
     private auhService: AuthService,
     private loadingService: LoadingService,
-    public router: Router
+    public router: Router,
+    private toastService: ToastService
   ) { }
 
   ngOnInit() {
@@ -43,6 +44,8 @@ export class LoginPage implements OnInit, DoCheck {
       () => this.auhService.login(this.username, this.password))
       .then(() => {
         history.back();
+      }).catch(error => {
+        this.toastService.present(error.body.message);
       })
   }
 }
