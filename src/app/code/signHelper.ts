@@ -6,7 +6,6 @@ export class SignHelper {
     static md5Sign(signString: string): string;
     static md5Sign(param: { [name: string]: any }, specialHandle: (signString: string) => string): string;
 
-    //这种写法是真的蠢 ts设计者怎么想的
     static md5Sign(): string {
         if (arguments.length > 0) {
             let signString: string;
@@ -18,7 +17,7 @@ export class SignHelper {
             }
             return signString.toLowerCase();
         }
-        throw new error("not support");
+        throw new error("not supported");
     }
 
     static generateSignString(param: { [name: string]: any }, specialHandle: (signString: string) => string = null): string {

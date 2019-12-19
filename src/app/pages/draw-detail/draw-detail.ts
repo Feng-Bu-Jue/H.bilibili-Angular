@@ -28,7 +28,7 @@ export class DrawDetailPage implements OnInit, DoCheck {
   public commentMessage: string;
   public commnentButtonDisabled: boolean = true;
 
-  public commentPageNum = 1;
+  public pageNum = 1;
   public uid: number;
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
@@ -57,16 +57,19 @@ export class DrawDetailPage implements OnInit, DoCheck {
   }
 
   public async loadMoreComment(event = null): Promise<void> {
-    await this.replyApi.getReplies(this.uid, this.commentPageNum)
+    await this.replyApi.getReplies(this.uid, this.pageNum)
       .then(res => {
-        this.commentPageNum++;
+        this.pageNum++;
         this.replyPageInfo = res.page;//update count for each call
-        this.replies = this.replies.concat(res.replies);
+        if (res.replies) {
+          this.replies = this.replies.concat(res.replies);
+        }
 
+        if (res.page.count < res.page.size || this.pageNum > Math.ceil(res.page.count / res.page.size)) {
+          this.infiniteScroll.disabled = true;
+        }
         if (event)
           event.target.complete();
-        if (this.commentPageNum > Math.ceil(res.page.count / res.page.size))
-          this.infiniteScroll.disabled = true;
       })
   }
 

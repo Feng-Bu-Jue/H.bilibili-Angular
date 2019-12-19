@@ -72,17 +72,14 @@ export class RankListPage implements OnInit, AfterViewChecked {
 
       if (event)
         event.target.complete();
-
-      if (this.pageNum[this.activeIndex] >= 100)
-        this.infiniteScroll.disabled = true;
     }
-
     if (loading) {
       await this.loadingService.presentWithAction('', doLoadData);
     }
     else {
       await doLoadData();
     }
+    this.infiniteScroll.disabled = true;
   }
   async doRefresh(event) {
     this.pageNum[this.activeIndex] = 0;
