@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { IonicModule } from '@ionic/angular';
 import { Tab } from 'src/app/Components/tab/tab.component';
 import { TabItem } from 'src/app/Components/tab/tab.item.component';

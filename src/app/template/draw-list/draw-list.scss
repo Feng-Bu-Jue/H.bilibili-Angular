@@ -1,61 +1,55 @@
-:host
-{
+:host {
   display: block;
   width: 100%;
 }
 
-.list-box
-{
+.list-box {
   background-color: #d4d0d0;
   margin: 0;
-  padding:10px 10px 0px 10px; 
+  padding: 10px 10px 0px 10px;
 }
 
-.list-item-wrapper
-{
+.list-item-wrapper {
   padding-bottom: 10px;
   break-inside: avoid;
-  .list-item
-  {
-      overflow: hidden;
-      background-color: #fff;
-      border-radius: 5px;
-      font-size: 14px;
-      transform: translateZ(0);//to resolve can't hidden on absolute position
-  }
-} 
 
-.picture
-{
+  .list-item {
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 5px;
+    font-size: 14px;
+    transform: translateZ(0); //to resolve can't hidden on absolute position
+  }
+}
+
+.picture {
   background-size: contain;
   height: 100%;
-  .pictrue-amount
-  {
+
+  .pictrue-amount {
     padding: 0 3px;
     position: absolute;
     background-color: black;
     color: #FFFFFF;
     border-radius: 3px;
-    opacity:0.5;     
-    bottom:5px;
-    right:5px;   
+    opacity: 0.5;
+    bottom: 5px;
+    right: 5px;
   }
 }
-  
 
 
-.list-item-content
-{
+
+.list-item-content {
   padding: 8px;
   font-size: 12px;
-  .title
-  {
+
+  .title {
     margin-bottom: 5px;
   }
 }
 
-.user-face
-{
+.user-face {
   background-size: cover;
   border-radius: 50%;
   width: 24px;
@@ -63,22 +57,23 @@
   margin-right: 10px;
 }
 
-.user-name{
+.user-name {
   color: #929191;
   max-width: calc(100% - 64px);
 }
 
-.vote-bar{
+.vote-bar {
   float: right;
   font-size: 24px;
+
+  &.voted {
+    color: #FA7298;
+  }
 }
 
-.item-amount
-{
-  position:absolute;
-  bottom:5px;
-  right:5px;
+.item-amount {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
   padding: 3px;
 }
-
-

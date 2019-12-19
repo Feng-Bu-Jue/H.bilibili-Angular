@@ -25,7 +25,7 @@ export class AuthService {
         let authResult = await this.authApi.login(username, encryptedPassword);
         let ssoResult = await this.authApi.freshSSO(authResult.token_info.access_token);
 
-        let cookies = ssoResult.cookie.split("; ");
+        let cookies = ssoResult.cookie.split("; ").filter(x => x);
         this.setCookie(cookies);
         //set token
         let csrf_token = cookies.find(x => <boolean><unknown>(~x.search("bili_jct")));
@@ -39,8 +39,8 @@ export class AuthService {
 
     private setCookie(cookies: Array<string>) {
         cookies.forEach(item => {
-            let [key, value] = item.split("=")
-            this.cookieService.set(key, value);
+            let [key, value] = item.split("=");
+            this.cookieService.set(key, value, new Date().setDate(new Date().getDate() + 30));
         });
     }
 }

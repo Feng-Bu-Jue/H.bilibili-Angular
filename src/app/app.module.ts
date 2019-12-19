@@ -12,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { NgxsModule } from '@ngxs/store';
 import { UserState } from './store/user.state';
 import { AppErrorHandler } from './code/appErrorHandler';
+import { GuardModule } from './gurad/gurad.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AppErrorHandler } from './code/appErrorHandler';
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    GuardModule,
     NgxsModule.forRoot([UserState])
   ],
   providers: [

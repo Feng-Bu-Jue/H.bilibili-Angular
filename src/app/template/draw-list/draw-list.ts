@@ -41,12 +41,11 @@ export class DrawListTemplate implements OnInit {
     this.waterfall.reset();
   }
 
-  async vote(docId: number, actionType: number) {
-    console.log("calling")
-    actionType = actionType ? 1 : 0;
+  async vote(docId: number, already_voted: number) {
+    let actionType = already_voted == 0 ? 1 : 2;
     await this.linkDrawApi.vote(docId, actionType)
       .then(async (res) => {
-        this.data.find(x => x.item.doc_id == docId).item.already_voted = actionType;
+        this.data.find(x => x.item.doc_id == docId).item.already_voted = already_voted == 0 ? 1 : 0;
         await this.toastService.present('点赞成功')
       });
   }

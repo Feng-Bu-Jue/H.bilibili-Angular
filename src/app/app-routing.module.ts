@@ -1,6 +1,7 @@
 
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { LoginGuard } from './gurad/loginGuard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/app/tabs/draw', pathMatch: 'full' },
@@ -10,7 +11,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: './pages/login/login.module#LoginPageModule'
+    loadChildren: './pages/login/login.module#LoginPageModule',
+    canActivate: [LoginGuard]
   },
 ];
 

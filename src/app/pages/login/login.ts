@@ -4,6 +4,8 @@ import { ToastController, LoadingController } from '@ionic/angular';
 import { LoadingService } from 'src/app/services/loadingService';
 import { async } from '@angular/core/testing';
 import { ToastService } from 'src/app/services/toastService';
+import { Route } from 'src/app/decoratorTest';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'page-login',
@@ -20,8 +22,8 @@ export class LoginPage implements OnInit, DoCheck {
 
   constructor(
     private auhService: AuthService,
-    public loadingService: LoadingService,
-    public toastService: ToastService,
+    private loadingService: LoadingService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -36,12 +38,11 @@ export class LoginPage implements OnInit, DoCheck {
   }
 
   async signin() {
-    await this.loadingService.presentWithAction("signing in...", () => this.auhService.login(this.username, this.password))
+    await this.loadingService.presentWithAction(
+      "signing in...",
+      () => this.auhService.login(this.username, this.password))
       .then(() => {
-        history.back;//TODO use 
-      }).catch(error => {
-        this.toastService.present(error.message);
-      });
+        history.back();
+      })
   }
-
 }

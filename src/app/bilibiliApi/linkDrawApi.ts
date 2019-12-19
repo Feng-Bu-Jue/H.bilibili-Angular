@@ -72,8 +72,6 @@ export class LinkDrawApi {
         return this.client.post<BiliBiliProtocal<any>>("api.vc/link_draw/v2/Vote/operate", {
             doc_id: doc_id,
             type: type,
-            csrf_token: '',
-            token: ''
         }).then(x => x.data.type == type);
     }
 
@@ -81,8 +79,6 @@ export class LinkDrawApi {
         return this.client.post<BiliBiliProtocal<any>>("api.vc/user_plus/v1/Fav/add", {
             doc_id: doc_id,
             type: type,
-            csrf_token: '',
-            token: ''
         }).then(x => x.message == 'OK');
     }
 }

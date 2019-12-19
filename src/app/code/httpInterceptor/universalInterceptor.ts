@@ -15,17 +15,23 @@ export class UniversalInterceptor implements HttpInterceptor {
     private store: Store,
     private router: Router,
     private toastService: ToastService,
-  ) {
-  }
+  ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let crsf_token = this.store.selectSnapshot(UserState.getToken);
-    let params = { crsf_token };
+    let csrf_token = this.store.selectSnapshot(UserState.getToken);
+    let params = { csrf_token };
     for (let i in params) if (!params[i]) delete params[i];//remove empty param
+    let body = req.body;
+    if (req.method === 'POST') {
+      body = body + Object.entries(params).map(([key, value]) => `&${key}=${value}`)
+      params = null//clear query string params
+    }
+
     let newReq = req.clone({
       setHeaders: { "Content-Type": "application/x-www-form-urlencoded" },
       withCredentials: true,
-      setParams: params
+      setParams: params,
+      body
     });
 
     const httpEventSubject: Subject<HttpEvent<any>> = new Subject<HttpEvent<any>>();
@@ -50,7 +56,6 @@ export class UniversalInterceptor implements HttpInterceptor {
         })
         this.HandleResponseEvent(httpResponse, httpEventSubject)
         httpEventSubject.error(error)
-        httpEventSubject.complete();
       });
 
     return httpEventSubject;

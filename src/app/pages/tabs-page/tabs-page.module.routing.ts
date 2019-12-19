@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
 import { DrawListPage } from '../draw-list/draw-list';
+import { AuthGuard } from 'src/app/gurad/authGuard';
 
 const routes: Routes = [
   {
@@ -54,7 +55,8 @@ const routes: Routes = [
             path: '',
             loadChildren: '../me/me.module#MePageModule'
           }
-        ]
+        ],
+        canActivate: [AuthGuard]
       },
       {
         path: '',
