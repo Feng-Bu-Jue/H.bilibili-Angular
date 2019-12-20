@@ -72,7 +72,6 @@ export class DrawListPage implements OnInit, AfterViewChecked {
       let res = await this.linkDrawApi.getDocs(this.pageNum[this.activeIndex], 20, this.categories[this.activeIndex], "hot");
       this.pageNum[this.activeIndex]++;
       this.data[this.activeIndex] = this.data[this.activeIndex].concat(res);
-
       if (event)
         event.target.complete();
 

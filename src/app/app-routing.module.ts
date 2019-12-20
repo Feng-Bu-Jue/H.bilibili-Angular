@@ -14,6 +14,10 @@ const routes: Routes = [
     loadChildren: './pages/login/login.module#LoginPageModule',
     canActivate: [LoginGuard]
   },
+  {
+    path: 'space/:uid',
+    loadChildren: './pages/user-space/user-space.module#UserSpacePageModule',
+  }
 ];
 
 @NgModule({

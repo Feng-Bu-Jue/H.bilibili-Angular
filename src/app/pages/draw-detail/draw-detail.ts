@@ -10,8 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as util from "./util";
 import { ToastService } from 'src/app/services/toastService';
 import { AuthService } from 'src/app/services/authService';
-import { Foo, AnnotationReflector } from 'src/app/decoratorTest';
-import { inject } from '@angular/core/testing';
 import { ModalService } from 'src/app/services/modalService';
 
 @Component({

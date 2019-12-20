@@ -13,7 +13,9 @@ import { ToastService } from 'src/app/services/toastService';
 export class DrawListTemplate implements OnInit {
 
   @Input("data")
-  public data: LinkDrawResult[];
+  public data;
+  @Input("source")
+  public source: string;
 
   @ViewChild(NgxWaterfallComponent) waterfall: NgxWaterfallComponent;
 
@@ -30,7 +32,7 @@ export class DrawListTemplate implements OnInit {
   ) { }
 
   async ngOnInit() {
-
+    
   }
 
   private clacItemWidth(containerWidth: number) {

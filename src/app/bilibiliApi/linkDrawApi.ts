@@ -60,12 +60,12 @@ export class LinkDrawApi {
         }).then(x => x.data);
     }
 
-    public getOthers(uid: number, num: number, pageSize: number): Promise<LinkDrawResult[]> {
+    public getOthers(uid: number, num: number, pageSize: number) {
         return this.client.get<BiliBiliProtocal<LinkDrawResultList>>("api.vc/link_draw/v1/doc/others", {
             poster_uid: uid,
             page_num: num,
             page_size: pageSize
-        }).then(x => x.data.items);
+        }).then(x => x.data);
     }
 
     public vote(doc_id: number, type: number = 1): Promise<boolean> {
