@@ -15,5 +15,6 @@ export class AppErrorHandler implements ErrorHandler {
         if (error instanceof ServiceError) {
             this.toastService.present(error.message)
         }
+        console.error(error)
     }
 }

@@ -19,7 +19,6 @@ export class LoginPage implements OnInit, DoCheck {
   public username: string;
   public password: string;
 
-
   constructor(
     private auhService: AuthService,
     private loadingService: LoadingService,
@@ -41,8 +40,7 @@ export class LoginPage implements OnInit, DoCheck {
   async signin() {
     await this.loadingService.presentWithAction(
       "signing in...",
-      () => this.auhService.login(this.username, this.password))
-      .then(() => {
+      () => this.auhService.login(this.username, this.password)).then(() => {
         history.back();
       }).catch(error => {
         this.toastService.present(error.body.message);

@@ -15,7 +15,6 @@ import { async } from '@angular/core/testing';
   styleUrls: ['./rank-list.scss']
 })
 export class RankListPage implements OnInit, AfterViewChecked {
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(DrawListTemplate) template: DrawListTemplate;
   @ViewChild('ionContent') content: IonContent;
 
@@ -79,7 +78,6 @@ export class RankListPage implements OnInit, AfterViewChecked {
     else {
       await doLoadData();
     }
-    this.infiniteScroll.disabled = true;
   }
   async doRefresh(event) {
     this.pageNum[this.activeIndex] = 0;

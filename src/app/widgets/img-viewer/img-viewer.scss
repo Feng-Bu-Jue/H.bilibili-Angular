@@ -1,7 +1,8 @@
-.content{
-  ion-slides{
+.content {
+  ion-slides {
     height: 100%;
-    ion-slide{
+
+    ion-slide {
       position: relative;
       height: 100%;
     }
@@ -11,8 +12,9 @@
 .swiper-zoom-container {
   position: absolute;
   width: 100%;
-  height: auto;//overwritten
-  img{
+  height: auto; //overwritten
+
+  img {
     height: auto;
     max-height: 100%;
     width: auto;
@@ -20,15 +22,20 @@
   }
 }
 
-.dark
-{
-  --background:rgb(28,28,28);
-  --color:rgb(255,255,255);
-  background:rgb(28,28,28);
+.dark {
+  --background: rgb(28, 28, 28);
+  --color: rgb(255, 255, 255);
+  background: rgb(28, 28, 28);
 }
 
-.bg-mask
-{
+.bg-mask {
   height: 100%;
   width: 100%;
+}
+
+.btn-back {
+  position: absolute;
+  transform: translate3d(10px, 20px, 0);
+  font-size: 16px;
+  z-index: 99;
 }

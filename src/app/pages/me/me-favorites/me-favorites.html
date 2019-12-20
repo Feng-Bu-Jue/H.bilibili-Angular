@@ -1,15 +1,18 @@
-<ion-app>
-  <app-header title="收藏"></app-header>
-  <ion-content>
-    <div class="fav-box">
-      <ngx-progressive-image-loader>
-        <div class="fav-item" *ngFor="let item of data;index as i;">
-          <div [bgsrc]="item.content.item.pictures[0].img_src+'@512w_384h_1e.webp'" [imageRatio]="1"
-            ngxProgressiveBGImage>
-          </div>
-          <span class="amount">{{item.content.item.pictures.length}}p</span>
+<app-header title="我的收藏"></app-header>
+<ion-content>
+  <div class="fav-box">
+    <ngx-progressive-image-loader>
+      <div class="fav-item" *ngFor="let item of data;index as i;">
+        <div (click)="popUpImgViewer(i)" [bgsrc]="item.content.item.pictures[0].img_src+'@512w_384h_1e.webp'"
+          [imageRatio]="1" ngxProgressiveBGImage>
         </div>
-      </ngx-progressive-image-loader>
-    </div>
-  </ion-content>
-</ion-app>
+        <span class="amount">{{item.content.item.pictures.length}}p</span>
+      </div>
+    </ngx-progressive-image-loader>
+  </div>
+
+  <ion-infinite-scroll threshold="10%" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>

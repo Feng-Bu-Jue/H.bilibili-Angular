@@ -12,6 +12,7 @@ import { ToastService } from 'src/app/services/toastService';
 import { AuthService } from 'src/app/services/authService';
 import { Foo, AnnotationReflector } from 'src/app/decoratorTest';
 import { inject } from '@angular/core/testing';
+import { ModalService } from 'src/app/services/modalService';
 
 @Component({
   selector: "page-draw-detail",
@@ -39,9 +40,10 @@ export class DrawDetailPage implements OnInit, DoCheck {
     public datePipe: DatePipe,
     public route: ActivatedRoute,
     public router: Router,
-    public modalController: ModalController,
+    public modalService: ModalService,
     public toastervice: ToastService,
     public authService: AuthService,
+    private modalController: ModalController
   ) {
     this.uid = Number(this.route.snapshot.paramMap.get('uid'));
   }
@@ -74,17 +76,15 @@ export class DrawDetailPage implements OnInit, DoCheck {
   }
 
   public async popUpImgViewer(index: number): Promise<void> {
-    const popover = await this.modalController.create({
+    var options = this.modalService.fromDefaultOtion({
       component: ImgViewer,
       componentProps: {
         urls: this.detailResult.item.pictures.map(x => x.img_src),
         currentIndex: index,
-      },
-      backdropDismiss: true,
-      enterAnimation: util.imgViewEnterAnimation,
-      leaveAnimation: util.imgViewLeaveAnimation
-    });
-    await popover.present();
+      }
+    })
+    let modal = await this.modalController.create(options)
+    await modal.present();
   }
 
   public comment(message: string) {

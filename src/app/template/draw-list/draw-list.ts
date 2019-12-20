@@ -17,9 +17,9 @@ export class DrawListTemplate implements OnInit {
 
   @ViewChild(NgxWaterfallComponent) waterfall: NgxWaterfallComponent;
 
-  private gap: number = 10;
-  private clumn = 2;
-  private get itemWidth() {
+  public gap: number = 10;
+  public clumn = 2;
+  public get itemWidth() {
     let containerWidth = this.waterfall.waterfallContainerElement.nativeElement.clientWidth;
     return this.clacItemWidth(containerWidth);
   }

@@ -93,7 +93,6 @@ export class ImgViewer implements OnInit {
     private actionSheetController: ActionSheetController,
     private downloadService: DownloadService
   ) {
-
   }
 
   dismiss() {

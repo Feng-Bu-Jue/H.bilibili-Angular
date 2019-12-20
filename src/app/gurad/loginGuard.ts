@@ -17,6 +17,7 @@ export class LoginGuard implements CanActivate {
         if (this.store.selectSnapshot(UserState.getToken)) {
             this.toastService.present('已经登录了呢..');
             this.router.navigateByUrl('');
+            return false;
         }
         return true;
     }

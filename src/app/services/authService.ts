@@ -33,8 +33,8 @@ export class AuthService {
         return this.store.dispatch(new SetUserSate({ csrf_token, mid }))
     }
 
-    public async isLoggedIn(): Promise<boolean> {
-        let token = await this.store.selectSnapshot(UserState.getToken);
+    public isLoggedIn(): boolean {
+        let token = this.store.selectSnapshot(UserState.getToken);
         return token && token.length > 0
     }
 

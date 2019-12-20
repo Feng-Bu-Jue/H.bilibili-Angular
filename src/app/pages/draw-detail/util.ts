@@ -1,4 +1,3 @@
-import { Animation } from '@ionic/core';
 
 export function formatViewCount(view_count: number): string {
     let result = '';
@@ -36,58 +35,6 @@ export function getImgItemW(count: number): string {
         return true;
     })
     return wClass;
-}
-
-export function imgViewEnterAnimation(animation: Animation, baseEl: HTMLElement) {
-    const baseAnimation = new animation();
-
-    const backdropAnimation = new animation();
-    backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-
-    const wrapperAnimation = new animation();
-    wrapperAnimation.addElement(baseEl.querySelector('.modal-wrapper'));
-
-    wrapperAnimation
-        .fromTo('opacity', 0.01, 1)
-        .duration(280)
-        .fromTo('translateY', '40px', '0px')
-        .duration(0);
-
-    backdropAnimation.fromTo('opacity', 0.01, 0.32);
-
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('cubic-bezier(0.36,0.66,0.04,1)')
-        .duration(280)
-        .beforeAddClass('show-modal')
-        .add(backdropAnimation)
-        .add(wrapperAnimation);
-}
-
-export function imgViewLeaveAnimation(animation: Animation, baseEl: HTMLElement) {
-    const baseAnimation = new animation();
-
-    const backdropAnimation = new animation();
-    backdropAnimation.addElement(baseEl.querySelector('ion-backdrop'));
-
-    const wrapperAnimation = new animation();
-    wrapperAnimation.addElement(baseEl.querySelector('.modal-wrapper'));
-
-    wrapperAnimation
-        .fromTo('opacity', 0.99, 0)
-        .duration(280)
-        .fromTo('translateY', '0px', '40px')
-        .duration(0);
-
-    backdropAnimation.fromTo('opacity', 0.32, 0);
-
-    return baseAnimation
-        .addElement(baseEl)
-        .easing('cubic-bezier(0.36,0.66,0.04,1)')
-        .duration(280)
-        .beforeAddClass('show-modal')
-        .add(backdropAnimation)
-        .add(wrapperAnimation);
 }
 
 export function replyRender(replyMessage: string) {

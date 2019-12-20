@@ -18,28 +18,12 @@ export class UniversalInterceptor implements HttpInterceptor {
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let csrf_token = this.store.selectSnapshot(UserState.getToken);
-    let params = { csrf_token };
-    for (let i in params) if (!params[i]) delete params[i];//remove empty param
-    let body = req.body;
-    if (req.method === 'POST') {
-      body = body + Object.entries(params).map(([key, value]) => `&${key}=${value}`)
-      params = null//clear query string params
-    }
-
-    let newReq = req.clone({
-      setHeaders: { "Content-Type": "application/x-www-form-urlencoded" },
-      withCredentials: true,
-      setParams: params,
-      body
-    });
-
     const httpEventSubject: Subject<HttpEvent<any>> = new Subject<HttpEvent<any>>();
-    next.handle(newReq).subscribe(
+    next.handle(this.assembleNewRequest(req)).subscribe(
       res => {
         switch (res.type) {
           case 4:
-            this.HandleResponseEvent(<HttpResponse<BiliBiliProtocal<any>>>res, httpEventSubject)
+            this.handleResponseEvent(<HttpResponse<BiliBiliProtocal<any>>>res, httpEventSubject)
             break;
         }
       },
@@ -54,14 +38,44 @@ export class UniversalInterceptor implements HttpInterceptor {
           status: errorRes.status,
           body: body
         })
-        this.HandleResponseEvent(httpResponse, httpEventSubject)
+        this.handleResponseEvent(httpResponse, httpEventSubject)
         httpEventSubject.error(error)
       });
 
     return httpEventSubject;
   }
 
-  protected async HandleResponseEvent(httpResponse: HttpResponse<BiliBiliProtocal<any>>, subject: Subject<HttpEvent<any>>) {
+
+  protected assembleNewRequest(req: HttpRequest<any>): HttpRequest<any> {
+    //querystring
+    let csrf_token = this.store.selectSnapshot(UserState.getToken);
+    let params = { csrf_token };
+    for (let key in params) if (!params[key]) delete params[key];//remove empty param
+
+    //body
+    let body = req.body;
+    if (req.method === 'POST') {
+      body = body + Object.entries(params).map(([key, value]) => `&${key}=${value}`)
+      params = null//clear query string params
+    }
+
+    //options
+    let withCredentials = true;
+    if (req.url.includes('i0.hdslb.com'))//todo
+    {
+      withCredentials = false;
+    }
+
+    let newReq = req.clone({
+      setHeaders: { "Content-Type": "application/x-www-form-urlencoded" },
+      withCredentials,
+      setParams: params,
+      body
+    });
+    return newReq;
+  }
+
+  protected async handleResponseEvent(httpResponse: HttpResponse<BiliBiliProtocal<any>>, subject: Subject<HttpEvent<any>>) {
     if ([401, 403].includes(httpResponse.status) || httpResponse.body.code === 3) {
       subject.error(new ServiceError(httpResponse.status, '你还没有登录呢'))
     }

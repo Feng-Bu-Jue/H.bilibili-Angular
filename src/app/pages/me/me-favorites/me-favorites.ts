@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserApi } from 'src/app/bilibiliApi/userApi';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, ModalController } from '@ionic/angular';
+import { ModalService } from 'src/app/services/modalService';
+import { ImgViewer } from 'src/app/widgets/img-viewer/img-viewer';
 
 @Component({
   selector: "page-me-favorites",
@@ -11,25 +13,38 @@ export class MineFavoritesPage implements OnInit {
 
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  public data = [{ "biz_type": 2, "fav_id": 1176634, "utime": 1560321890, "content": { "user": { "uid": 2845536, "head_url": "https://i0.hdslb.com/bfs/face/8214221d670a9ebc3a68ad768ee706ec241fd80b.jpg", "name": "失常烧鱼", "upload_count": 0 }, "item": { "doc_id": 1176634, "poster_uid": 2845536, "category": "illustration", "type": 0, "title": "vc", "tags": [{ "tag": "画友扶持计划", "type": 2, "category": "illustration", "text": "画友扶持计划", "name": "画友扶持计划" }], "pictures": [{ "img_src": "https://i0.hdslb.com/bfs/album/5b34804e567da21f2533509c0dd0f709319829c1.jpg", "img_width": 3625, "img_height": 2740, "img_size": 5292 }], "source": null, "upload_time": "2017-12-02 19:08:13", "upload_timestamp": 1512212893, "upload_time_text": "1年前", "description": "", "role": null, "settings": { "copy_forbidden": 1 }, "already_collected": 0, "already_liked": 0, "user_status": 0, "view_count": 18630, "like_count": 9, "collect_count": 194, "verify_status": 1, "show_status": 1, "comment_count": 16 } } }, { "biz_type": 2, "fav_id": 924183, "utime": 1559615320, "content": { "user": { "uid": 433280, "head_url": "https://i0.hdslb.com/bfs/face/96d0e89ed52059a7d27fae6e7a53059f81a47786.jpg", "name": "你的热情蛤好像一把火", "upload_count": 0 }, "item": { "doc_id": 924183, "poster_uid": 433280, "category": "illustration", "type": 0, "title": "✦蒸汽三兄妹✦", "tags": [{ "tag": "画友扶持计划", "type": 2, "category": "illustration", "text": "画友扶持计划", "name": "画友扶持计划" }, { "tag": "蒸汽朋克", "type": 3, "category": "illustration", "text": "蒸汽朋克", "name": "蒸汽朋克" }], "pictures": [{ "img_src": "https://i0.hdslb.com/bfs/vc/d3b0b2cd7f87051a788db99703746ceddc95d991.png", "img_width": 2000, "img_height": 1134, "img_size": 2346 }, { "img_src": "https://i0.hdslb.com/bfs/album/23a0b59de4287c933e4e8b7264b589bb2498e822.png", "img_width": 864, "img_height": 638, "img_size": 935 }, { "img_src": "https://i0.hdslb.com/bfs/album/db4247bfdc4cc37fff09f604eb93f97e845f1de8.png", "img_width": 865, "img_height": 638, "img_size": 568 }], "source": null, "upload_time": "2017-11-10 19:05:56", "upload_timestamp": 1510311956, "upload_time_text": "1年前", "description": "以前的彩图本的稿www画得超开心？！\n（补了两张过程中的截图", "role": null, "settings": { "copy_forbidden": 2 }, "already_collected": 0, "already_liked": 0, "user_status": 0, "view_count": 28734, "like_count": 27, "collect_count": 231, "verify_status": 1, "show_status": 1, "comment_count": 31 } } }, { "biz_type": 2, "fav_id": 3105, "utime": 1558687002, "content": { "user": { "uid": 7905675, "head_url": "https://i1.hdslb.com/bfs/face/93554bc1d486211715add1e65075c4bfcd75b848.jpg", "name": "我真的是离城", "upload_count": 0 }, "item": { "doc_id": 3105, "poster_uid": 7905675, "category": "illustration", "type": 0, "title": "茶花", "tags": [{ "tag": "古风", "type": 1, "category": "illustration", "text": "古风", "name": "古风" }, { "tag": "板绘", "type": 3, "category": "illustration", "text": "板绘", "name": "板绘" }], "pictures": [{ "img_src": "https://i0.hdslb.com/bfs/vc/b9c3c66decb4cfc07acfd8b9370e0ff0d612600f.jpg" }], "source": null, "upload_time": "2017-06-01 10:40:05", "upload_timestamp": 1496284805, "upload_time_text": "2年前", "description": "", "role": null, "settings": { "copy_forbidden": 1 }, "already_collected": 0, "already_liked": 0, "user_status": 0, "view_count": 85403, "like_count": 187, "collect_count": 748, "verify_status": 1, "show_status": 1, "comment_count": 105 } } }, { "biz_type": 2, "fav_id": 8925656, "utime": 1540788883, "content": { "user": { "uid": 82404018, "head_url": "https://i2.hdslb.com/bfs/face/512d9635ce078c59b76a381ba50ac90aad54d6d2.jpg", "name": "上官陈富贵", "upload_count": 0 }, "item": { "doc_id": 8925656, "poster_uid": 82404018, "category": "daily", "type": 0, "title": "", "tags": [], "pictures": [{ "img_src": "https://i0.hdslb.com/bfs/album/f78bceac436fc02145d9becf5100589698d18f40.jpg", "img_width": 678, "img_height": 476, "img_size": 64 }], "source": null, "upload_time": "2018-10-29 10:51:24", "upload_timestamp": 1540781484, "upload_time_text": "7月前", "description": "是你么？", "role": null, "settings": { "copy_forbidden": 0 }, "already_collected": 0, "already_liked": 0, "user_status": 0, "view_count": 40553, "like_count": 0, "collect_count": 3, "verify_status": 1, "show_status": 1, "comment_count": 92 } } }, { "biz_type": 2, "fav_id": 1931516, "utime": 1517830932, "content": { "user": { "uid": 274757687, "head_url": "https://i1.hdslb.com/bfs/face/9e27515b149a6a29c73d1393274208b1bb2b496a.jpg", "name": "张飞打岳飞打得满天飞", "upload_count": 0 }, "item": { "doc_id": 1931516, "poster_uid": 274757687, "category": "daily", "type": 0, "title": "", "tags": [], "pictures": [{ "img_src": "https://i0.hdslb.com/bfs/album/7d74ca96bd485d702a6b3be8810bfa9b609d5da7.png", "img_width": 783, "img_height": 276, "img_size": 159 }], "source": null, "upload_time": "2018-01-30 18:28:07", "upload_timestamp": 1517308087, "upload_time_text": "1年前", "description": "今天我家木兰，用她的托儿索玩匹配，结果被打哭了！是真的哭了，眼泪在眼眶里打转了！结果第2把掏出了她的VN~~~~~~~~~~~~~~~~~~~呵呵呵呵", "role": null, "settings": { "copy_forbidden": 0 }, "already_collected": 0, "already_liked": 0, "user_status": 0, "view_count": 24369, "like_count": 0, "collect_count": 3, "verify_status": 1, "show_status": 1, "comment_count": 104 } } }, { "biz_type": 2, "fav_id": 1216018, "utime": 1513530814, "content": { "user": { "uid": 15622687, "head_url": "https://i1.hdslb.com/bfs/face/31cdd000d2280d1eef240be0346b45479633018c.jpg", "name": "like小白", "upload_count": 0 }, "item": { "doc_id": 1216018, "poster_uid": 15622687, "category": "illustration", "type": 1, "title": "宝石之国", "tags": [{ "tag": "宝石之国", "type": 4, "category": "illustration", "text": "宝石之国", "name": "宝石之国" }, { "tag": "南极石", "type": 4, "category": "illustration", "text": "南极石", "name": "南极石" }, { "tag": "辰砂", "type": 3, "category": "illustration", "text": "辰砂", "name": "辰砂" }, { "tag": "磷叶石", "type": 3, "category": "illustration", "text": "磷叶石", "name": "磷叶石" }, { "tag": "圆粒金刚石", "type": 3, "category": "illustration", "text": "圆粒金刚石", "name": "圆粒金刚石" }], "pictures": [{ "img_src": "https://i0.hdslb.com/bfs/album/c381697658859a1563e59bd9dac745bb2558fc92.jpg", "img_width": 700, "img_height": 570, "img_size": 60 }, { "img_src": "https://i0.hdslb.com/bfs/album/d4088876bf3acb53e485d79bc900aa0809813651.jpg", "img_width": 2500, "img_height": 2036, "img_size": 455 }, { "img_src": "https://i0.hdslb.com/bfs/album/9cec7a48d9df905854dac26f71f8127549044291.jpg", "img_width": 1920, "img_height": 1080, "img_size": 1148 }, { "img_src": "https://i0.hdslb.com/bfs/album/05d11974733b9f73609136e8f6fd0ab222b88894.jpg", "img_width": 1920, "img_height": 1080, "img_size": 1029 }, { "img_src": "https://i0.hdslb.com/bfs/album/7b58f442e08f607513f5ee17325df2dbc22e8d0f.jpg", "img_width": 1920, "img_height": 1080, "img_size": 636 }, { "img_src": "https://i0.hdslb.com/bfs/album/792dd0a2531b776aeeff8cf5a1e4d235326742ee.jpg", "img_width": 1920, "img_height": 1080, "img_size": 719 }, { "img_src": "https://i0.hdslb.com/bfs/album/63d865cd3061d2373787be39c0ce87e9af8a8cf1.jpg", "img_width": 1920, "img_height": 1080, "img_size": 898 }, { "img_src": "https://i0.hdslb.com/bfs/album/e7fa32eafea2f2c85fcf03331da6742fa5cde393.png", "img_width": 1920, "img_height": 1080, "img_size": 2493 }, { "img_src": "https://i0.hdslb.com/bfs/album/b4d3aac30138d38db8869c4fe71ff330b3d34c9d.jpg", "img_width": 1920, "img_height": 1080, "img_size": 716 }, { "img_src": "https://i0.hdslb.com/bfs/album/b537e9ef8477e6029a23593a0a2f3745490ef29e.jpg", "img_width": 1920, "img_height": 1080, "img_size": 639 }], "source": null, "upload_time": "2017-12-04 22:26:52", "upload_timestamp": 1512397612, "upload_time_text": "1年前", "description": "你们要的视频 封面QWQ 好像只能这样上传了", "role": null, "settings": { "copy_forbidden": 3 }, "already_collected": 0, "already_liked": 0, "user_status": 0, "view_count": 62830, "like_count": 141, "collect_count": 540, "verify_status": -2, "show_status": 0, "comment_count": 100 } } }];
+  public data = [];
   public pageNum: number = 0;
 
   constructor(
-    private userApi: UserApi
+    private userApi: UserApi,
+    private modalService: ModalService,
+    private modalController: ModalController
   ) { }
 
   async ngOnInit() {
     await this.loadData();
   }
 
-  async loadData(event = null) {
-    var res= await this.userApi.getMyFav(this.pageNum, 30)
+  public async loadData(event = null) {
+    var res = await this.userApi.getMyFav(this.pageNum, 30)
     this.pageNum++;
-        this.data = this.data.concat(res.list);
+    this.data = this.data.concat(res.list);
 
-        if (event)
-          event.target.complete();
-        if (this.pageNum >= res.pageinfo.totalpage || this.pageNum >= 100)
-          this.infiniteScroll.disabled = true;
+    if (event)
+      event.target.complete();
+    if (this.pageNum >= res.pageinfo.totalpage || this.pageNum >= 100)
+      this.infiniteScroll.disabled = true;
+  }
+
+  public async popUpImgViewer(index: number): Promise<void> {
+    let modal = await this.modalController.create(this.modalService.fromDefaultOtion({
+      component: ImgViewer,
+      componentProps: {
+        urls: this.data[index].content.item.pictures.map(x => x.img_src),
+        currentIndex: 0,
+      }
+    }))
+    await modal.present();
   }
 }

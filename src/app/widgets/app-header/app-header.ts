@@ -4,7 +4,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-header',
-    templateUrl: './app-header.html',
+    template: `
+    <ion-header>
+        <ion-toolbar class="toolbar" color="primary">
+            <div (click)="goBack()" class="back-btn" *ngIf="showBack">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-back"></use>
+                </svg>
+            </div>
+            <div class="title">{{title}}</div>
+            <ng-content></ng-content>
+        </ion-toolbar>
+    </ion-header>`,
     styleUrls: ['./app-header.scss']
 })
 export class AppHeader implements OnInit {

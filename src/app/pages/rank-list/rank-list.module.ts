@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { RankListPage } from './rank-list';
 import { RankListPageRoutingModule } from './rank-list.routing.module';
-import { AppHeaderModule } from 'src/app/widgets/app-header/app-header.module';
 import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
 import { ComponentModule } from 'src/app/components/componetModule';
 import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.module';
@@ -12,7 +11,7 @@ import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.mod
 
 @NgModule({
   declarations: [
-    RankListPage
+    RankListPage,
   ],
   entryComponents: [
     DrawListTemplate
@@ -22,7 +21,6 @@ import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.mod
     ComponentModule,
     IonicModule,
     RankListPageRoutingModule,
-    AppHeaderModule,
     DrawListTemplateModule
   ],
   providers: []

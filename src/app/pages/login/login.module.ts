@@ -3,13 +3,13 @@ import { ComponentModule } from 'src/app/components/componetModule';
 import { IonicModule } from '@ionic/angular';
 import { LoginPage } from './login';
 import { NgModule } from '@angular/core';
-import { AppHeaderModule } from 'src/app/widgets/app-header/app-header.module';
 import { FormsModule } from '@angular/forms';
 import { LoginPageRoutingModule } from './login.routing.module';
+import { WidgetModule } from 'src/app/widgets/widget.module';
 
 @NgModule({
   declarations: [
-    LoginPage
+    LoginPage,
   ],
   imports: [
     CommonModule,
@@ -17,7 +17,7 @@ import { LoginPageRoutingModule } from './login.routing.module';
     IonicModule,
     FormsModule,
     LoginPageRoutingModule,
-    AppHeaderModule
+    WidgetModule
   ],
   providers: []
 })

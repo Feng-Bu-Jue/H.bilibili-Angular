@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { IonicModule } from '@ionic/angular';
-import { AppHeaderModule } from 'src/app/widgets/app-header/app-header.module';
 import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
 import { PhotoListPageRoutingModule } from './photo-list.routing.module';
 import { PhotoListPage } from './photo-list';
@@ -12,7 +11,7 @@ import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.mod
 
 @NgModule({
   declarations: [
-    PhotoListPage
+    PhotoListPage,
   ],
   entryComponents:[
     DrawListTemplate
@@ -22,7 +21,6 @@ import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.mod
     ComponentModule,
     IonicModule,
     PhotoListPageRoutingModule,
-    AppHeaderModule,
     DrawListTemplateModule
   ],
   providers:[]

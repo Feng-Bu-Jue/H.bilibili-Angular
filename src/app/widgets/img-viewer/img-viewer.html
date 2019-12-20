@@ -1,15 +1,9 @@
-<ion-header>
-    <ion-toolbar class="dark">
-        <ion-buttons slot="start">
-            <ion-button (click)="dismiss()">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-back"></use>
-                </svg>
-            </ion-button>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-header>
 <ion-content class="content dark">
+    <div class="btn-back" (click)="dismiss()">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-back"></use>
+        </svg>
+    </div>
     <ion-slides #slider class="swiper" pager="false" [options]="slidesOpts">
         <ion-slide *ngFor="let url of urls;index as i;" (touchstart)="onTouchstart(url)" (touchend)="onTouchend()">
             <div class="bg-mask dark" (click)="dismiss()"></div>

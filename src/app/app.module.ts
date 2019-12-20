@@ -13,20 +13,23 @@ import { NgxsModule } from '@ngxs/store';
 import { UserState } from './store/user.state';
 import { AppErrorHandler } from './code/appErrorHandler';
 import { GuardModule } from './gurad/gurad.module';
+import { CommonModule } from '@angular/common';
+import { WidgetModule } from './widgets/widget.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    IonicModule.forRoot(),
     IonicStorageModule.forRoot(),
+    IonicModule.forRoot(),
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
     GuardModule,
-    NgxsModule.forRoot([UserState])
+    NgxsModule.forRoot([UserState]),
   ],
   providers: [
     HttpClientWrapper,
