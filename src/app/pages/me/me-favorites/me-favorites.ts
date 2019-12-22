@@ -38,7 +38,7 @@ export class MineFavoritesPage implements OnInit {
   }
 
   public async popUpImgViewer(index: number): Promise<void> {
-    let modal = await this.modalController.create(this.modalService.fromDefaultOtion({
+    let modal = await this.modalController.create(this.modalService.fromDefaultOption({
       component: ImgViewer,
       componentProps: {
         urls: this.data[index].content.item.pictures.map(x => x.img_src),

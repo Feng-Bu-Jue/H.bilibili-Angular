@@ -74,14 +74,13 @@ export class DrawDetailPage implements OnInit, DoCheck {
   }
 
   public async popUpImgViewer(index: number): Promise<void> {
-    var options = this.modalService.fromDefaultOtion({
+    let modal = await this.modalController.create(this.modalService.fromDefaultOption({
       component: ImgViewer,
       componentProps: {
         urls: this.detailResult.item.pictures.map(x => x.img_src),
         currentIndex: index,
       }
-    })
-    let modal = await this.modalController.create(options)
+    }))
     await modal.present();
   }
 

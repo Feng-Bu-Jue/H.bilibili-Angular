@@ -9,7 +9,7 @@ export class ModalService {
 
     constructor(private modalController: ModalController) { }
 
-    public fromDefaultOtion(options: ModalOptions):ModalOptions
+    public fromDefaultOption(options: ModalOptions):ModalOptions
     {
         let defaultOptions = {
             backdropDismiss: true,

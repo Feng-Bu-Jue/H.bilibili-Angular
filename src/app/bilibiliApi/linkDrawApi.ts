@@ -75,10 +75,18 @@ export class LinkDrawApi {
         }).then(x => x.data.type == type);
     }
 
-    public collection(doc_id: number, type: number = 1): Promise<boolean> {
+    public favorite(fav_id: number, biz: Enum_Biz = Enum_Biz.draw): Promise<boolean> {
         return this.client.post<BiliBiliProtocal<any>>("api.vc/user_plus/v1/Fav/add", {
-            doc_id: doc_id,
-            type: type,
+            fav_id: fav_id,
+            biz_type: biz,
         }).then(x => x.message == 'OK');
     }
+
+    public unfvorite(fav_id: number, biz: Enum_Biz = Enum_Biz.draw): Promise<boolean> {
+        return this.client.post<BiliBiliProtocal<any>>("api.vc/user_plus/v1/Fav/delete", {
+            fav_id: fav_id,
+            biz_type: biz,
+        }).then(x => x.message == 'OK');
+    }
+    
 }

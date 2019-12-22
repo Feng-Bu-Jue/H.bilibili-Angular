@@ -80,11 +80,19 @@ export class UniversalInterceptor implements HttpInterceptor {
       subject.error(new ServiceError(httpResponse.status, '你还没有登录呢'))
     }
     else if (httpResponse.body.code && httpResponse.body.code !== 0) {
-      subject.error(httpResponse)
+      switch (httpResponse.body.code) {
+        case 1:
+          subject.error(new ServiceError(httpResponse.status, 'bad request?'))
+          break;
+        default:
+          subject.error(httpResponse)// emit raw response for handling by caller, that shold be written  e.g: .catch(error=>{ //handling error })
+          break;
+      }
     }
     else {
       subject.next(httpResponse);
       subject.complete()
     }
   }
+
 }

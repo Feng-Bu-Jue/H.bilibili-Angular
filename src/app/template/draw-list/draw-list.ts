@@ -4,6 +4,7 @@ import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { ToastController } from '@ionic/angular';
 import { NgxWaterfallComponent } from 'ngx-waterfall';
 import { ToastService } from 'src/app/services/toastService';
+import { Util } from 'src/app/services/util';
 
 @Component({
   selector: "template-draw-list",
@@ -29,10 +30,11 @@ export class DrawListTemplate implements OnInit {
   constructor(
     private linkDrawApi: LinkDrawApi,
     private toastService: ToastService,
+    private util: Util
   ) { }
 
   async ngOnInit() {
-    
+
   }
 
   private clacItemWidth(containerWidth: number) {
@@ -43,12 +45,16 @@ export class DrawListTemplate implements OnInit {
     this.waterfall.reset();
   }
 
-  async vote(docId: number, already_voted: number) {
-    let actionType = already_voted == 0 ? 1 : 2;
-    await this.linkDrawApi.vote(docId, actionType)
-      .then(async (res) => {
-        this.data.find(x => x.item.doc_id == docId).item.already_voted = already_voted == 0 ? 1 : 0;
-        await this.toastService.present('点赞成功')
-      });
+  public async vote(docId: number, already_voted: number): Promise<void> {
+    if (already_voted == 0) {
+      await this.linkDrawApi.vote(docId, 1);
+      await this.linkDrawApi.favorite(docId, 2);
+    }
+    else {
+      await this.linkDrawApi.vote(docId, 2);
+      await this.linkDrawApi.unfvorite(docId, 2);
+    }
+    this.data.find(x => x.item.doc_id == docId).item.already_voted = already_voted == 0 ? 1 : 0;
+    await this.toastService.present('点赞&收藏成功')
   }
 }
