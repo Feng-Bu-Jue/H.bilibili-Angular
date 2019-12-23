@@ -12,7 +12,6 @@ import { Util } from 'src/app/services/util';
   styleUrls: ['./draw-list.scss']
 })
 export class DrawListTemplate implements OnInit {
-
   @Input("data")
   public data;
   @Input("source")

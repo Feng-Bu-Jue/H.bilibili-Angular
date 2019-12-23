@@ -1,5 +1,17 @@
-<ion-content #ionContent style="width:100%">
-    <scroll [height]="scorllHeight" [lowerOffset]="100" (onScrollLower)="loadData($event)">
-        <template-draw-list [data]="data" source="space"></template-draw-list>
-    </scroll>
-</ion-content>
+<ng-container *ngIf="data && userInfo">
+    <app-header [title]="userInfo.name">
+        <div class="user-box">
+            <div class="user-face" [style.background-image]="'url(' + userInfo.face +')'">
+            </div>
+            <div class="user-sign">
+                {{userInfo.sign}}
+            </div>
+        </div>
+    </app-header>
+    <ion-content #ionContent style="width:100%">
+        <scroll [disableScrollEvent]="disableScrollEvent" [height]="scorllHeight" [lowerOffset]="100"
+            (onScrollLower)="loadData($event)" (onScroll)="onScroll($event)">
+            <template-draw-list [data]="data" source="space"></template-draw-list>
+        </scroll>
+    </ion-content>
+</ng-container>

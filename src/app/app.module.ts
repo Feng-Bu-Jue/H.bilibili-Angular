@@ -29,6 +29,7 @@ import { WidgetModule } from './widgets/widget.module';
     HttpClientModule,
     HttpClientJsonpModule,
     GuardModule,
+    WidgetModule,
     NgxsModule.forRoot([UserState]),
   ],
   providers: [

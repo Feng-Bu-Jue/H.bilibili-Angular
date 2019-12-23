@@ -85,7 +85,7 @@ export class UniversalInterceptor implements HttpInterceptor {
           subject.error(new ServiceError(httpResponse.status, 'bad request?'))
           break;
         default:
-          subject.error(httpResponse)// emit raw response for handling by caller, that shold be written  e.g: .catch(error=>{ //handling error })
+          subject.error(httpResponse)// emit raw response for handling by caller(e.g: promise.catch(error=>{ //handling error }))
           break;
       }
     }

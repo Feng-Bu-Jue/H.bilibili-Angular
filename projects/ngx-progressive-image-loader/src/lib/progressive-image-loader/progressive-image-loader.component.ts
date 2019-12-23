@@ -24,12 +24,14 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
   // define the placeholder height for all images inside this components
   @Input()
   imageRatio: number;
-
   @Input()
   filter: string;
   // the src of loading image
   @Input()
   placeholderImageSrc: string;
+  @Input()
+  maxHeight:number;
+
   intersectionObserver: IntersectionObserver;
 
   constructor(
@@ -55,7 +57,12 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
       }
       if (!this.placeholderImageSrc) {
         this.placeholderImageSrc = this._ConfigurationService.config.placeholderImageSrc;
+
       }
+      if (!this.maxHeight) {
+        this.maxHeight = this._ConfigurationService.config.maxHeight;
+      }
+      
       this.intersectionObserver = new IntersectionObserver(
         this.onIntersectionChanged.bind(this),
         this._ConfigurationService.config

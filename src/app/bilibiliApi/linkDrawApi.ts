@@ -88,5 +88,5 @@ export class LinkDrawApi {
             biz_type: biz,
         }).then(x => x.message == 'OK');
     }
-    
+    //https://api.vc.bilibili.com/link_draw/v1/doc/doc_list?uid=20165629&page_num=0&page_size=30&biz=all
 }

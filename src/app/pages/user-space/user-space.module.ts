@@ -6,6 +6,7 @@ import { ComponentModule } from 'src/app/components/componetModule';
 import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.module';
 import { UserSpacePageRoutingModule } from './user-space.routing';
 import { UserSpacePage } from './user-space';
+import { WidgetModule } from 'src/app/widgets/widget.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { UserSpacePage } from './user-space';
     CommonModule,
     ComponentModule,
     IonicModule,
+    WidgetModule,
     UserSpacePageRoutingModule,
     DrawListTemplateModule
   ],

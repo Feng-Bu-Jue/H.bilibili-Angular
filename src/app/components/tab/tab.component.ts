@@ -6,7 +6,7 @@ import { TabItem, TabEvent } from './tab.item.component';
     templateUrl: './tab.component.html',
     styleUrls: ['./tab.component.scss']
 })
-export class Tab implements OnInit, AfterViewInit, AfterViewChecked, AfterContentInit {
+export class Tab implements OnInit, AfterContentInit {
 
     @Input()
     public activeIndex: number = 0;
@@ -26,7 +26,7 @@ export class Tab implements OnInit, AfterViewInit, AfterViewChecked, AfterConten
     }
 
     ngOnInit(): void {
-
+ 
     }
 
     onItemClick(event: TabEvent): void {
@@ -42,19 +42,13 @@ export class Tab implements OnInit, AfterViewInit, AfterViewChecked, AfterConten
     }
 
     ngAfterContentInit(): void {
-        this.tabItems.forEach((item, index) => {
-            item.onClick = this.onItemClick.bind(this);
-            item.index = index;
-            item.width = `${this.width}%`;
-            item.isActive = index === this.activeIndex;
+        setTimeout(() => {//TODO
+            this.tabItems.forEach((item, index) => {
+                item.onClick = this.onItemClick.bind(this);
+                item.index = index;
+                item.width = `${this.width}%`;
+                item.isActive = index === this.activeIndex;
+            })
         });
-    }
-
-    ngAfterViewInit(): void {
-
-    }
-
-    ngAfterViewChecked(): void {
-
     }
 }

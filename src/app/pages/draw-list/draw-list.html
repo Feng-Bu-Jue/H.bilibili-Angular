@@ -9,7 +9,8 @@
     <ion-slides #slides pager="true" [options]="slideOpts" [pager]="false" (ionSlideDidChange)="ionSlideDidChange()">
         <ng-container *ngFor="let category of categories;index as i">
             <ion-slide>
-                <scroll [height]="scorllHeight" [lowerOffset]="100" (onScrollLower)="loadData($event)">
+                <scroll [disableScrollEvent]="disableScrollEvent" [height]="scorllHeight" [lowerOffset]="100"
+                    (onScrollLower)="loadData($event)">
                     <template-draw-list [data]="data[i]"></template-draw-list>
                 </scroll>
             </ion-slide>

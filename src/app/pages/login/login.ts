@@ -39,7 +39,7 @@ export class LoginPage implements OnInit, DoCheck {
 
   async signin() {
     await this.loadingService.presentWithAction(
-      "signing in...",
+      "signing in",
       () => this.auhService.login(this.username, this.password)).then(() => {
         history.back();
       }).catch(error => {

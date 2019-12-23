@@ -5,7 +5,6 @@ export class TabEvent extends MouseEvent {
     public index: number;
 }
 
-
 @Component({
     selector: "tab-item",
     templateUrl: './tab.item.component.html',
@@ -22,7 +21,7 @@ export class TabItem {
     public width: string;
 
     @HostListener('click', ["$event"])
-    private _onClickWapper(event: TabEvent) {
+    private _onClick(event: TabEvent) {
         this.isActive = true;
 
         event.index = this.index;

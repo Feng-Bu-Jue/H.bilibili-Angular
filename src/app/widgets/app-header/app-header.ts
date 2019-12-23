@@ -13,8 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
                 </svg>
             </div>
             <div class="title">{{title}}</div>
-            <ng-content></ng-content>
         </ion-toolbar>
+        <ng-content></ng-content>
     </ion-header>`,
     styleUrls: ['./app-header.scss']
 })

@@ -42,6 +42,16 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
     return this._placeholderImageSrc || this._ProgressiveImageLoader.placeholderImageSrc;
   }
 
+  _maxHeight: number;
+  @Input()
+  set maxHeight(value: number) {
+    this._maxHeight = value;
+  }
+
+  get maxHeight(): number {
+    return this._maxHeight || this._ProgressiveImageLoader.maxHeight;
+  }
+
   @Input()
   src: string;
   // tslint:disable-next-line:no-input-rename
@@ -138,7 +148,9 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
     placeholder: HTMLElement
   ) {
     parentElement.insertBefore(placeholder, imagePicture);
-    placeholder.style.paddingBottom = `${100 / this.imageRatio}%`;
+    let palceHeight = 100 / this.imageRatio;
+    palceHeight = palceHeight > this.maxHeight ? this.maxHeight : palceHeight;
+    placeholder.style.paddingBottom = `${palceHeight}%`;
     placeholder.appendChild(imagePicture);
   }
 

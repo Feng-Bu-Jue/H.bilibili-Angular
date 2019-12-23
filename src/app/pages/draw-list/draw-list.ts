@@ -14,10 +14,7 @@ import { async } from '@angular/core/testing';
   templateUrl: './draw-list.html',
   styleUrls: ['./draw-list.scss']
 })
-export class DrawListPage implements OnInit, AfterViewChecked {
-
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  @ViewChild(DrawListTemplate) template: DrawListTemplate;
+export class DrawListPage implements OnInit {
   @ViewChild('ionContent') content: IonContent;
 
   public get scorllHeight() {
@@ -44,7 +41,7 @@ export class DrawListPage implements OnInit, AfterViewChecked {
 
   public data = new Array<Array<LinkDrawResult>>([], []);
   public pageNum = new Array<number>(0, 0);
-  protected sourceRefresh: boolean;
+  public disableScrollEvent: boolean = false;
 
   public slideOpts = {
     initialSlide: this.activeIndex,
@@ -61,12 +58,6 @@ export class DrawListPage implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.loadData(null, true);
   }
-  ngAfterViewChecked(): void {
-    if (this.sourceRefresh) {
-      this.template.resetWaterfall();
-      this.sourceRefresh = false;
-    }
-  }
   async loadData(event = null, loading = false) {
     let doLoadData = async () => {
       let res = await this.linkDrawApi.getDocs(this.pageNum[this.activeIndex], 20, this.categories[this.activeIndex], "hot");
@@ -74,9 +65,8 @@ export class DrawListPage implements OnInit, AfterViewChecked {
       this.data[this.activeIndex] = this.data[this.activeIndex].concat(res);
       if (event)
         event.target.complete();
-
-      if (this.pageNum[this.activeIndex] >= 100)
-        this.infiniteScroll.disabled = true;
+      if (this.pageNum[this.activeIndex] >= 25)
+        this.disableScrollEvent = false;
     }
 
     if (loading) {
