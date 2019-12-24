@@ -34,8 +34,9 @@ export class HttpClientWrapper {
 
     //#region 
     private makeUrl(path: string): string {
-        const host = environment.host;
-        return `${path}`;
+        let setions = path.split("/");
+        setions[0] = environment.apiProfile[setions[0]];
+        return setions.join("/");
     }
 
     private makeUrlWithQueryString(path: string, param: { [name: string]: any }): string {
