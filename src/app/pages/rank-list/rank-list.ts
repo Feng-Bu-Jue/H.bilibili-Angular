@@ -14,7 +14,7 @@ import { async } from '@angular/core/testing';
   templateUrl: './rank-list.html',
   styleUrls: ['./rank-list.scss']
 })
-export class RankListPage implements OnInit, AfterViewChecked {
+export class RankListPage implements OnInit {
   @ViewChild(DrawListTemplate) template: DrawListTemplate;
   @ViewChild('ionContent') content: IonContent;
 
@@ -40,11 +40,11 @@ export class RankListPage implements OnInit, AfterViewChecked {
 
   public data = new Array<Array<LinkDrawResult>>([], []);
   public pageNum = new Array<number>(0, 0);
-  protected sourceRefresh: boolean;
 
   public slideOpts = {
     initialSlide: this.activeIndex,
-    speed: 400
+    speed: 400,
+    zoom: false
   };
 
   @ViewChild('slides') slides: IonSlides;
@@ -57,12 +57,7 @@ export class RankListPage implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.loadData(null, true);
   }
-  ngAfterViewChecked(): void {
-    if (this.sourceRefresh) {
-      this.template.resetWaterfall();
-      this.sourceRefresh = false;
-    }
-  }
+
   async loadData(event = null, loading = false) {
     let doLoadData = async () => {
       let res = await this.linkDrawApi.getRankList(this.pageNum[this.activeIndex], 50, this.biz[this.activeIndex], this.categories[this.activeIndex], Enum_RankType.week);

@@ -1,10 +1,10 @@
 <ng-container *ngIf="data && userInfo">
     <app-header [title]="userInfo.name">
-        <div class="user-box">
+        <div class="user-box" [@user-info]="scrollState">
             <div class="user-face" [style.background-image]="'url(' + userInfo.face +')'">
             </div>
             <div class="user-sign">
-                {{userInfo.sign}}
+                {{userInfo.sign||'他没有个性，也没有签名'}}
             </div>
         </div>
     </app-header>

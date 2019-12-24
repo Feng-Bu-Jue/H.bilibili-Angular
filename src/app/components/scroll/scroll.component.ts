@@ -52,29 +52,28 @@ export class Scroll implements OnInit {
     observable.pipe(
       throttleTime(20)
     ).subscribe((event) => {
-      if (!this.disableScrollEvent) {
-        if (event.target["scrollTop"] - this.scrollTop > 0) {
-          event.target["direction"] = "down";
-        }
-        else {
-          event.target["direction"] = "up";
-        }
-        this.scrollTop = event.target["scrollTop"]
-        /*
-        if (el.scrollTop == 0 + this.upperOffset) {
-          this.onScrollUpper.emit(event);
-        }
-        */
-        this.onScroll.emit(event);
-        if (!this.loading) {
-          if (el.scrollTop + el.clientHeight >= (el.scrollHeight - this.lowerOffset)) {
-            var that = this;
-            this.loading = true;
-            event.target["complete"] = () => {
-              that.loading = false;
-            }
-            this.onScrollLower.emit(event);
+
+      if (event.target["scrollTop"] - this.scrollTop > 0) {
+        event.target["direction"] = "down";
+      }
+      else {
+        event.target["direction"] = "up";
+      }
+      this.scrollTop = event.target["scrollTop"]
+      /*
+      if (el.scrollTop == 0 + this.upperOffset) {
+        this.onScrollUpper.emit(event);
+      }
+      */
+      this.onScroll.emit(event);
+      if (!this.disableScrollEvent && !this.loading) {
+        if (el.scrollTop + el.clientHeight >= (el.scrollHeight - this.lowerOffset)) {
+          var that = this;
+          this.loading = true;
+          event.target["complete"] = () => {
+            that.loading = false;
           }
+          this.onScrollLower.emit(event);
         }
       }
     });

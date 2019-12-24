@@ -15,6 +15,8 @@ import { AppErrorHandler } from './code/appErrorHandler';
 import { GuardModule } from './gurad/gurad.module';
 import { CommonModule } from '@angular/common';
 import { WidgetModule } from './widgets/widget.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AvatarPipe } from './pipe/avatarPipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { WidgetModule } from './widgets/widget.module';
     GuardModule,
     WidgetModule,
     NgxsModule.forRoot([UserState]),
+    BrowserAnimationsModule
   ],
   providers: [
     HttpClientWrapper,

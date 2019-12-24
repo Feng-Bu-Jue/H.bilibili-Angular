@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, AfterContentChecked, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentChecked, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { LoadingService } from 'src/app/services/loadingService';
 import { ActivatedRoute } from '@angular/router';
-import { trigger, state, transition, style, animate } from '@angular/animations';
+import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
 import { UserApi } from 'src/app/bilibiliApi/userApi';
 import { IonContent } from '@ionic/angular';
 
@@ -12,12 +12,12 @@ import { IonContent } from '@ionic/angular';
     templateUrl: './user-space.html',
     styleUrls: ['./user-space.scss'],
     animations: [
-        trigger('square', [
-            state('green', style({ 'background-color': 'green', 'height': '100px', 'transform': 'translateX(0)' })),
-            state('red', style({ 'background-color': 'red', 'height': '50px', 'transform': 'translateX(100%)' })),
-            transition('green => red', animate('.2s 1s')), // 第一个参数:动画时间, 第二个参数:动画延迟时间
-            transition('red => green', animate(1000))
-        ])
+        trigger('user-info', [
+            state('up', style({ 'height': '*', 'padding': '*', 'opacity': '1' })),
+            state('down', style({ 'height': '0px', 'padding': '0', 'opacity': '0' })),
+            transition('* => down', animate(300)),
+            transition('* => up', animate(300))
+        ]),
     ]
 })
 export class UserSpacePage implements OnInit {
@@ -26,6 +26,7 @@ export class UserSpacePage implements OnInit {
     public data;
     public userInfo;
     public disableScrollEvent: boolean = false;
+    public scrollState;
     @ViewChild('ionContent') content: IonContent;
 
     public get scorllHeight() {
@@ -42,7 +43,8 @@ export class UserSpacePage implements OnInit {
         private linkDrawApi: LinkDrawApi,
         private userApi: UserApi,
         private loadingService: LoadingService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private ref: ChangeDetectorRef
     ) {
         this.uid = Number(this.route.snapshot.paramMap.get('uid'));
     }
@@ -72,7 +74,9 @@ export class UserSpacePage implements OnInit {
     }
 
     public onScroll(event) {
-
-        console.log(event.target.direction)
+        if (event.target.direction != this.scrollState) {
+            this.scrollState = event.target.direction;
+            this.ref.detectChanges();
+        }
     }
 }

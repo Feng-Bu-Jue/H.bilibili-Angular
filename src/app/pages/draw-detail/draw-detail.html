@@ -1,67 +1,66 @@
-
-    <app-header title="详情"></app-header>
-    <ion-content [scrollEvents]="true">
-        <ng-container *ngIf="detailResult">
-            <div class="container">
-                <div class="content block">
-                    <header>
-                        <div class="author-face">
-                            <ion-img [src]="detailResult.user.head_url+'@48w_48h_1e.webp'"></ion-img>
-                        </div>
-                        <div class="view-box">
-                            <div class="author-name">
-                                {{detailResult.user.name}}
-                            </div>
-                            <div class="info">
-                                {{datePipe.transform(detailResult.item.upload_timestamp*1000,'yyyy-MM-dd')}}
-                                ·{{util.formatViewCount(detailResult.item.view_count)}}浏览
-                            </div>
-                        </div>
-                    </header>
-                    <p>{{detailResult.item.title}}</p>
-                    <p>{{detailResult.item.description}}</p>
-                    <div>
-                        <ngx-progressive-image-loader>
-                            <div *ngFor="let picture of detailResult.item.pictures.slice(0,5);index as i;"
-                                class="img-item {{util.getImgItemW(detailResult.item.pictures.length)}}"
-                                (click)="popUpImgViewer(i)">
-                                <div [bgsrc]="picture.img_src" [imageRatio]="1" ngxProgressiveBGImage></div>
-                            </div>
-                        </ngx-progressive-image-loader>
+<app-header title="详情"></app-header>
+<ion-content [scrollEvents]="true">
+    <ng-container *ngIf="detailResult">
+        <div class="container">
+            <div class="content block">
+                <header>
+                    <div class="author-face" [routerLink]="'/space/'+detailResult.user.uid">
+                        <ion-img [src]="detailResult.user.head_url|avatar:64"></ion-img>
                     </div>
-                </div>
-                <div class="reply block" *ngIf="replies&&replies.length>0">
-                    <header>
-                        评论 {{replyPageInfo.count}}
-                    </header>
-                    <div class="reply-item" *ngFor="let reply of replies" TapRipple>
-                        <div class="user-face">
-                            <ion-img [src]="reply.member.avatar+'@64w_64h.webp'"></ion-img>
+                    <div class="view-box">
+                        <div class="author-name">
+                            {{detailResult.user.name}}
                         </div>
-                        <div class="reply-item-con">
-                            <div class="user">
-                                {{reply.member.uname}}
-                            </div>
-                            <div class="info">
-                                {{reply.floor?'#'+reply.floor:''}}
-                                {{datePipe.transform(reply.ctime*1000,'yyyy-MM-dd')}}
-                            </div>
-                            <div class="text" [innerHTML]="util.replyRender(reply.content.message) | html">
-                            </div>
-                            <div class="sub-reply" *ngIf="reply.replies">
-                                <div class="sub-reply-item" *ngFor="let subReply of reply.replies">
-                                    <a>{{subReply.member.uname}}</a>
-                                    <span>: {{subReply.content.message}}</span>
-                                </div>
-                            </div>
+                        <div class="info">
+                            {{datePipe.transform(detailResult.item.upload_timestamp*1000,'yyyy-MM-dd')}}
+                            ·{{util.formatViewCount(detailResult.item.view_count)}}浏览
                         </div>
                     </div>
-                    <ion-infinite-scroll threshold="10%" (ionInfinite)="loadMoreComment($event)">
-                        <ion-infinite-scroll-content>
-                        </ion-infinite-scroll-content>
-                    </ion-infinite-scroll>
+                </header>
+                <p>{{detailResult.item.title}}</p>
+                <p>{{detailResult.item.description}}</p>
+                <div>
+                    <ngx-progressive-image-loader>
+                        <div *ngFor="let picture of detailResult.item.pictures.slice(0,5);index as i;"
+                            class="img-item {{util.getImgItemW(detailResult.item.pictures.length)}}"
+                            (click)="popUpImgViewer(i)">
+                            <div [bgsrc]="picture.img_src" [imageRatio]="1" ngxProgressiveBGImage></div>
+                        </div>
+                    </ngx-progressive-image-loader>
                 </div>
-                
             </div>
-        </ng-container>
-    </ion-content>
+            <div class="reply block" *ngIf="replies&&replies.length>0">
+                <header>
+                    评论 {{replyPageInfo.count}}
+                </header>
+                <div class="reply-item" *ngFor="let reply of replies" TapRipple>
+                    <div class="user-face">
+                        <ion-img [src]="reply.member.avatar|avatar:32"></ion-img>
+                    </div>
+                    <div class="reply-item-con">
+                        <div class="user">
+                            {{reply.member.uname}}
+                        </div>
+                        <div class="info">
+                            {{reply.floor?'#'+reply.floor:''}}
+                            {{datePipe.transform(reply.ctime*1000,'yyyy-MM-dd')}}
+                        </div>
+                        <div class="text" [innerHTML]="util.replyRender(reply.content.message) | html">
+                        </div>
+                        <div class="sub-reply" *ngIf="reply.replies">
+                            <div class="sub-reply-item" *ngFor="let subReply of reply.replies">
+                                <a>{{subReply.member.uname}}</a>
+                                <span>: {{subReply.content.message}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ion-infinite-scroll threshold="10%" (ionInfinite)="loadMoreComment($event)">
+                    <ion-infinite-scroll-content>
+                    </ion-infinite-scroll-content>
+                </ion-infinite-scroll>
+            </div>
+
+        </div>
+    </ng-container>
+</ion-content>

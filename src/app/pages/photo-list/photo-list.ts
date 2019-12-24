@@ -44,7 +44,8 @@ export class PhotoListPage implements OnInit {
 
   public slideOpts = {
     initialSlide: this.activeIndex,
-    speed: 400
+    speed: 400,
+    zoom: false
   };
 
   @ViewChild('slides') slides: IonSlides;
