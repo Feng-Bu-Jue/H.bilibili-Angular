@@ -41,7 +41,9 @@ export class AuthService {
     private setCookie(cookies: Array<string>) {
         cookies.forEach(item => {
             let [key, value] = item.split("=");
-            this.cookieService.set(key, value);
+            let expires = new Date();
+            expires.setDate(new Date().getDate() + 30);
+            this.cookieService.set(key, value, expires, "/");
         });
     }
 }

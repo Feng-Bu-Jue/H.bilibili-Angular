@@ -10,7 +10,7 @@ import { HtmlPipe } from 'src/app/pipe/htmlPipe';
 import { FormsModule } from '@angular/forms';
 import { WidgetModule } from 'src/app/widgets/widget.module';
 import { AvatarPipe } from 'src/app/pipe/avatarPipe';
-import { PipeModule } from 'src/app/pipe/widget.module';
+import { PipeModule } from 'src/app/pipe/pipe.module';
 
 @NgModule({
   declarations: [

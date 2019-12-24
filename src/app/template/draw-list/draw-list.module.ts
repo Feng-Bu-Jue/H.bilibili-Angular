@@ -7,8 +7,7 @@ import { IImageLoaderOptions } from 'ngx-progressive-image-loader';
 import { NgxProgressiveImageLoaderModule } from 'ngx-progressive-image-loader';
 import { RouterModule } from '@angular/router';
 import { NgxWaterfallModule } from 'ngx-waterfall';
-import { AvatarPipe } from 'src/app/pipe/avatarPipe';
-import { PipeModule } from 'src/app/pipe/widget.module';
+import { PipeModule } from 'src/app/pipe/pipe.module';
 
 @NgModule({
     declarations: [

@@ -7,6 +7,7 @@ import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
 import { Enum_DrawCategory } from 'src/app/bilibiliApi/models/Enum';
 import { LoadingService } from 'src/app/services/loadingService';
 import { async } from '@angular/core/testing';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -46,15 +47,18 @@ export class DrawListPage implements OnInit {
   public slideOpts = {
     initialSlide: this.activeIndex,
     speed: 400,
-    zoom:false
+    zoom: false
   };
 
   @ViewChild('slides') slides: IonSlides;
 
   constructor(
     private linkDrawApi: LinkDrawApi,
-    private loadingService: LoadingService
-  ) { }
+    private loadingService: LoadingService,
+    private cookieService: CookieService
+  ) {
+
+  }
 
   ngOnInit() {
     this.loadData(null, true);

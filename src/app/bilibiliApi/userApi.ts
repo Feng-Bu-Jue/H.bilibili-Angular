@@ -38,4 +38,11 @@ export class UserApi {
             _: Date.now
         }).then(r => r.data);
     }
+
+    public attention(uid: number, type: number): Promise<boolean> {
+        return this.client.post<BiliBiliProtocal<any>>("api.live/liveact/attention", {
+            uid,
+            type
+        }).then(r => r.code === 0);
+    }
 }
