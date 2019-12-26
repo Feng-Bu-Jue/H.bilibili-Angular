@@ -1,5 +1,6 @@
-import { OnInit, Component, ContentChildren, QueryList, AfterViewInit, AfterViewChecked, Input, EventEmitter, Output, AfterContentInit, ViewChild, ElementRef } from '@angular/core';
+import { OnInit, Component, ContentChildren, QueryList, AfterViewInit, AfterViewChecked, Input, EventEmitter, Output, AfterContentInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { TabItem, TabEvent } from './tab.item.component';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: "tab",
@@ -7,9 +8,27 @@ import { TabItem, TabEvent } from './tab.item.component';
     styleUrls: ['./tab.component.scss']
 })
 export class Tab implements OnInit, AfterContentInit {
-
     @Input()
-    public activeIndex: number = 0;
+    public activeIndex = 0;
+    @Input()
+    movingPosition: number;
+    _isMoving: boolean = false;
+    @Input()
+    public get isMoving() {
+        return this._isMoving;
+    }
+    public set isMoving(value) {
+        if (this._isMoving !== value) {
+            if (!value) {
+                this.movingPosition = 0;
+                this.underLineTransition = "";
+            }
+            else {
+                this.underLineTransition = "0ms";
+            }
+            this._isMoving = value;
+        }
+    }
     @Output()
     public onChange: EventEmitter<TabEvent> = new EventEmitter()
     @Output()
@@ -18,15 +37,23 @@ export class Tab implements OnInit, AfterContentInit {
     @ContentChildren(TabItem, { descendants: true }) tabItems: QueryList<TabItem>;
     @ViewChild('underline') underline: ElementRef;
 
+    public underLineTransition: string = "";
+
     private get width() {
-        return 100 / this.tabItems.length || 0;
+        return `${100 / this.tabItems.length || 0}%`;
     }
+
     private get left() {
-        return (100 / this.tabItems.length) * this.activeIndex;
+        return `${(100 / this.tabItems.length) * (this.activeIndex + (this.movingPosition ? this.movingPosition : 0))}%`;
+    }
+
+    constructor(
+        private ref: ChangeDetectorRef
+    ) {
     }
 
     ngOnInit(): void {
- 
+
     }
 
     onItemClick(event: TabEvent): void {
@@ -42,13 +69,14 @@ export class Tab implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit(): void {
-        setTimeout(() => {//TODO
+        setTimeout(() => {
             this.tabItems.forEach((item, index) => {
                 item.onClick = this.onItemClick.bind(this);
                 item.index = index;
-                item.width = `${this.width}%`;
+                item.width = this.width;
                 item.isActive = index === this.activeIndex;
             })
-        });
+        })
+        //this.ref.detectChanges();
     }
 }

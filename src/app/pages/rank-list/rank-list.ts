@@ -24,7 +24,6 @@ export class RankListPage implements OnInit {
   }
 
   public readonly tabTitle = ['画友', '摄影']
-
   public readonly categories: Array<Enum_DrawCategory> = [Enum_DrawCategory.all, Enum_DrawCategory.all]
   public readonly biz: Array<Enum_Biz> = [Enum_Biz.draw, Enum_Biz.photo]
 

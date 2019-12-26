@@ -1,6 +1,6 @@
 import { HostBinding, ElementRef, Directive, Renderer2, Input } from '@angular/core';
 import { fromEvent } from 'rxjs';
-import { IonContent } from '@ionic/angular';
+import { IonContent, IonSlides } from '@ionic/angular';
 
 
 @Directive({
@@ -22,8 +22,9 @@ export class TapRipple {
 
   constructor(
     private element: ElementRef,
-    private renderer: Renderer2
-  ) { }
+    private renderer: Renderer2,
+  ) { 
+  }
 
   ngOnInit() {
     let el = <HTMLElement>this.element.nativeElement;

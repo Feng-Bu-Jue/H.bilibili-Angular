@@ -8,7 +8,6 @@ import { Swiper } from './swiper/swiper.component';
 import { SwiperItem } from './swiper/swiper.item.component';
 import { TapRipple } from './tapDirective/tapRipple';
 
-
 @NgModule({
     declarations: [
         Scroll,

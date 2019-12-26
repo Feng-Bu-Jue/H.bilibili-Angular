@@ -7,6 +7,8 @@ import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
 import { ComponentModule } from 'src/app/components/componetModule';
 import { DrawListTemplateModule } from 'src/app/template/draw-list/draw-list.module';
 import { WidgetModule } from 'src/app/widgets/widget.module';
+import { TabDrawListTemplate } from 'src/app/template/tab-draw-list/tab-draw-list';
+import { TabDrawListTemplateModule } from 'src/app/template/tab-draw-list/tab-draw-list.module';
 
 
 @NgModule({
@@ -14,14 +16,13 @@ import { WidgetModule } from 'src/app/widgets/widget.module';
     DrawListPage,
   ],
   entryComponents:[
-    DrawListTemplate
+    TabDrawListTemplate
   ],
   imports: [
     CommonModule,
     ComponentModule,
     IonicModule,
-    DrawListPageRoutingModule,
-    DrawListTemplateModule,
+    TabDrawListTemplateModule,
     WidgetModule
   ],
   providers:[]

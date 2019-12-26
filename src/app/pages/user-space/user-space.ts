@@ -13,8 +13,8 @@ import { IonContent } from '@ionic/angular';
     styleUrls: ['./user-space.scss'],
     animations: [
         trigger('user-info', [
-            state('up', style({ 'height': '*', 'padding': '*', 'opacity': '1' })),
-            state('down', style({ 'height': '0px', 'padding': '0', 'opacity': '0' })),
+            state('up', style({ 'height': '*', 'padding': '*', 'opacity': '1', 'visibility': 'visible' })),
+            state('down', style({ 'height': '0px', 'padding': '0', 'opacity': '0', 'visibility': 'hidden' })),
             transition('* => down', animate(300)),
             transition('* => up', animate(300))
         ]),

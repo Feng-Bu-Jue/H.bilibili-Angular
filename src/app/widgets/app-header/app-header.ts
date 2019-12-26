@@ -29,7 +29,7 @@ export class AppHeader implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        console.log(this.showBack)
+
     }
 
     public goBack(): void {
