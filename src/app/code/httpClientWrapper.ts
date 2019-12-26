@@ -14,14 +14,14 @@ export class HttpClientWrapper {
 
     public get<TResult>(path: string, param: { [name: string]: any } = null): Promise<TResult> {
         return this.httpclient.get<TResult>(
-            this.makeUrlWithQueryString(path, param)
+            this.makeUrlWithEncodeParams(path, param)
         ).toPromise();
     }
 
     public post<TResult>(path: string, param: { [name: string]: any } = null): Promise<TResult> {
         return this.httpclient.post<TResult>(
             this.makeUrl(path),
-            this.toQueryString(param)
+            this.toUrlEncode(param)
         ).toPromise();
     }
 
@@ -29,7 +29,7 @@ export class HttpClientWrapper {
         if (!param.hasOwnProperty("callback"))
             param.callback = `bilibili${Date.now}`;
         const callback = param.callback;
-        return this.httpclient.jsonp<TResult>(this.makeUrlWithQueryString(path, param), callback).pipe(catchError(this.HandleError));
+        return this.httpclient.jsonp<TResult>(this.makeUrlWithEncodeParams(path, param), callback);
     }
 
     //#region 
@@ -39,11 +39,11 @@ export class HttpClientWrapper {
         return setions.join("/");
     }
 
-    private makeUrlWithQueryString(path: string, param: { [name: string]: any }): string {
-        return `${this.makeUrl(path)}?${this.toQueryString(param)}`;
+    private makeUrlWithEncodeParams(path: string, param: { [name: string]: any }): string {
+        return `${this.makeUrl(path)}?${this.toUrlEncode(param)}`;
     }
 
-    private toQueryString(param: { [name: string]: any }): string {
+    private toUrlEncode(param: { [name: string]: any }): string {
         let queryString = '';
         if (param) {
             const keys = Object.keys(param);
@@ -60,10 +60,6 @@ export class HttpClientWrapper {
             return value.map(x => this.paramParser(`${key}[]`, x)).join('&');
         }
         return `${key}=${encodeURIComponent(value)}`;
-    }
-
-    private HandleError(error: HttpErrorResponse): Promise<any> {
-        return null;
     }
     //#endregion
 }

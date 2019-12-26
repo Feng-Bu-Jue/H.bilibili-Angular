@@ -23,7 +23,7 @@ export class TapRipple {
   constructor(
     private element: ElementRef,
     private renderer: Renderer2,
-  ) { 
+  ) {
   }
 
   ngOnInit() {
