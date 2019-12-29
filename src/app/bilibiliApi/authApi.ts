@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { HttpClientWrapper } from '../code/httpClientWrapper';
+import { HttpClientBase } from '../code/httpClientBase';
 import { BiliBiliProtocal } from './models/bilibiliProtocal';
 import { SignHelper } from '../code/signHelper';
 import { RSAPublicKeyResult, AuthResult, SSOResult } from './models/authResult';
@@ -13,7 +13,7 @@ import { ServiceError } from '../code/error/serviceError';
 export class AuthApi {
 
     constructor(
-        private client: HttpClientWrapper,
+        private client: HttpClientBase,
     ) { }
 
     public async login(username: string, password: string): Promise<AuthResult> {

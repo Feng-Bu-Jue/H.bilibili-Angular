@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LinkDrawResult, LinkDrawResultList, LinkDrawResultV1List, LinkDrawResultV1 } from './models/linkDrawResult';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClientWrapper } from '../code/httpClientWrapper';
+import { HttpClientBase } from '../code/httpClientBase';
 import { BiliBiliProtocal } from './models/bilibiliProtocal';
 import { Enum_DrawCategory, Enum_Biz, Enum_RankType } from './models/Enum';
 
@@ -12,7 +12,7 @@ import { Enum_DrawCategory, Enum_Biz, Enum_RankType } from './models/Enum';
 export class LinkDrawApi {
 
     constructor(
-        private client: HttpClientWrapper
+        private client: HttpClientBase
     ) { }
 
     public getDocs(num: number, pageSize: number, category: Enum_DrawCategory, type: string): Promise<LinkDrawResult[]> {

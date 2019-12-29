@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClientWrapper } from '../code/httpClientWrapper';
+import { HttpClientBase } from '../code/httpClientBase';
 import { BiliBiliProtocal } from './models/bilibiliProtocal';
 import { ReplyResult, AddReplyResult } from './models/replyResult';
 
@@ -11,7 +11,7 @@ import { ReplyResult, AddReplyResult } from './models/replyResult';
 export class ReplyApi {
 
     constructor(
-        private client: HttpClientWrapper,
+        private client: HttpClientBase,
     ) { }
 
     public getReplies(oid: number, pn: number): Promise<ReplyResult> {

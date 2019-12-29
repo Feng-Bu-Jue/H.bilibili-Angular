@@ -1,8 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClientWrapper } from '../code/httpClientWrapper';
 import { Storage } from '@ionic/storage';
 import { AuthApi } from '../bilibiliApi/authApi';
-import { DOCUMENT } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
 import { Store, Select } from '@ngxs/store';
 import { SetUserSate, UserState } from '../store/user.state';

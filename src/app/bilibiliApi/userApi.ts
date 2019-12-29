@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpClientWrapper } from '../code/httpClientWrapper';
+import { HttpClientBase } from '../code/httpClientBase';
 import { BiliBiliProtocal } from './models/bilibiliProtocal';
 import { UesrInfoResult } from './models/userInfoResult';
 
@@ -11,7 +11,7 @@ import { UesrInfoResult } from './models/userInfoResult';
 export class UserApi {
 
     constructor(
-        private client: HttpClientWrapper,
+        private client: HttpClientBase,
     ) { }
 
     public getUser(uid: number): Promise<UesrInfoResult> {
