@@ -21,7 +21,7 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
         NgxProgressiveImageLoaderModule.forRoot(<IImageLoaderOptions>{
             // rootMargin must be specified in pixels or percent
             rootMargin: '10px',
-            threshold: 1,
+            threshold: 0.1,
             // css filter
             // loading image in placeholder. Can be URL or base64
             placeholderImageSrc:

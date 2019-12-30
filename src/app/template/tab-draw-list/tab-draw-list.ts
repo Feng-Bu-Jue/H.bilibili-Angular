@@ -76,7 +76,7 @@ export class TabDrawListTemplate implements OnInit {
       switch (currentCategory) {
         case Enum_DrawCategory.comic:
         case Enum_DrawCategory.illustration:
-          res = await this.linkDrawApi.getDocs(this.pageNum[this.activeIndex], 20, currentCategory, "hot");
+          res = await this.linkDrawApi.getDocs(this.pageNum[this.activeIndex], 5, currentCategory, "hot");
           break;
         case Enum_DrawCategory.cos:
         case Enum_DrawCategory.sifu:

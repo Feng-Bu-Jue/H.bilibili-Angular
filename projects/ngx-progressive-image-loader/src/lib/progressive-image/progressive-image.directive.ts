@@ -95,13 +95,10 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
         }
       }
       else if (this._ElementRef.nativeElement instanceof HTMLElement) {
-        //TODO: improvement!!!
-        //The way of extend is dirty,Will improve this when I have time
         this.bgImageElement = this._ElementRef.nativeElement;
         this.setDataSrc('data-bgsrc', this.bgsrc);
         this.isObserve = true;
         this._ProgressiveImageLoader.intersectionObserver.observe(this.bgImageElement);
-
         if (!this._ImagePlaceholder && !this.noPlaceholder) {
           this.setPlaceholder();
         }

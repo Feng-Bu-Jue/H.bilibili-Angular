@@ -1,13 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
-import { ToastService } from '../services/toastService';
-import { Platform } from '@ionic/angular';
 import { BiliBiliProtocol } from '../bilibiliApi/models/bilibiliProtocol';
 import { ServiceError } from './error/serviceError';
+import { CookieService } from 'ngx-cookie-service';
 
 //把不同的client response抽象一哈
 export declare class Response {
@@ -20,7 +16,7 @@ export abstract class HttpClientBase {
     //这个2个方法是抽象方法来着, 因为抽象方法不让写默认参数值 所以..
     get<TResult>(path: string, param: { [name: string]: any }, resolveProtocol: boolean = true): Promise<TResult> { return null }
     post<TResult>(path: string, param: { [name: string]: any }, resolveProtocol: boolean = true): Promise<TResult> { return null }
-    
+
     protected abstract resolveHttpResponse(rawResponse: any): Response
 
     protected makeUrl(path: string): string {
@@ -117,7 +113,8 @@ export class MobileHttpClient extends HttpClientBase {
                 {
                     headers: this.getHeaders(),
                     observe: 'response',
-                    responseType: 'json'
+                    responseType: 'json',
+                    withCredentials: true,
                 },
             ).toPromise(),
             resolveProtocol
@@ -132,7 +129,8 @@ export class MobileHttpClient extends HttpClientBase {
                 {
                     headers: this.getHeaders(),
                     observe: 'response',
-                    responseType: 'json'
+                    responseType: 'json',
+                    withCredentials: true,
                 }
             ).toPromise(),
             resolveProtocol
@@ -152,9 +150,15 @@ export class MobileHttpClient extends HttpClientBase {
 export class PhoneDeviceHttpClient extends HttpClientBase {
     constructor(
         private http: HTTP,
+        private cookieService: CookieService
     ) {
         super();
+        let cookie = Object.entries(this.cookieService.getAll()).map(([key, value]) => {
+            return `${key}=${value}`
+        }).join("; ")
+        this.http.setCookie(null, cookie);
     }
+    
     public async get<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.http.get(

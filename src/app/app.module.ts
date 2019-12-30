@@ -39,15 +39,15 @@ import { Platform } from '@ionic/angular'
   ],
   providers: [
     {
-      provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, plt: Platform) => {
-        if (plt.is("mobile")||plt.is("desktop")||plt.is("mobileweb")) {
+      provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, cookieService: CookieService, plt: Platform) => {
+        if (plt.is("mobile") || plt.is("desktop") || plt.is("mobileweb")) {
           return new MobileHttpClient(httpClient);
         }
         else {
-          return new PhoneDeviceHttpClient(http);
+          return new PhoneDeviceHttpClient(http, cookieService);
         }
       },
-      deps: [HttpClient, HTTP, Platform]
+      deps: [HttpClient, HTTP, CookieService, Platform]
     },
     File,
     HTTP,

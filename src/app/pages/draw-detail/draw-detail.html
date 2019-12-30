@@ -21,7 +21,7 @@
                 <p>{{detailResult.item.description}}</p>
                 <div>
                     <ngx-progressive-image-loader>
-                        <div *ngFor="let picture of detailResult.item.pictures.slice(0,5);index as i;"
+                        <div *ngFor="let picture of detailResult.item.pictures.slice(0,9);index as i;"
                             class="img-item {{util.getImgItemW(detailResult.item.pictures.length)}}"
                             (click)="popUpImgViewer(i)">
                             <div [bgsrc]="picture.img_src" [imageRatio]="1" ngxProgressiveBGImage></div>
@@ -35,7 +35,7 @@
                 </header>
                 <div class="reply-item" *ngFor="let reply of replies" TapRipple>
                     <div class="user-face">
-                        <ion-img [src]="reply.member.avatar|avatar:32"></ion-img>
+                        <ion-img [src]="reply.member.avatar|avatar:64"></ion-img>
                     </div>
                     <div class="reply-item-con">
                         <div class="user">

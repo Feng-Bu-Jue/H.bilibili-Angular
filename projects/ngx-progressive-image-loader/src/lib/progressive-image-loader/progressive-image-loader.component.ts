@@ -30,7 +30,7 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
   @Input()
   placeholderImageSrc: string;
   @Input()
-  maxHeight:number;
+  maxHeight: number;
 
   intersectionObserver: IntersectionObserver;
 
@@ -40,7 +40,7 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
     public _ConfigurationService: ConfigurationService,
     @Inject(PLATFORM_ID) private platformId: any,
     @Inject(WINDOW) private window: any
-  ) {}
+  ) { }
 
   ngOnInit() {
     if (
@@ -62,7 +62,7 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
       if (!this.maxHeight) {
         this.maxHeight = this._ConfigurationService.config.maxHeight;
       }
-      
+
       this.intersectionObserver = new IntersectionObserver(
         this.onIntersectionChanged.bind(this),
         this._ConfigurationService.config
@@ -73,8 +73,12 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
   onIntersectionChanged(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
     entries.forEach(
       entry =>
+      {
+        console.log(entry.target);
+        console.log(entry.isIntersecting);
         entry.isIntersecting &&
         this.onImageAppearsInViewport(entry.target as HTMLElement, observer)
+      }
     );
   }
 

@@ -32,8 +32,8 @@
       left: 0;
       width: 100%;
       transition: $placeholder-loading-image-transition;
+      position: absolute;
       &.loaded {
-        position: absolute;
         opacity: 1;
       }
     }

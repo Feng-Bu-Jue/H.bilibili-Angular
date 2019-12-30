@@ -3,10 +3,11 @@
         <ng-container *ngIf="data && source =='space';else elseBlock">
             <div class="list-item" *ngFor="let doc of data.items" ngx-waterfall-item>
                 <ngx-progressive-image-loader>
-                    <div class="picture" [routerLink]="'/app/tabs/draw/detail/'+doc.doc_id"
-                        [bgsrc]="doc.pictures[0].img_src+'@512w_384h_1e.webp'"
-                        [imageRatio]="doc.pictures[0].img_width/doc.pictures[0].img_height" ngxProgressiveBGImage>
-                        <span class="pictrue-amount">{{doc.pictures.length}}p</span>
+                    <div class="picture" [routerLink]="'./detail/'+doc.item.doc_id">
+                        <img [src]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
+                            [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
+                            ngxProgressiveBGImage />
+                        <span class="pictrue-amount">{{doc.item.pictures.length}}p</span>
                     </div>
                 </ngx-progressive-image-loader>
                 <div class="list-item-content">
@@ -28,10 +29,10 @@
         <ng-template #elseBlock>
             <div class="list-item" *ngFor="let doc of data" ngx-waterfall-item>
                 <ngx-progressive-image-loader>
-                    <div class="picture" [routerLink]="'./detail/'+doc.item.doc_id"
-                        [bgsrc]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
-                        [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
-                        ngxProgressiveBGImage>
+                    <div class="picture" [routerLink]="'./detail/'+doc.item.doc_id">
+                        <img [src]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
+                            [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
+                            ngxProgressiveBGImage />
                         <span class="pictrue-amount">{{doc.item.pictures.length}}p</span>
                     </div>
                 </ngx-progressive-image-loader>
