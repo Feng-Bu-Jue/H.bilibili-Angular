@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { PhoneDeviceHttpClient, HttpClientBase, MobileHttpClient } from './code/httpClientBase';
 import { IonicModule } from '@ionic/angular';
@@ -19,8 +19,6 @@ import { WidgetModule } from './widgets/widget.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarPipe } from './pipe/avatarPipe';
 import { Platform } from '@ionic/angular'
-
-let plt = new Platform(document);
 
 @NgModule({
   declarations: [
@@ -40,7 +38,17 @@ let plt = new Platform(document);
     BrowserAnimationsModule
   ],
   providers: [
-    { provide: HttpClientBase, useClass: plt.is("mobile") ? MobileHttpClient : PhoneDeviceHttpClient },
+    {
+      provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, plt: Platform) => {
+        if (plt.is("mobile")) {
+          return new MobileHttpClient(httpClient);
+        }
+        else {
+          return new PhoneDeviceHttpClient(http);
+        }
+      },
+      deps: [HttpClient, HTTP, Platform]
+    },
     File,
     HTTP,
     CookieService,

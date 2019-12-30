@@ -67,10 +67,6 @@ export class UniversalInterceptor implements HttpInterceptor {
     }
 
     let newReq = req.clone({
-      setHeaders: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Referrer": "https://www.bilibili.com"
-      },
       withCredentials,
       setParams: params,
       body
