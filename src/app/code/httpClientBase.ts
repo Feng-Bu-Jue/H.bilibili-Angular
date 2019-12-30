@@ -153,10 +153,12 @@ export class PhoneDeviceHttpClient extends HttpClientBase {
         private cookieService: CookieService
     ) {
         super();
+        /*
         let cookie = Object.entries(this.cookieService.getAll()).map(([key, value]) => {
             return `${key}=${value}`
         }).join("; ")
         this.http.setCookie(null, cookie);
+        */
     }
     
     public async get<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {

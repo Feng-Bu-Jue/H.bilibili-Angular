@@ -40,7 +40,7 @@ import { Platform } from '@ionic/angular'
   providers: [
     {
       provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, cookieService: CookieService, plt: Platform) => {
-        if (plt.is("mobile") || plt.is("desktop") || plt.is("mobileweb")) {
+        if (plt.is("desktop") || plt.is("mobileweb")) {
           return new MobileHttpClient(httpClient);
         }
         else {
