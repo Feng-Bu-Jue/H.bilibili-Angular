@@ -63,7 +63,7 @@ export abstract class HttpClientBase {
         return new Promise<TResult>(async (resolve, reject) => {
             await requestTask.then((res) => {
                 let response = this.resolveHttpResponse(res);
-                if (resolveProtocol && response.data.hasOwnProperty("code") && response.data.hasOwnProperty("data")) {
+                if (resolveProtocol && response.data.hasOwnProperty("code") && response.data.hasOwnProperty("message")) {
                     this.bilibiliProtocolHandle(response, resolve, reject);
                 }
                 else {
@@ -71,7 +71,7 @@ export abstract class HttpClientBase {
                     resolve(<TResult>response.data)
                 }
             }).catch(error => {
-                //TODO
+                //TODO statuscode handle
                 console.log(error);
                 reject(error);
             })

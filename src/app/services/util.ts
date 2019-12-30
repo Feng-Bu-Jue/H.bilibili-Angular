@@ -9,7 +9,6 @@ export class Util {
     constructor() { }
 
     getBizType(category: string): Enum_Biz {
-        debugger
         switch (category) {
             case 'cos':
                 return Enum_Biz.photo;

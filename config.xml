@@ -11,6 +11,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="StatusBarBackgroundColor" value="#FA7298" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="19" />
     <preference name="BackupWebStorage" value="none" />
@@ -100,14 +101,4 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-advanced-http" spec="2.3.1" />
-    <allow-navigation href="http://api.vc.bilibili.com/" />
-    <allow-navigation href="http://api.bilibili.com/" />
-    <allow-navigation href="https://passport.bilibili.com/" />
-    <allow-navigation href="https://api.kaaass.net/" />
-    <allow-navigation href="https://api.live.bilibili.com/" />
-    <access origin="http://api.vc.bilibili.com/" />
-    <access origin="http://api.bilibili.com/" />
-    <access origin="https://passport.bilibili.com/" />
-    <access origin="https://api.kaaass.net/" />
-    <access origin="https://api.live.bilibili.com/" />
 </widget>
