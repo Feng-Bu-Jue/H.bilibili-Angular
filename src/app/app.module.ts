@@ -40,7 +40,7 @@ import { Platform } from '@ionic/angular'
   providers: [
     {
       provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, plt: Platform) => {
-        if (plt.is("mobile")) {
+        if (plt.is("mobile")||plt.is("desktop")||plt.is("mobileweb")) {
           return new MobileHttpClient(httpClient);
         }
         else {
@@ -53,7 +53,7 @@ import { Platform } from '@ionic/angular'
     HTTP,
     CookieService,
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: UniversalInterceptor, multi: true }
+    //{ provide: HTTP_INTERCEPTORS, useClass: UniversalInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

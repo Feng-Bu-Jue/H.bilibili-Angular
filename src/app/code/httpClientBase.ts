@@ -1,17 +1,27 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { HTTP } from '@ionic-native/http/ngx';
+import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import { ToastService } from '../services/toastService';
 import { Platform } from '@ionic/angular';
+import { BiliBiliProtocol } from '../bilibiliApi/models/bilibiliProtocol';
+import { ServiceError } from './error/serviceError';
 
+//把不同的client response抽象一哈
+export declare class Response {
+    status: number;
+    headers: HttpHeaders;
+    data: Object;
+}
 
 export abstract class HttpClientBase {
-
-    abstract get<TResult>(path: string, param: { [name: string]: any }): Promise<TResult>
-    abstract post<TResult>(path: string, param: { [name: string]: any }): Promise<TResult>
+    //这个2个方法是抽象方法来着, 因为抽象方法不让写默认参数值 所以..
+    get<TResult>(path: string, param: { [name: string]: any }, resolveProtocol: boolean = true): Promise<TResult> { return null }
+    post<TResult>(path: string, param: { [name: string]: any }, resolveProtocol: boolean = true): Promise<TResult> { return null }
+    
+    protected abstract resolveHttpResponse(rawResponse: any): Response
 
     protected makeUrl(path: string): string {
         let sections = path.split("/");
@@ -48,32 +58,94 @@ export abstract class HttpClientBase {
             "Referrer": "https://www.bilibili.com"
         }
     }
+
+    protected responseHandle<TResult>(requestTask: Promise<any>, resolveProtocol: boolean = true): Promise<TResult> {
+        return new Promise<TResult>(async (resolve, reject) => {
+            await requestTask.then((res) => {
+                let response = this.resolveHttpResponse(res);
+                if (resolveProtocol && response.data.hasOwnProperty("code") && response.data.hasOwnProperty("data")) {
+                    this.bilibiliProtocolHandle(response, resolve, reject);
+                }
+                else {
+                    //不是BiliBiliProtocol的 自行处理响应
+                    resolve(<TResult>response.data)
+                }
+            }).catch(error => {
+                //TODO
+                console.log(error);
+                reject(error);
+            })
+        })
+    }
+
+    private bilibiliProtocolHandle<TResult>(
+        response: Response,
+        resolve: (value?: TResult | PromiseLike<TResult>) => void,
+        reject: (reason?: any) => void) {
+        let data = <BiliBiliProtocol<TResult>>response.data;
+        if ([401, 403].includes(response.status) || data.code === 3) {
+            reject(new ServiceError(response.status, '你还没有登录呢'));
+        }
+        else if (data.code && data.code !== 0) {
+            switch (data.code) {
+                case 1:
+                    reject(new ServiceError(response.status, 'bad request?'));
+                    break;
+                default:
+                    reject(response);
+                    break;
+            }
+        }
+        else {
+            resolve(data.data);
+        }
+    }
 }
 
 export class MobileHttpClient extends HttpClientBase {
+
     constructor(
-        private httpclient: HttpClient
+        private httpClient: HttpClient
     ) {
         super();
     }
 
-    public get<TResult>(path: string, param: { [name: string]: any; }): Promise<TResult> {
-        return this.httpclient.get<TResult>(
-            this.makeUrlWithEncodeParams(path, param),
-            {
-                headers: this.getHeaders()
-            }
-        ).toPromise();
+    public async get<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+        return this.responseHandle<TResult>(
+            this.httpClient.get(
+                this.makeUrlWithEncodeParams(path, param),
+                {
+                    headers: this.getHeaders(),
+                    observe: 'response',
+                    responseType: 'json'
+                },
+            ).toPromise(),
+            resolveProtocol
+        )
     }
 
-    public post<TResult>(path: string, param: { [name: string]: any; }): Promise<TResult> {
-        return this.httpclient.post<TResult>(
-            this.makeUrl(path),
-            this.toUrlEncode(param),
-            {
-                headers: this.getHeaders()
-            }
-        ).toPromise();
+    public async post<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+        return this.responseHandle<TResult>(
+            this.httpClient.post(
+                this.makeUrl(path),
+                this.toUrlEncode(param),
+                {
+                    headers: this.getHeaders(),
+                    observe: 'response',
+                    responseType: 'json'
+                }
+            ).toPromise(),
+            resolveProtocol
+        )
+    }
+
+    protected resolveHttpResponse(rawResponse: any): Response {
+        let response = <HttpResponse<Object>>rawResponse
+        return {
+            status: response.status,
+            headers: response.headers,
+            data: response.body
+        }
     }
 }
 
@@ -83,19 +155,36 @@ export class PhoneDeviceHttpClient extends HttpClientBase {
     ) {
         super();
     }
-    public async get<TResult>(path: string, param: { [name: string]: any; }): Promise<TResult> {
-        let response = await this.http.get(this.makeUrlWithEncodeParams(path, param), null, this.getHeaders());
-        return JSON.parse(response.data);
+    public async get<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+        return this.responseHandle<TResult>(
+            this.http.get(
+                this.makeUrlWithEncodeParams(path, param),
+                null,
+                this.getHeaders()
+            ),
+            resolveProtocol
+        )
     }
 
-    public async post<TResult>(path: string, param: { [name: string]: any; }): Promise<TResult> {
-        let response = await this.http.post(this.makeUrl(path), this.toUrlEncode(param), this.getHeaders());
-        return JSON.parse(response.data);
+    public async post<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+        return this.responseHandle<TResult>(
+            this.http.post(
+                this.makeUrl(path),
+                this.toUrlEncode(param),
+                this.getHeaders()
+            ),
+            resolveProtocol
+        )
+    }
+
+    protected resolveHttpResponse(rawResponse: any): Response {
+        let response = <HTTPResponse>rawResponse
+        return {
+            status: response.status,
+            headers: new HttpHeaders(response.headers),
+            data: JSON.parse(response.data)
+        }
     }
 }
 
-//TODO 抽象一个公共的拦截器 使用rx 发射事件流？深坑啊！
-export class HttpInterceptor {
 
-
-}

@@ -1,13 +1,14 @@
 import { tap, map, catchError } from 'rxjs/operators';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, Subject } from 'rxjs';
-import { BiliBiliProtocal } from 'src/app/bilibiliApi/models/bilibiliProtocal';
+import { BiliBiliProtocol } from 'src/app/bilibiliApi/models/bilibiliProtocol';
 import { ServiceError } from '../error/serviceError';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { UserState } from 'src/app/store/user.state';
 import { Injectable } from '@angular/core';
 import { ToastService } from 'src/app/services/toastService';
+
 
 @Injectable()
 export class UniversalInterceptor implements HttpInterceptor {
@@ -23,7 +24,7 @@ export class UniversalInterceptor implements HttpInterceptor {
       res => {
         switch (res.type) {
           case 4:
-            this.handleResponseEvent(<HttpResponse<BiliBiliProtocal<any>>>res, httpEventSubject)
+            this.handleResponseEvent(<HttpResponse<BiliBiliProtocol<any>>>res, httpEventSubject)
             break;
         }
       },
@@ -74,7 +75,7 @@ export class UniversalInterceptor implements HttpInterceptor {
     return newReq;
   }
 
-  protected async handleResponseEvent(httpResponse: HttpResponse<BiliBiliProtocal<any>>, subject: Subject<HttpEvent<any>>) {
+  protected async handleResponseEvent(httpResponse: HttpResponse<BiliBiliProtocol<any>>, subject: Subject<HttpEvent<any>>) {
     if ([401, 403].includes(httpResponse.status) || httpResponse.body.code === 3) {
       subject.error(new ServiceError(httpResponse.status, '你还没有登录呢'))
     }
