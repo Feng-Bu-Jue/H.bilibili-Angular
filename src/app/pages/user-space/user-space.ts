@@ -27,7 +27,7 @@ export class UserSpacePage implements OnInit {
     public userInfo;
     public disableScrollEvent: boolean = false;
     public scrollState;
-    @ViewChild('ionContent') content: IonContent;
+    @ViewChild('ionContent', { static: false }) content: IonContent;
 
     public get scorllHeight() {
         let height = this.content && this.content["el"] ? this.content["el"].clientHeight : 0;

@@ -15,8 +15,8 @@ import { async } from '@angular/core/testing';
   styleUrls: ['./rank-list.scss']
 })
 export class RankListPage implements OnInit {
-  @ViewChild(DrawListTemplate) template: DrawListTemplate;
-  @ViewChild('ionContent') content: IonContent;
+  @ViewChild(DrawListTemplate, { static: false }) template: DrawListTemplate;
+  @ViewChild('ionContent', { static: true }) content: IonContent;
 
   public get scorllHeight() {
     let height = this.content["el"].clientHeight;
@@ -46,7 +46,7 @@ export class RankListPage implements OnInit {
     zoom: false
   };
 
-  @ViewChild('slides') slides: IonSlides;
+  @ViewChild('slides', { static: true }) slides: IonSlides;
 
   constructor(
     private linkDrawApi: LinkDrawApi,

@@ -35,7 +35,7 @@ export class Tab implements OnInit, AfterContentInit {
     public onClick: EventEmitter<TabEvent> = new EventEmitter()
 
     @ContentChildren(TabItem, { descendants: true }) tabItems: QueryList<TabItem>;
-    @ViewChild('underline') underline: ElementRef;
+    @ViewChild('underline', { static: true }) underline: ElementRef;
 
     public underLineTransition: string = "";
 

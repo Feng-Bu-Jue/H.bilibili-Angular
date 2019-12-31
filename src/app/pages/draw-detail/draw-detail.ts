@@ -30,7 +30,7 @@ export class DrawDetailPage implements OnInit, DoCheck {
   public pageNum = 1;
   public uid: number;
 
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll: IonInfiniteScroll;
 
   constructor(
     private linkDrawApi: LinkDrawApi,

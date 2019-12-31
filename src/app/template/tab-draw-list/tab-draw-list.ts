@@ -55,9 +55,9 @@ export class TabDrawListTemplate implements OnInit {
   public movingPosition = 0;
   public isMoving = false;
 
-  @ViewChild('ionContent') content: IonContent;
-  @ViewChild('slides') slides: IonSlides;
-  @ViewChild('tab') tab: Tab;
+  @ViewChild('ionContent', { static: true }) content: IonContent;
+  @ViewChild('slides', { static: true }) slides: IonSlides;
+  @ViewChild('tab', { static: true }) tab: Tab;
 
   constructor(
     private linkDrawApi: LinkDrawApi,

@@ -8,7 +8,7 @@ import { PopoverController, ModalController, MenuController, ActionSheetControll
 })
 export class TabsPage implements OnInit {
 
-  @ViewChild('tabs') tabs: IonTabs;
+  @ViewChild('tabs', { static: true }) tabs: IonTabs;
   tabsCanGoBack = false;
   tabsParentCanGoBack = false;
 

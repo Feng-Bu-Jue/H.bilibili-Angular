@@ -11,7 +11,7 @@ import { ImgViewer } from 'src/app/widgets/img-viewer/img-viewer';
 })
 export class MineFavoritesPage implements OnInit {
 
-  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+  @ViewChild(IonInfiniteScroll, { static: true }) infiniteScroll: IonInfiniteScroll;
 
   public data = [];
   public pageNum: number = 0;

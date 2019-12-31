@@ -17,7 +17,7 @@ export class DrawListTemplate implements OnInit {
   @Input("source")
   public source: string;
 
-  @ViewChild(NgxWaterfallComponent) waterfall: NgxWaterfallComponent;
+  @ViewChild(NgxWaterfallComponent, { static: true }) waterfall: NgxWaterfallComponent;
 
   public gap: number = 10;
   public clumn = 2;
