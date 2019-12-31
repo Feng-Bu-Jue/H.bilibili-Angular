@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { trigger, state, transition, style, animate, keyframes } from '@angular/animations';
 import { UserApi } from 'src/app/bilibiliApi/userApi';
 import { IonContent } from '@ionic/angular';
+import { LinkDrawResultList } from 'src/app/bilibiliApi/models/linkDrawResult';
+import { UesrInfoResult } from 'src/app/bilibiliApi/models/userInfoResult';
 
 
 @Component({
@@ -14,7 +16,7 @@ import { IonContent } from '@ionic/angular';
     animations: [
         trigger('user-info', [
             state('up', style({ 'height': '*', 'padding': '*', 'opacity': '1', 'visibility': 'visible' })),
-            state('down', style({ 'height': '0px', 'padding': '0', 'opacity': '0', 'visibility': 'hidden' })),
+            state('down', style({ 'height': '0px', 'padding': '0px', 'opacity': '0', 'visibility': 'hidden' })),
             transition('* => down', animate(300)),
             transition('* => up', animate(300))
         ]),
@@ -23,21 +25,16 @@ import { IonContent } from '@ionic/angular';
 export class UserSpacePage implements OnInit {
     public uid: number;
     public pageNum: number = 0;
-    public data;
-    public userInfo;
+    public data: LinkDrawResultList;
+    public userInfo: UesrInfoResult;
     public disableScrollEvent: boolean = false;
-    public scrollState;
+    public scrollState: any;
     @ViewChild('ionContent', { static: false }) content: IonContent;
 
     public get scorllHeight() {
         let height = this.content && this.content["el"] ? this.content["el"].clientHeight : 0;
         return height + 'px';
     }
-
-    public slideOpts = {
-        initialSlide: 0,
-        speed: 400
-    };
 
     constructor(
         private linkDrawApi: LinkDrawApi,
@@ -79,4 +76,11 @@ export class UserSpacePage implements OnInit {
             this.ref.detectChanges();
         }
     }
+
+    public async follow(isFollow: boolean) {
+        let type = isFollow ? 1 : 0;
+        await this.userApi.attention(this.uid, type);
+        this.userInfo.is_followed = true;
+    }
+
 }

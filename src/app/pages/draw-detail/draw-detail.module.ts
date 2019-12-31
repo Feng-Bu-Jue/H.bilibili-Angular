@@ -32,7 +32,7 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
     }),
     DrawDetailPageRoutingModule,
     WidgetModule,
-    PipeModule
+    PipeModule,
   ],
   providers: [
     DatePipe

@@ -16,9 +16,7 @@ export class TapRipple {
   public position = "relative";
 
   @Input("transition")
-  public transition = "all 1.5s ease-in-out"
-  @Input("initOffset")
-  public initOffset: number = 10;
+  public transition = "all 0.5s ease-in-out"
 
   constructor(
     private element: ElementRef,
@@ -35,12 +33,12 @@ export class TapRipple {
 
     fromEvent(el, "touchmove")
       .subscribe((touchEvent: TouchEvent) => {
-        this.removeRipple(el);
+        //this.removeRipple(el);
       });
 
     fromEvent(el, "touchend")
       .subscribe((touchEvent: TouchEvent) => {
-        this.removeRipple(el);
+        //this.removeRipple(el);
       });
   }
 
@@ -53,14 +51,15 @@ export class TapRipple {
     this.isRemoved = false;
 
     setTimeout(() => {
-      let targetDistance = (parentElment.offsetWidth > parentElment.offsetHeight ? parentElment.offsetWidth : parentElment.offsetHeight) * 3;
-      let factor = Math.ceil(targetDistance / this.initOffset);
+      let targetDistance = Math.sqrt(Math.pow(parentElment.offsetWidth,2) + Math.pow(parentElment.offsetHeight,2))
+      let factor = Math.ceil(targetDistance / (parentElment.clientWidth / 2));
       this.renderer.setStyle(this.rippleElement, "transform", "scale(" + factor + ")");
-
+      /*
       fromEvent(this.rippleElement, "transitionend")
         .subscribe(() => {
           this.removeRipple(parentElment);
         })
+      */
     }, 10);
   }
 
@@ -78,6 +77,7 @@ export class TapRipple {
 
     this.setRippleElementStyle(
       rippleElemnt,
+      parentElment,
       touchEvent.changedTouches[0].clientX - rect.left,
       touchEvent.changedTouches[0].clientY - rect.top);
     return rippleElemnt;
@@ -89,13 +89,13 @@ export class TapRipple {
     return containerElemnt;
   }
 
-  private setRippleElementStyle(element: HTMLElement, left: number, top: number): void {
+  private setRippleElementStyle(element: HTMLElement, parentElment: HTMLElement, left: number, top: number): void {
     element.style.position = "absolute";
     element.style.transition = this.transition;
-    element.style.height = this.initOffset + "px";
-    element.style.width = this.initOffset + "px";
+    element.style.height = parentElment.clientWidth / 2 + "px";
+    element.style.width = parentElment.clientWidth / 2 + "px";
     element.style.backgroundColor = "rgb(140,140,140)";
-    element.style.opacity = "0.6";
+    element.style.opacity = "0.35";
     element.style.borderRadius = "50%";
     element.style.left = left + "px";
     element.style.top = top + "px";

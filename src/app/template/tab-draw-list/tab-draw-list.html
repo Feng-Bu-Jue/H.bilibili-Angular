@@ -1,8 +1,9 @@
 <ion-header>
     <tab #tab class="tab" [activeIndex]="activeIndex" (onChange)="onTabChange($event)" [movingPosition]="movingPosition"
         [isMoving]="isMoving">
-        <tab-item class="tab-item" *ngFor="let category of categories;index as i">
+        <tab-item class="tab-item ion-activatable" *ngFor="let category of categories;index as i">
             {{tabTitle[i]}}
+            <ion-ripple-effect></ion-ripple-effect>
         </tab-item>
     </tab>
 </ion-header>

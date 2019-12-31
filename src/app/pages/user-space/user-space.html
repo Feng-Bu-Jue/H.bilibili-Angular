@@ -1,10 +1,16 @@
 <ng-container *ngIf="data && userInfo">
-    <app-header [title]="userInfo.name">
+    <app-header title="详情">
         <div class="user-box" [@user-info]="scrollState">
-            <div class="user-face" [style.background-image]="'url(' + userInfo.face +')'">
-            </div>
-            <div class="user-sign">
-                {{userInfo.sign||'他没有个性，也没有签名'}}
+            <div class="user-face" [style.background-image]="'url(' + userInfo.face +')'"></div>
+            <div class="user-info">
+                <div class="user-name">
+                    <div>{{userInfo.name}}</div>
+                    <div class="btn-follow ion-activatable" (click)="follow(userInfo.is_followed)">
+                        {{userInfo.is_followed?'取关':'关注'}}
+                        <ion-ripple-effect></ion-ripple-effect>
+                    </div>
+                </div>
+                <div class="user-sign">{{userInfo.sign||'他没有个性，也没有签名'}}</div>
             </div>
         </div>
     </app-header>

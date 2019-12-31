@@ -2,8 +2,7 @@
     width: 100%;
 }
 
-app-header
-{
+app-header {
     background-color: #FA7298;
 }
 
@@ -14,6 +13,11 @@ app-header
     background-color: #FA7298;
     color: white;
 
+    .user-info {
+        margin-left: 10px;
+        width: 100%;
+    }
+
     .user-face {
         background-size: cover;
         width: 60px;
@@ -21,8 +25,28 @@ app-header
         border-radius: 50%;
         flex-shrink: 0;
     }
-
-    .user-sign {
-        margin-left: 10px;
-    }
 }
+
+.user-name {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-sign {
+    font-size: 12px;
+}
+
+.btn-follow
+{
+    color: white;
+    background-color: #FA7298;
+    border: 1px solid #FFFF;
+    padding: 5px 10px;
+    float: right;
+    position: relative;
+    overflow: hidden; 
+    border-radius: 5px;
+}
+

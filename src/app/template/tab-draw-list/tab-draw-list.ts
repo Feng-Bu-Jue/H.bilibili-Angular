@@ -48,8 +48,10 @@ export class TabDrawListTemplate implements OnInit {
   public slideOpts = {
     initialSlide: this.activeIndex,
     speed: 400,
-    zoom: false
+    zoom: false,
+    resistanceRatio: 0
   };
+
   public movingPosition = 0;
   public isMoving = false;
 
