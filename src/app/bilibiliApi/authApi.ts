@@ -35,10 +35,17 @@ export class AuthApi {
     }
 
     public encryptPassword(password: string): Promise<string> {
-        return this.client.get<RSAPublicKeyResult>("passport.api/login", {
-            act: 'getkey',
-            _: Date.now()
-        }, false).then(res => {
+        return this.client.get<RSAPublicKeyResult>(
+            "passport.api/login",
+            {
+                act: 'getkey',
+                _: Date.now()
+            },
+            {
+                resolveProtocol: false
+            }
+        )
+        .then(res => {
             let encoding = 'base64';
             let encrypt = new JsEncryptModule.JSEncrypt();
             encrypt.setPublicKey(res.key);
@@ -51,7 +58,9 @@ export class AuthApi {
         return this.client.get<SSOResult>(
             "kaaass.net/biliapi/user/sso",
             { access_key: accessToken },
-            false
+            {
+                resolveProtocol: false
+            }
         );
     }
 }

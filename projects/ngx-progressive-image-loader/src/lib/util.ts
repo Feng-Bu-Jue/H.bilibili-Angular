@@ -45,13 +45,12 @@ export function loadImage(renderer: Renderer2, image: HTMLElement) {
     }
     if(image.dataset.bgsrc)
     {
-      console.log("loading img")
+      console.log("loading img --- "+image.dataset.bgsrc)
       let img = new Image();
       img.onload = () => {
         image.classList.add('loaded');
       };
-      img.src=image.dataset.bgsrc;//to loading
-      console.log(image.dataset.bgsrc)
+      img.src = image.dataset.bgsrc;//to loading
       renderer.setStyle(image,"background-image",`url(${image.dataset.bgsrc})`);
     }
   }

@@ -3,7 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { PhoneDeviceHttpClient, HttpClientBase, MobileHttpClient } from './code/httpClientBase';
+import { HttpClientBase, AngularHttpClient, NativeHttpClient } from './code/httpClientBase';
 import { IonicModule } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/file/ngx';
@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { WidgetModule } from './widgets/widget.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AvatarPipe } from './pipe/avatarPipe';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular'
 
 @NgModule({
@@ -41,16 +42,17 @@ import { Platform } from '@ionic/angular'
     {
       provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, cookieService: CookieService, plt: Platform) => {
         if (plt.is("desktop") || plt.is("mobileweb")) {
-          return new MobileHttpClient(httpClient);
+          return new AngularHttpClient(httpClient);
         }
         else {
-          return new PhoneDeviceHttpClient(http, cookieService);
+          return new NativeHttpClient(http, cookieService);
         }
       },
       deps: [HttpClient, HTTP, CookieService, Platform]
     },
     File,
     HTTP,
+    StatusBar,
     CookieService,
     { provide: ErrorHandler, useClass: AppErrorHandler },
     //{ provide: HTTP_INTERCEPTORS, useClass: UniversalInterceptor, multi: true }

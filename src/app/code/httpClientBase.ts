@@ -13,10 +13,8 @@ export declare class Response {
 }
 
 export abstract class HttpClientBase {
-    //这个2个方法是抽象方法来着, 因为抽象方法不让写默认参数值 所以..
-    get<TResult>(path: string, param: { [name: string]: any }, resolveProtocol: boolean = true): Promise<TResult> { return null }
-    post<TResult>(path: string, param: { [name: string]: any }, resolveProtocol: boolean = true): Promise<TResult> { return null }
-
+    abstract get<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' }): Promise<TResult>
+    abstract post<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' }): Promise<TResult>
     protected abstract resolveHttpResponse(rawResponse: any): Response
 
     protected makeUrl(path: string): string {
@@ -25,16 +23,16 @@ export abstract class HttpClientBase {
         return sections.join("/");
     }
 
-    protected makeUrlWithEncodeParams(path: string, param: { [name: string]: any }): string {
-        return `${this.makeUrl(path)}?${this.toUrlEncode(param)}`;
+    protected makeUrlWithEncodeParams(path: string, params: { [name: string]: any }): string {
+        return `${this.makeUrl(path)}?${this.toUrlEncode(params)}`;
     }
 
-    protected toUrlEncode(param: { [name: string]: any }): string {
+    protected toUrlEncode(params: { [name: string]: any }): string {
         let queryString = '';
-        if (param) {
-            const keys = Object.keys(param);
+        if (params) {
+            const keys = Object.keys(params);
             queryString = keys.map(key => {
-                const value = param[key];
+                const value = params[key];
                 return this.parseParams(key, value);
             }).join('&');
         }
@@ -98,7 +96,7 @@ export abstract class HttpClientBase {
     }
 }
 
-export class MobileHttpClient extends HttpClientBase {
+export class AngularHttpClient extends HttpClientBase {
 
     constructor(
         private httpClient: HttpClient
@@ -106,34 +104,34 @@ export class MobileHttpClient extends HttpClientBase {
         super();
     }
 
-    public async get<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.httpClient.get(
-                this.makeUrlWithEncodeParams(path, param),
+                this.makeUrlWithEncodeParams(path, params),
                 {
                     headers: this.getHeaders(),
                     observe: 'response',
-                    responseType: 'json',
+                    responseType: <any>options.responseType,
                     withCredentials: true,
                 },
             ).toPromise(),
-            resolveProtocol
+            options.resolveProtocol
         )
     }
 
-    public async post<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.httpClient.post(
                 this.makeUrl(path),
-                this.toUrlEncode(param),
+                this.toUrlEncode(params),
                 {
                     headers: this.getHeaders(),
                     observe: 'response',
-                    responseType: 'json',
+                    responseType: <any>options.responseType,
                     withCredentials: true,
                 }
             ).toPromise(),
-            resolveProtocol
+            options.resolveProtocol
         )
     }
 
@@ -147,7 +145,7 @@ export class MobileHttpClient extends HttpClientBase {
     }
 }
 
-export class PhoneDeviceHttpClient extends HttpClientBase {
+export class NativeHttpClient extends HttpClientBase {
     constructor(
         private http: HTTP,
         private cookieService: CookieService
@@ -160,26 +158,33 @@ export class PhoneDeviceHttpClient extends HttpClientBase {
         this.http.setCookie(null, cookie);
         */
     }
-    
-    public async get<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+
+    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
         return this.responseHandle<TResult>(
-            this.http.get(
-                this.makeUrlWithEncodeParams(path, param),
-                null,
-                this.getHeaders()
+            this.http.sendRequest(
+                this.makeUrlWithEncodeParams(path, params),
+                {
+                    method: 'get',
+                    headers: this.getHeaders(),
+                    responseType: options.responseType
+                }
             ),
-            resolveProtocol
+            options.resolveProtocol
         )
     }
 
-    public async post<TResult>(path: string, param: { [name: string]: any; }, resolveProtocol: boolean = true): Promise<TResult> {
+    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
         return this.responseHandle<TResult>(
-            this.http.post(
+            this.http.sendRequest(
                 this.makeUrl(path),
-                this.toUrlEncode(param),
-                this.getHeaders()
+                {
+                    method: 'post',
+                    params: params,
+                    headers: this.getHeaders(),
+                    responseType: options.responseType
+                }
             ),
-            resolveProtocol
+            options.resolveProtocol
         )
     }
 
@@ -188,7 +193,7 @@ export class PhoneDeviceHttpClient extends HttpClientBase {
         return {
             status: response.status,
             headers: new HttpHeaders(response.headers),
-            data: JSON.parse(response.data)
+            data: response.data
         }
     }
 }

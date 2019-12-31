@@ -24,48 +24,45 @@ export class TabsPage implements OnInit {
 
   ngOnInit() {
     this.platform.backButton.subscribe(() => {
-      this.tabsCanGoBack = this.tabs.outlet.canGoBack();
-      this.tabsParentCanGoBack = this.tabs.outlet.parentOutlet.canGoBack();
       this.androidBackButtonHandle();
     });
   }
 
   async androidBackButtonHandle() {
-    try {
-      const alert = await this.alertCtrl.getTop();
-      if (alert) {
-        alert.dismiss();
-        return;
-      }
-      const action = await this.actionSheetCtrl.getTop();
-      if (action) {
-        action.dismiss();
-        return;
-      }
-      const popover = await this.popoverCtrl.getTop();
-      if (popover) {
-        popover.dismiss();
-        return;
-      }
-      const modal = await this.modalCtrl.getTop();
-      if (modal) {
-        modal.dismiss();
-        return;
-      }
-      const isOpen = await this.menuCtrl.isOpen();
-      if (isOpen) {
-        this.menuCtrl.close();
-        return;
-      }
-      if (!this.tabsCanGoBack && !this.tabsParentCanGoBack) {
-        //this.native.appMinimize();
-        return;
-      }
-    } catch (error) {
+    const alert = await this.alertCtrl.getTop();
+    if (alert) {
+      alert.dismiss();
+      return;
     }
+    const action = await this.actionSheetCtrl.getTop();
+    if (action) {
+      action.dismiss();
+      return;
+    }
+    const popover = await this.popoverCtrl.getTop();
+    if (popover) {
+      popover.dismiss();
+      return;
+    }
+    const modal = await this.modalCtrl.getTop();
+    if (modal) {
+      modal.dismiss();
+      return;
+    }
+    const isOpen = await this.menuCtrl.isOpen();
+    if (isOpen) {
+      this.menuCtrl.close();
+      return;
+    }
+    /*
+    if (!this.tabs.outlet.parentOutlet.canGoBack() && !this.tabs.outlet.canGoBack()) {
+      //this.native.appMinimize();
+      return;
+    }
+    */
   }
 
   onTabClick(path: string) {
-    this.router.navigateByUrl(`app/tabs/${path}`)
+    //this.router.navigateByUrl(`app/tabs/${path}`)
   }
 }

@@ -1,8 +1,8 @@
 import { Injectable, Inject } from '@angular/core';
 import { File, FileEntry } from '@ionic-native/file/ngx';
-import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Platform } from '@ionic/angular';
 import { saveAs } from 'file-saver';
+import { HttpClientBase } from '../code/httpClientBase';
 
 @Injectable({
     providedIn: 'root'
@@ -12,30 +12,26 @@ export class DownloadService {
 
     constructor(
         private file: File,
-        private client: HttpClient,
+        private httpClient: HttpClientBase,
         private plt: Platform,
     ) { }
 
-    public save(targetUrl: string) {
+    public async save(targetUrl: string) {
         let fileName = this.resolveFileName(targetUrl);
-        this.client.get(targetUrl, { responseType: 'blob' }).subscribe(async (res) => {
-            //need to inject corresponding instance for different platform?
-            if (this.plt.is("mobile")) {
-                await saveAs(res, fileName);
-            }
-            else {
-                let fileEntry = await this.file.createFile(this.getBaseStorageDir() + this.PICTRUE_DOWNLOAD_PATH, fileName, true);
-                fileEntry.createWriter((fileWriter) => {
-                    fileWriter.write(res);
-                }, (e) => { throw e; });
-            }
-        });
+        let blob = await this.httpClient.get<any>(targetUrl, { resolveProtocal: false, responseType: 'blob' });
+        if (this.plt.is("desktop") || this.plt.is("mobileweb")) {
+            await saveAs(blob, fileName);
+        }
+        else {
+            let fileEntry = await this.file.createFile(this.getBaseStorageDir() + this.PICTRUE_DOWNLOAD_PATH, fileName, true);
+            fileEntry.createWriter((fileWriter) => {
+                fileWriter.write(blob);
+            }, (e) => { throw e; });
+        }
     }
 
-    public batchSave(targetUrls: Array<string>) {
-        targetUrls.forEach(url => {
-            this.save(url);
-        })
+    public async batchSave(targetUrls: Array<string>) {
+        await Promise.all(targetUrls.map(url => this.save(url)))
     }
 
     public async getDownloadedFlie(): Promise<string[]> {

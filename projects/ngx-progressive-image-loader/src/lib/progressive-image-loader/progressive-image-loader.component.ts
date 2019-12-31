@@ -74,8 +74,6 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
     entries.forEach(
       entry =>
       {
-        console.log(entry.target);
-        console.log(entry.isIntersecting);
         entry.isIntersecting &&
         this.onImageAppearsInViewport(entry.target as HTMLElement, observer)
       }
