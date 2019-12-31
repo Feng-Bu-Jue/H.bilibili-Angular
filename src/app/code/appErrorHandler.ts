@@ -1,7 +1,6 @@
 import { ErrorHandler, Injectable } from '@angular/core';
 import { ToastService } from '../services/toastService';
 import { ServiceError } from './error/serviceError';
-import { async } from '@angular/core/testing';
 
 @Injectable()
 export class AppErrorHandler implements ErrorHandler {

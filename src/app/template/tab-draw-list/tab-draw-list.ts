@@ -6,11 +6,9 @@ import { NgxWaterfallComponent } from 'ngx-waterfall';
 import { DrawListTemplate } from 'src/app/template/draw-list/draw-list';
 import { Enum_DrawCategory } from 'src/app/bilibiliApi/models/Enum';
 import { LoadingService } from 'src/app/services/loadingService';
-import { async } from '@angular/core/testing';
 import { CookieService } from 'ngx-cookie-service';
-import { Scroll } from '@angular/router';
 import { Subject } from 'rxjs';
-import { Tab } from 'src/app/Components/tab/tab.component';
+import { Tab } from 'src/app/components/tab/tab.component';
 
 
 @Component({

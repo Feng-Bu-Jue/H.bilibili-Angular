@@ -1,7 +1,7 @@
 {
   "name": "h.bilibili-angular",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "fengbujue",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
@@ -16,23 +16,25 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~7.2.0",
-    "@angular/common": "^7.2.2",
-    "@angular/core": "^7.2.2",
-    "@angular/forms": "^7.2.2",
+    "@angular/animations": "~8.2.14",
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14",
+    "@angular/forms": "^8.2.14",
     "@angular/http": "^7.2.2",
-    "@angular/platform-browser": "^7.2.2",
-    "@angular/platform-browser-dynamic": "^7.2.2",
-    "@angular/router": "^7.2.2",
+    "@angular/platform-browser": "^8.2.14",
+    "@angular/platform-browser-dynamic": "^8.2.14",
+    "@angular/router": "^8.2.14",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/file": "^5.7.0",
     "@ionic-native/file-transfer": "^5.8.0",
     "@ionic-native/http": "^5.19.0",
+    "@ionic-native/native-page-transitions": "^5.19.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
-    "@ionic/angular": "^4.3.0",
+    "@ionic/angular": "^4.11.7",
     "@ionic/storage": "^2.2.0",
     "@ngxs/store": "^3.6.0",
+    "com.telerik.plugins.nativepagetransitions": "0.6.5",
     "concurrently": "^4.1.0",
     "cordova-android": "8.1.0",
     "cordova-plugin-advanced-http": "2.3.1",
@@ -43,21 +45,21 @@
     "ngx-cookie-service": "^2.2.0",
     "ngx-window-token": "^2.0.1",
     "reflect-metadata": "^0.1.12",
-    "rxjs": "~6.3.3",
+    "rxjs": "~6.5.4",
     "ts-md5": "^1.2.4",
-    "tslib": "^1.9.0",
-    "zone.js": "~0.8.29"
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.12.3",
-    "@angular-devkit/build-angular": "^0.13.9",
-    "@angular-devkit/build-ng-packagr": "~0.13.0",
+    "@angular-devkit/build-angular": "^0.803.21",
+    "@angular-devkit/build-ng-packagr": "~0.803.21",
     "@angular-devkit/core": "~7.2.3",
     "@angular-devkit/schematics": "~7.2.3",
-    "@angular/cli": "~7.3.1",
-    "@angular/compiler": "~7.2.2",
-    "@angular/compiler-cli": "~7.2.2",
-    "@angular/language-service": "~7.2.2",
+    "@angular/cli": "~8.3.21",
+    "@angular/compiler": "~8.2.14",
+    "@angular/compiler-cli": "~8.2.14",
+    "@angular/language-service": "~8.2.14",
     "@ionic/angular-toolkit": "~1.4.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
@@ -79,17 +81,16 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "lint-staged": "8.1.5",
-    "ng-packagr": "^4.2.0",
+    "ng-packagr": "^5.7.1",
     "prettier": "1.16.4",
     "protractor": "~5.4.0",
     "ts-node": "~8.0.0",
     "tsickle": ">=0.34.0",
-    "tslib": "^1.9.0",
     "tslint": "~5.12.0",
     "tslint-config-prettier": "1.18.0",
-    "typescript": "~3.1.6"
+    "typescript": "3.5.3"
   },
-  "description": "An Ionic project",
+  "description": "b站奥利给",
   "cordova": {
     "plugins": {
       "cordova-plugin-file": {},
@@ -103,7 +104,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-advanced-http": {
         "OKHTTP_VERSION": "3.10.0"
-      }
+      },
+      "com.telerik.plugins.nativepagetransitions": {}
     },
     "platforms": [
       "android"
