@@ -167,7 +167,7 @@
       "sourceRoot": "projects/ngx-progressive-image-loader/src",
       "projectType": "library",
       "prefix": "ngx",
-      "targets": {
+      "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {

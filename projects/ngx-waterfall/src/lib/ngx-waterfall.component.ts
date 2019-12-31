@@ -28,7 +28,7 @@ export class NgxWaterfallComponent
   @ContentChildren(NgxWaterfallItemDirective) waterfallItemList!: QueryList<
     NgxWaterfallItemDirective
   >
-  @ViewChild('container') waterfallContainerElement: ElementRef
+  @ViewChild('container', { static: true }) waterfallContainerElement: ElementRef
 
   nextIndex = 0
   offsetTopArray: Array<number> = []
