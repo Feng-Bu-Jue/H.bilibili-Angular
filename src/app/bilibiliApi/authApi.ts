@@ -46,10 +46,9 @@ export class AuthApi {
             }
         )
         .then(res => {
-            let encoding = 'base64';
             let encrypt = new JsEncryptModule.JSEncrypt();
             encrypt.setPublicKey(res.key);
-            let result = encrypt.encrypt(res.hash.concat(password)).toString(encoding);
+            let result = encrypt.encrypt(res.hash.concat(password));
             return result;
         });
     }

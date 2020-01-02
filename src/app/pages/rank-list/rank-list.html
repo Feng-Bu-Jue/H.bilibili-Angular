@@ -1,18 +1,1 @@
-<ion-header>
-    <tab class="tab" [activeIndex]="activeIndex" (onChange)="onTabChange($event)">
-        <tab-item class="tab-item" *ngFor="let category of categories;index as i">
-            {{tabTitle[i]}}
-        </tab-item>
-    </tab>
-</ion-header>
-<ion-content #ionContent style="width:100%">
-    <ion-slides #slides pager="true" [options]="slideOpts" [pager]="false" (ionSlideDidChange)="ionSlideDidChange()">
-        <ng-container *ngFor="let category of categories;index as i">
-            <ion-slide>
-                <scroll [height]="scorllHeight" [lowerOffset]="100" (onScrollLower)="loadData($event)">
-                    <template-draw-list [data]="data[i]"></template-draw-list>
-                </scroll>
-            </ion-slide>
-        </ng-container>
-    </ion-slides>
-</ion-content>
+<template-tab-draw-list [tabTitle]="tabTitle" [categories]="categories" [biz]="biz"></template-tab-draw-list>

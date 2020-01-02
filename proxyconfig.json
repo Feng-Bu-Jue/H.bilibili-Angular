@@ -45,7 +45,7 @@
         }
     },
     "/i0.hdslb.com": {
-        "target": "https://i0.hdslb.com/",
+        "target": "http://i0.hdslb.com/",
         "secure": false,
         "logLevel": "error",
         "changeOrigin": true,

@@ -4,7 +4,7 @@ import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { ToastController } from '@ionic/angular';
 import { NgxWaterfallComponent } from 'ngx-waterfall';
 import { ToastService } from 'src/app/services/toastService';
-import { Util } from 'src/app/services/util';
+import { DownloadService } from 'src/app/services/dowloadservice';
 
 @Component({
   selector: "template-draw-list",
@@ -29,19 +29,19 @@ export class DrawListTemplate implements OnInit {
   constructor(
     private linkDrawApi: LinkDrawApi,
     private toastService: ToastService,
-    private util: Util
+    private downloadService: DownloadService,
   ) { }
 
   async ngOnInit() {
 
   }
+  
+  public resetWaterfall() {
+    this.waterfall.reset();
+  }
 
   private clacItemWidth(containerWidth: number) {
     return (containerWidth - this.gap) / this.clumn;
-  }
-
-  public resetWaterfall() {
-    this.waterfall.reset();
   }
 
   public async vote(docId: number, already_voted: number): Promise<void> {
@@ -55,5 +55,9 @@ export class DrawListTemplate implements OnInit {
     }
     this.data.find(x => x.item.doc_id == docId).item.already_voted = already_voted == 0 ? 1 : 0;
     await this.toastService.present('点赞&收藏成功')
+  }
+
+  public async download(url: string) {
+    await this.downloadService.save(url);
   }
 }

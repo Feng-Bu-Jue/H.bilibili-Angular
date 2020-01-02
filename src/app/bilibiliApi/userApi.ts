@@ -32,8 +32,8 @@ export class UserApi {
     public getMyFav(page: number, pageSize: number): Promise<any> {
         return this.client.get<any>("api.vc/user_plus/v1/Fav/getMyFav", {
             biz_type: 2,
-            page: 1,
-            pagesize: 30,
+            page: page,
+            pagesize: pageSize,
             _: Date.now
         });
     }

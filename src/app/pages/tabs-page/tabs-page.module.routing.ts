@@ -18,7 +18,7 @@ const routes: Routes = [
           },
           {
             path: 'detail/:uid',
-            loadChildren: '../draw-detail/draw-detail.module#DrawDetailPageModule',
+            loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
           },
         ]
       },
@@ -27,11 +27,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../photo-list/photo-list.module#PhotoListPageModule',
+            loadChildren: () => import('../photo-list/photo-list.module').then(m => m.PhotoListPageModule),
           },
           {
             path: 'detail/:uid',
-            loadChildren: '../draw-detail/draw-detail.module#DrawDetailPageModule',
+            loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
           },
         ]
       },
@@ -40,11 +40,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../rank-list/rank-list.module#RankListPageModule',
+            loadChildren: () => import('../rank-list/rank-list.module').then(m => m.RankListPageModule),
           },
           {
             path: 'detail/:uid',
-            loadChildren: '../draw-detail/draw-detail.module#DrawDetailPageModule',
+            loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
           },
         ]
       },
@@ -53,7 +53,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../me/me.module#MePageModule'
+            loadChildren: () => import('../me/me.module').then(m => m.MePageModule),
           }
         ],
         canActivate: [AuthGuard]

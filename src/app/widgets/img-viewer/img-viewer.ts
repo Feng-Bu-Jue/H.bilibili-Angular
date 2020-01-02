@@ -1,15 +1,14 @@
-import { Component, OnInit, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, ViewChild, OnDestroy } from '@angular/core';
 import { ModalController, ActionSheetController } from '@ionic/angular';
 import { DownloadService } from 'src/app/services/dowloadservice';
-
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @Component({
   selector: "img-viewer",
   templateUrl: './img-viewer.html',
   styleUrls: ['./img-viewer.scss']
 })
-export class ImgViewer implements OnInit {
-
+export class ImgViewer implements OnInit, OnDestroy {
   @Input()
   urls: Array<string>;
   @Input()
@@ -84,15 +83,23 @@ export class ImgViewer implements OnInit {
   };
   longPressTask = null;
 
-  ngOnInit(): void {
-    this.slidesOpts.initialSlide = this.currentIndex;
-  }
 
   constructor(
     private modalController: ModalController,
     private actionSheetController: ActionSheetController,
-    private downloadService: DownloadService
+    private downloadService: DownloadService,
+    private statusBar: StatusBar
   ) {
+
+  }
+
+  ngOnInit(): void {
+    this.slidesOpts.initialSlide = this.currentIndex;
+    this.statusBar.backgroundColorByHexString("#1C1C1C");
+  }
+
+  ngOnDestroy(): void {
+    this.statusBar.backgroundColorByHexString("#FA7298");
   }
 
   dismiss() {

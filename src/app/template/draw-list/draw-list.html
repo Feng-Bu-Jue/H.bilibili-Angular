@@ -3,7 +3,7 @@
         <ng-container *ngIf="data && source =='space';else elseBlock">
             <div class="list-item" *ngFor="let doc of data.items" ngx-waterfall-item>
                 <ngx-progressive-image-loader>
-                    <div class="picture" [routerLink]="'./detail/'+doc.doc_id">
+                    <div class="picture" [routerLink]="'/app/tabs/draw/detail/'+doc.doc_id">
                         <img [src]="doc.pictures[0].img_src+'@512w_384h_1e.webp'"
                             [imageRatio]="doc.pictures[0].img_width/doc.pictures[0].img_height" ngxProgressiveBGImage />
                         <span class="pictrue-amount">{{doc.pictures.length}}p</span>
@@ -12,15 +12,13 @@
                 <div class="list-item-content">
                     <div class="title text-ellipsis" [routerLink]="'/app/tabs/draw/detail/'+doc.doc_id">{{doc.title}}
                     </div>
-                    <div>
-                        <i class="user-face inline"
-                            [style.background-image]="'url('+data.user.head_url+'@32w_32h_1e.webp)'"></i>
-                        <span class="user-name text-ellipsis inline">{{data.user.name}}</span>
-                        <svg class="icon vote-bar inline" [ngClass]="doc.already_liked==0?'':'voted'" aria-hidden="true"
-                            (click)="vote(doc.doc_id,doc.already_liked)">
-                            <use [attr.xlink:href]="'#icon-appreciate_light'">
-                            </use>
-                        </svg>
+                    <div class="ops-box">
+                        <act-box class="ops-item" (click)="download(doc.pictures[0].img_src)">
+                            Save
+                        </act-box>
+                        <act-box class="ops-item" (click)="vote(doc.doc_id,doc.item.already_voted)">
+                            Like
+                        </act-box>
                     </div>
                 </div>
             </div>
@@ -37,17 +35,19 @@
                 </ngx-progressive-image-loader>
                 <div class="list-item-content">
                     <div class="title text-ellipsis" [routerLink]="'./detail/'+doc.item.doc_id">{{doc.item.title}}</div>
-                    <div>
-                        <span [routerLink]="'/space/'+doc.user.uid">
-                            <i class="user-face inline"
-                                [style.background-image]="'url('+(doc.user.head_url|avatar:32)+')'"></i>
-                            <span class="user-name text-ellipsis inline">{{doc.user.name}}</span>
-                        </span>
-                        <svg class="icon vote-bar inline" [ngClass]="doc.item.already_voted==0?'':'voted'"
-                            aria-hidden="true" (click)="vote(doc.item.doc_id,doc.item.already_voted)">
-                            <use [attr.xlink:href]="'#icon-appreciate_light'">
-                            </use>
-                        </svg>
+                    <div class="user-box" [routerLink]="'/space/'+doc.user.uid">
+                        <div class="user-face">
+                            <ion-img [src]="doc.user.head_url|avatar:32"></ion-img>
+                        </div>
+                        <div class="user-name text-ellipsis">{{doc.user.name}}</div>
+                    </div>
+                    <div class="ops-box">
+                        <act-box class="ops-item" (click)="download(doc.item.pictures[0].img_src)">
+                            Save
+                        </act-box>
+                        <act-box class="ops-item" (click)="vote(doc.item.doc_id,doc.item.already_voted)">
+                            Like
+                        </act-box>
                     </div>
                 </div>
             </div>

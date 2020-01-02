@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { IonBackButton } from '@ionic/angular';
 
 
 @Component({
@@ -7,12 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
     template: `
     <ion-header>
         <ion-toolbar class="toolbar" color="primary">
-            <div (click)="goBack()" class="back-btn" *ngIf="showBack">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-back"></use>
-                </svg>
-            </div>
-            <div class="title">{{title}}</div>
+            <ion-buttons slot="start">
+                <ion-back-button #backButton (click)="goBack()" defaultHref=""></ion-back-button>
+            </ion-buttons>
+            <div class="title" [ngStyle]="{'transform': 'translateX('+titleOffsetX+'px)'}">{{title}}</div>
         </ion-toolbar>
         <ng-content></ng-content>
     </ion-header>`,
@@ -23,6 +22,13 @@ export class AppHeader implements OnInit {
     public title: string;
     @Input()
     public showBack: boolean = true;
+
+    @ViewChild('backButton', { static: true }) backButton: IonBackButton;
+
+    get titleOffsetX() {
+        let width = this.backButton ? this.backButton["el"].clientWidth : 0;
+        return -width / 2;
+    }
 
     constructor(
         //private router: Router,

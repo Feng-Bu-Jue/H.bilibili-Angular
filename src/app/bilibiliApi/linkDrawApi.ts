@@ -14,13 +14,13 @@ export class LinkDrawApi {
         private client: HttpClientBase
     ) { }
 
-    public getDocs(num: number, pageSize: number, category: Enum_DrawCategory, type: string): Promise<LinkDrawResult[]> {
+    public getDocs(num: number, pageSize: number, category: Enum_DrawCategory, type: string): Promise<LinkDrawResultList> {
         return this.client.get<LinkDrawResultList>("api.vc/link_draw/v2/doc/list", {
             category: Enum_DrawCategory[category],//all,illustration,comic,other
             type: type,//new,hot
             page_num: num,
             page_size: pageSize
-        }).then(x => x.items);
+        });
     }
 
     public getDocsByUid(uid: number, biz: number, pageNum: string, pageSize: string): Promise<LinkDrawResultV1[]> {
@@ -32,26 +32,25 @@ export class LinkDrawApi {
         }).then(x => x.items);
     }
 
-    public getPhotos(num: number, pageSize: number, category: Enum_DrawCategory, type: string): Promise<LinkDrawResult[]> {
+    public getPhotos(num: number, pageSize: number, category: Enum_DrawCategory, type: string): Promise<LinkDrawResultList> {
         return this.client.get<LinkDrawResultList>("api.vc/link_draw/v2/photo/list", {
             category: Enum_DrawCategory[category],//cos,sifu
             type: type,
             page_num: num,
             page_size: pageSize
-        }).then(x => x.items);
+        });
     }
 
     //biz=2&category=cos&rank_type=week&date=2019-12-16&page_num=0&page_size=50
-    public getRankList(num: number, pageSize: number, biz: Enum_Biz, category: Enum_DrawCategory, type: Enum_RankType): Promise<LinkDrawResult[]> {
+    public getRankList(num: number, pageSize: number, biz: Enum_Biz, category: Enum_DrawCategory, type: Enum_RankType): Promise<LinkDrawResultList> {
         return this.client.get<LinkDrawResultList>("api.vc/link_draw/v2/Doc/ranklist", {
             biz: biz,
-            category: Enum_DrawCategory[category],
+            //category: Enum_DrawCategory[category],
             rank_type: Enum_RankType[type],
             page_num: num,
             page_size: pageSize
-        }).then(x => x.items);
+        })
     }
-
 
     public getDocDetail(docId: number): Promise<LinkDrawResult> {
         return this.client.get<LinkDrawResult>("api.vc/link_draw/v1/doc/detail", {

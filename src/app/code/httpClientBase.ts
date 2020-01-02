@@ -13,17 +13,23 @@ export declare class Response {
 }
 
 export abstract class HttpClientBase {
-    abstract get<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' }): Promise<TResult>
-    abstract post<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' }): Promise<TResult>
+    abstract get<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean }): Promise<TResult>
+    abstract post<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean }): Promise<TResult>
     protected abstract resolveHttpResponse(rawResponse: any): Response
 
     protected makeUrl(path: string): string {
         let sections = path.split("/");
-        sections[0] = environment.apiProfile[sections[0]];
+        let prefix = sections[0];
+        if (environment.apiProfile[prefix]) {
+            sections[0] = environment.apiProfile[prefix];
+        }
         return sections.join("/");
     }
 
     protected makeUrlWithEncodeParams(path: string, params: { [name: string]: any }): string {
+        if (!params)
+            return this.makeUrl(path);
+
         return `${this.makeUrl(path)}?${this.toUrlEncode(params)}`;
     }
 
@@ -46,11 +52,16 @@ export abstract class HttpClientBase {
         return `${key}=${encodeURIComponent(value)}`;
     }
 
-    protected getHeaders() {
-        return {
-            "Content-Type": "application/x-www-form-urlencoded",
+    protected getHeaders(method: 'get' | 'post') {
+        var headers = {
             "Referrer": "https://www.bilibili.com"
         }
+        switch (method) {
+            case 'post':
+                headers["Content-Type"] = "application/x-www-form-urlencoded";
+                break;
+        }
+        return headers;
     }
 
     protected responseHandle<TResult>(requestTask: Promise<any>, resolveProtocol: boolean = true): Promise<TResult> {
@@ -104,28 +115,28 @@ export class AngularHttpClient extends HttpClientBase {
         super();
     }
 
-    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
+    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.httpClient.get(
                 this.makeUrlWithEncodeParams(path, params),
                 {
-                    headers: this.getHeaders(),
+                    headers: options.noHeader ? null: this.getHeaders('get'),
                     observe: 'response',
                     responseType: <any>options.responseType,
-                    withCredentials: true,
+                    withCredentials: this.getWithCredentials(path),
                 },
             ).toPromise(),
             options.resolveProtocol
         )
     }
 
-    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
+    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.httpClient.post(
                 this.makeUrl(path),
                 this.toUrlEncode(params),
                 {
-                    headers: this.getHeaders(),
+                    headers: this.getHeaders('post'),
                     observe: 'response',
                     responseType: <any>options.responseType,
                     withCredentials: true,
@@ -143,6 +154,13 @@ export class AngularHttpClient extends HttpClientBase {
             data: response.body
         }
     }
+
+    private getWithCredentials(path): boolean {
+        if (path.includes("i0.hdslb.com"))
+            return false;
+
+        return true;
+    }
 }
 
 export class NativeHttpClient extends HttpClientBase {
@@ -159,13 +177,13 @@ export class NativeHttpClient extends HttpClientBase {
         */
     }
 
-    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
+    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.http.sendRequest(
                 this.makeUrlWithEncodeParams(path, params),
                 {
                     method: 'get',
-                    headers: this.getHeaders(),
+                    headers:  options.noHeader ? null: this.getHeaders('get'),
                     responseType: options.responseType
                 }
             ),
@@ -173,14 +191,14 @@ export class NativeHttpClient extends HttpClientBase {
         )
     }
 
-    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' } = { resolveProtocol: true, responseType: 'json' }): Promise<TResult> {
+    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.http.sendRequest(
                 this.makeUrl(path),
                 {
                     method: 'post',
                     params: params,
-                    headers: this.getHeaders(),
+                    headers: this.getHeaders('post'),
                     responseType: options.responseType
                 }
             ),

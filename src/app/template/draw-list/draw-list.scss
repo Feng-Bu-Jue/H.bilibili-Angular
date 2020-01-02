@@ -50,25 +50,18 @@
 }
 
 .user-face {
-  background-size: cover;
-  border-radius: 50%;
   width: 24px;
   height: 24px;
-  margin-right: 10px;
+  
+  ion-img {
+    border-radius: 50%;
+    overflow: hidden;
+  }
 }
 
 .user-name {
   color: #929191;
-  max-width: calc(100% - 64px);
-}
-
-.vote-bar {
-  float: right;
-  font-size: 24px;
-
-  &.voted {
-    color: #FA7298;
-  }
+  margin-left: 10px;
 }
 
 .item-amount {
@@ -76,4 +69,26 @@
   bottom: 5px;
   right: 5px;
   padding: 3px;
+}
+
+.user-box {
+  display: flex;
+  padding: 3px 0;
+  align-items: center;
+}
+
+.ops-box {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  color: #FA7298;
+  font-weight: 600;
+
+  .ops-item {
+    text-align: center;
+    padding: 5px 0;
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+  }
 }

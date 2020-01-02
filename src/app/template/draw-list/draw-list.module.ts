@@ -8,6 +8,7 @@ import { NgxProgressiveImageLoaderModule } from 'ngx-progressive-image-loader';
 import { RouterModule } from '@angular/router';
 import { NgxWaterfallModule } from 'ngx-waterfall';
 import { PipeModule } from 'src/app/pipe/pipe.module';
+import { WidgetModule } from 'src/app/widgets/widget.module';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { PipeModule } from 'src/app/pipe/pipe.module';
         IonicModule,
         RouterModule,
         NgxWaterfallModule,
+        WidgetModule,
         NgxProgressiveImageLoaderModule.forRoot(<IImageLoaderOptions>{
             // rootMargin must be specified in pixels or percent
             rootMargin: '10px',

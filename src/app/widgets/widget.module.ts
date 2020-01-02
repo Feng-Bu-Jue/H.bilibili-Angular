@@ -5,13 +5,15 @@ import { IconLevel } from './icon-level/icon-level';
 import { AppHeader } from './app-header/app-header';
 import { ImgViewer } from './img-viewer/img-viewer';
 import { NgModule } from '@angular/core';
+import { Activatable } from './activatable/activatable';
 
 @NgModule({
     declarations: [
         ImgViewer,
         IconGender,
         IconLevel,
-        AppHeader
+        AppHeader,
+        Activatable
     ],
     imports: [
         CommonModule,
@@ -21,7 +23,8 @@ import { NgModule } from '@angular/core';
         ImgViewer,
         IconGender,
         IconLevel,
-        AppHeader
+        AppHeader,
+        Activatable
     ]
 })
 export class WidgetModule { }
