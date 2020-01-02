@@ -44,7 +44,6 @@ export class TabDrawListTemplate implements OnInit {
 
   public data = new Array<Array<LinkDrawResult>>([], []);
   public pageNum = new Array<number>(0, 0);
-  public disableScrollEvent: boolean = false;
 
   public slideOpts = {
     initialSlide: this.activeIndex,
@@ -96,7 +95,7 @@ export class TabDrawListTemplate implements OnInit {
       if (event)
         event.target.complete();
       if (this.pageNum[this.activeIndex] * pageSize >= res.total_count)
-        this.disableScrollEvent = false;
+        event.target.disabled = true;
     }
 
     if (loading) {
