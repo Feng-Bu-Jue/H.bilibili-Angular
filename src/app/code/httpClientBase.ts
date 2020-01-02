@@ -120,7 +120,7 @@ export class AngularHttpClient extends HttpClientBase {
             this.httpClient.get(
                 this.makeUrlWithEncodeParams(path, params),
                 {
-                    headers: options.noHeader ? null: this.getHeaders('get'),
+                    headers: options.noHeader ? null : this.getHeaders('get'),
                     observe: 'response',
                     responseType: <any>options.responseType,
                     withCredentials: this.getWithCredentials(path),
@@ -177,13 +177,13 @@ export class NativeHttpClient extends HttpClientBase {
         */
     }
 
-    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
+    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'text', noHeader: false }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.http.sendRequest(
                 this.makeUrlWithEncodeParams(path, params),
                 {
                     method: 'get',
-                    headers:  options.noHeader ? null: this.getHeaders('get'),
+                    headers: options.noHeader ? null : this.getHeaders('get'),
                     responseType: options.responseType
                 }
             ),
@@ -191,7 +191,7 @@ export class NativeHttpClient extends HttpClientBase {
         )
     }
 
-    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
+    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'text', noHeader: false }): Promise<TResult> {
         return this.responseHandle<TResult>(
             this.http.sendRequest(
                 this.makeUrl(path),
@@ -208,6 +208,10 @@ export class NativeHttpClient extends HttpClientBase {
 
     protected resolveHttpResponse(rawResponse: any): Response {
         let response = <HTTPResponse>rawResponse
+        let contentType = response.headers["content-Type"];
+        if (contentType && contentType.includes("application/json")) {
+            response.data = JSON.parse(response.data);
+        }
         return {
             status: response.status,
             headers: new HttpHeaders(response.headers),
