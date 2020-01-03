@@ -5,16 +5,22 @@ import { BiliBiliProtocol } from '../bilibiliApi/models/bilibiliProtocol';
 import { ServiceError } from './error/serviceError';
 import { CookieService } from 'ngx-cookie-service';
 
-//把不同的client response抽象一哈
 export declare class Response {
     status: number;
     headers: HttpHeaders;
     data: Object;
 }
 
+export class ClientOptions {
+    resolveProtocol?: boolean = true;
+    responseType?: 'text' | 'arraybuffer' | 'blob' | 'json' = 'json';
+    noHeader?: boolean = false;
+    authRequried?: boolean = false;
+}
+
 export abstract class HttpClientBase {
-    abstract get<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean }): Promise<TResult>
-    abstract post<TResult>(path: string, params: { [name: string]: any }, options?: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean }): Promise<TResult>
+    abstract get<TResult>(path: string, params: { [name: string]: any }, options?: ClientOptions): Promise<TResult>
+    abstract post<TResult>(path: string, params: { [name: string]: any }, options?: ClientOptions): Promise<TResult>
     protected abstract resolveHttpResponse(rawResponse: any): Response
 
     protected makeUrl(path: string): string {
@@ -62,6 +68,10 @@ export abstract class HttpClientBase {
                 break;
         }
         return headers;
+    }
+
+    protected assignFromDefaultOptions(options: ClientOptions) {
+        return Object.assign(new ClientOptions(), options)
     }
 
     protected responseHandle<TResult>(requestTask: Promise<any>, resolveProtocol: boolean = true): Promise<TResult> {
@@ -115,7 +125,8 @@ export class AngularHttpClient extends HttpClientBase {
         super();
     }
 
-    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
+    public async get<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
+        options = this.assignFromDefaultOptions(options);
         return this.responseHandle<TResult>(
             this.httpClient.get(
                 this.makeUrlWithEncodeParams(path, params),
@@ -130,7 +141,8 @@ export class AngularHttpClient extends HttpClientBase {
         )
     }
 
-    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'json', noHeader: false }): Promise<TResult> {
+    public async post<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
+        options = this.assignFromDefaultOptions(options);
         return this.responseHandle<TResult>(
             this.httpClient.post(
                 this.makeUrl(path),
@@ -177,7 +189,9 @@ export class NativeHttpClient extends HttpClientBase {
         */
     }
 
-    public async get<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'text', noHeader: false }): Promise<TResult> {
+    public async get<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
+        options.responseType = options.responseType || 'text';
+        options = this.assignFromDefaultOptions(options);
         return this.responseHandle<TResult>(
             this.http.sendRequest(
                 this.makeUrlWithEncodeParams(path, params),
@@ -191,7 +205,9 @@ export class NativeHttpClient extends HttpClientBase {
         )
     }
 
-    public async post<TResult>(path: string, params: { [name: string]: any; }, options: { resolveProtocol?: boolean, responseType?: 'text' | 'arraybuffer' | 'blob' | 'json', noHeader?: boolean } = { resolveProtocol: true, responseType: 'text', noHeader: false }): Promise<TResult> {
+    public async post<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
+        options.responseType = options.responseType || 'text';
+        options = this.assignFromDefaultOptions(options);
         return this.responseHandle<TResult>(
             this.http.sendRequest(
                 this.makeUrl(path),

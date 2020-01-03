@@ -35,7 +35,7 @@ export class DrawListTemplate implements OnInit {
   async ngOnInit() {
 
   }
-  
+
   public resetWaterfall() {
     this.waterfall.reset();
   }
@@ -57,7 +57,8 @@ export class DrawListTemplate implements OnInit {
     await this.toastService.present('点赞&收藏成功')
   }
 
-  public async download(url: string) {
+  public async download(title: string, url: string) {
     await this.downloadService.save(url);
+    this.toastService.present(`${title} 下载完成`)
   }
 }

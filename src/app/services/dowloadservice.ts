@@ -13,7 +13,7 @@ export class DownloadService {
     constructor(
         private file: File,
         private httpClient: HttpClientBase,
-        private plt: Platform,
+        private plt: Platform
     ) { }
 
     public async save(url: string) {

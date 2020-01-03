@@ -54,9 +54,7 @@ export class IonicRouteStrategy implements RouteReuseStrategy {
         future: ActivatedRouteSnapshot,
         curr: ActivatedRouteSnapshot
     ): boolean {
-
         if (future.routeConfig !== curr.routeConfig) {
-            console.log("1-false")
             return false;
         }
 
@@ -66,24 +64,16 @@ export class IonicRouteStrategy implements RouteReuseStrategy {
         const keysA = Object.keys(futureParams);
         const keysB = Object.keys(currentParams);
 
-
-
         if (keysA.length !== keysB.length) {
-            console.log("2-false")
             return false;
         }
         // Test for A's keys different from B.
         for (const key of keysA) {
             if (currentParams[key] !== futureParams[key]) {
-                console.log("3-false")
                 return false;
             }
         }
 
-        console.log(future)
-        console.log(curr)
-        console.log("--------------------------------------------")
-        console.log("--true")
         return true;
     }
 }

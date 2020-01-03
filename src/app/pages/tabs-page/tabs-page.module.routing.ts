@@ -11,51 +11,23 @@ const routes: Routes = [
     children: [
       {
         path: 'draw',
-        children: [
-          {
-            path: '',
-            component: DrawListPage,
-          },
-          {
-            path: 'detail/:uid',
-            loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
-          },
-        ]
+        loadChildren: () => import('../draw-list/draw-list.module').then(m => m.DrawListPageModule)
+      },
+      {
+        path: 'draw/detail/:uid',
+        loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
       },
       {
         path: 'photo',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../photo-list/photo-list.module').then(m => m.PhotoListPageModule),
-          },
-          {
-            path: 'detail/:uid',
-            loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
-          },
-        ]
+        loadChildren: () => import('../photo-list/photo-list.module').then(m => m.PhotoListPageModule),
       },
       {
         path: 'rank',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../rank-list/rank-list.module').then(m => m.RankListPageModule),
-          },
-          {
-            path: 'detail/:uid',
-            loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
-          },
-        ]
+        loadChildren: () => import('../rank-list/rank-list.module').then(m => m.RankListPageModule)
       },
       {
         path: 'me',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('../me/me.module').then(m => m.MePageModule),
-          }
-        ],
+        loadChildren: () => import('../me/me.module').then(m => m.MePageModule),
         canActivate: [AuthGuard]
       },
       {

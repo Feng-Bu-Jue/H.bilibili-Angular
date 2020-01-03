@@ -22,6 +22,7 @@ import { TabDrawListTemplateModule } from 'src/app/template/tab-draw-list/tab-dr
     CommonModule,
     ComponentModule,
     IonicModule,
+    DrawListPageRoutingModule,
     TabDrawListTemplateModule,
     WidgetModule
   ],

@@ -27,10 +27,8 @@ export class TabDrawListTemplate implements OnInit {
   @HostBinding('class.ion-page')
   ionpage = true;
 
-  public get scorllHeight() {
-    let height = this.content["el"].clientHeight;
-    return height + 'px';
-  }
+  @ViewChild('slides', { static: true }) slides: IonSlides;
+  @ViewChildren(DrawListTemplate) templates: QueryList<DrawListTemplate>;
 
   private _activeIndex: number = 0;
 
@@ -55,10 +53,7 @@ export class TabDrawListTemplate implements OnInit {
   public movingPosition = 0;
   public isMoving = false;
 
-  @ViewChild('ionContent', { static: true }) content: IonContent;
-  @ViewChild('slides', { static: true }) slides: IonSlides;
-  @ViewChild('tab', { static: true }) tab: Tab;
-  @ViewChildren(DrawListTemplate) templates: QueryList<DrawListTemplate>;
+
 
   constructor(
     private linkDrawApi: LinkDrawApi,

@@ -26,7 +26,7 @@
         <ng-template #elseBlock>
             <div class="list-item" *ngFor="let doc of data" ngx-waterfall-item>
                 <ngx-progressive-image-loader>
-                    <div class="picture" [routerLink]="'./detail/'+doc.item.doc_id">
+                    <div class="picture" [routerLink]="'/app/tabs/draw/detail/'+doc.item.doc_id">
                         <img [src]="doc.item.pictures[0].img_src+'@512w_384h_1e.webp'"
                             [imageRatio]="doc.item.pictures[0].img_width/doc.item.pictures[0].img_height"
                             ngxProgressiveBGImage />
@@ -34,7 +34,8 @@
                     </div>
                 </ngx-progressive-image-loader>
                 <div class="list-item-content">
-                    <div class="title text-ellipsis" [routerLink]="'./detail/'+doc.item.doc_id">{{doc.item.title}}</div>
+                    <div class="title text-ellipsis" [routerLink]="'/app/tabs/draw/detail/'+doc.item.doc_id">
+                        {{doc.item.title}}</div>
                     <div class="user-box" [routerLink]="'/space/'+doc.user.uid">
                         <div class="user-face">
                             <ion-img [src]="doc.user.head_url|avatar:32"></ion-img>
@@ -42,7 +43,7 @@
                         <div class="user-name text-ellipsis">{{doc.user.name}}</div>
                     </div>
                     <div class="ops-box">
-                        <act-box class="ops-item" (click)="download(doc.item.pictures[0].img_src)">
+                        <act-box class="ops-item" (click)="download(doc.item.title,doc.item.pictures[0].img_src)">
                             Save
                         </act-box>
                         <act-box class="ops-item" (click)="vote(doc.item.doc_id,doc.item.already_voted)">

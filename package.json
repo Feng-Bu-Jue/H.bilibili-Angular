@@ -26,6 +26,7 @@
     "@angular/router": "^8.2.14",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/file": "^5.7.0",
+    "@ionic-native/file-transfer": "^5.19.0",
     "@ionic-native/http": "^5.19.0",
     "@ionic-native/native-page-transitions": "^5.19.0",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -104,7 +105,8 @@
       "cordova-plugin-advanced-http": {
         "OKHTTP_VERSION": "3.10.0"
       },
-      "com.telerik.plugins.nativepagetransitions": {}
+      "com.telerik.plugins.nativepagetransitions": {},
+      "cordova-plugin-file-transfer": {}
     },
     "platforms": [
       "android"

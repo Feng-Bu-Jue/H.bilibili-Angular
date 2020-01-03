@@ -11,7 +11,7 @@ export class ToastService {
     async present(message: string) {
         const toast = await this.toastController.create({
             message: message,
-            position: 'middle',
+            position: 'bottom',
             duration: 1500,
             cssClass: 'toast'
         });
@@ -21,5 +21,4 @@ export class ToastService {
     dismiss() {
         this.toastController.dismiss();
     }
-
 }

@@ -57,7 +57,7 @@ import { IonicRouteStrategy, SimpleReuseStrategy } from './code/simpleReuseStrat
     SplashScreen,
     CookieService,
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    { provide: RouteReuseStrategy, useClass: SimpleReuseStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })

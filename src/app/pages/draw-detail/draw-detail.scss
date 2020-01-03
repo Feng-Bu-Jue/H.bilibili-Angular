@@ -1,7 +1,8 @@
-.container {
+.main {
   background-color: #d4d0d0;
   margin-bottom: 40px;
-  .block {
+
+  .section {
     background-color: #fff;
   }
 }
@@ -24,10 +25,12 @@
   margin-left: 60px;
   min-height: 48px;
   color: #fa7298;
+
   .author-name {
     font-weight: 600;
     padding: 5px 0;
   }
+
   .info {
     font-size: 11px;
     padding: 5px 0;
@@ -39,28 +42,34 @@
   display: inline-block;
   vertical-align: top;
   overflow: hidden;
+
   &.w-1 {
     width: calc(100% / 1);
     border-radius: 1%;
   }
+
   &.w-2 {
     width: calc((100% / 2) - 2%);
     border-radius: 2%;
     margin-right: 2%;
     margin-bottom: 2%;
+
     &:nth-child(2n) {
       margin-right: 0%;
     }
   }
+
   &.w-3 {
     width: calc((100% / 3) - (2% / 3));
     border-radius: 4%;
     margin-right: 1%;
     margin-bottom: 1%;
+
     &:nth-child(3n) {
       margin-right: 0%;
     }
   }
+
   div[ngxProgressiveBGImage] {
     height: 100%;
     background-size: cover;
@@ -68,39 +77,45 @@
 }
 
 .user-face {
-  float: left;
-  ion-img {
-    height: 32px;
-    width: 32px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
+  position: absolute;
+  top: 0;
+  margin-top: 10px;
+  height: 32px;
+  width: 32px;
 }
 
 .reply {
   padding: 10px;
+
   .reply-item {
-    padding: 10px 0;
-    border-bottom: 1px solid rgb(244, 244, 244);
+    --padding-start:0;
+    --inner-padding-top: 10px;
+    --inner-padding-bottom: 10px;
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
   }
 }
 
-.reply-item-con {
+.item-content {
   margin-left: 45px;
   font-size: 12px;
+
   .user {
     color: #6d757a;
     font-weight: 700;
   }
-  .info {
+
+  .date {
     margin-top: 5px;
     font-size: 10px;
     color: rgb(153, 153, 153);
   }
+
   .text {
     margin: 10px 0;
     line-height: 1.5;
     white-space: pre-wrap;
+
     img {
       height: 2rem;
       width: 2rem;
@@ -116,7 +131,8 @@
 
 .sub-reply-item {
   padding: 3px 0;
-  > a {
+
+  >a {
     outline: none;
     color: rgb(80, 144, 204);
     text-decoration: none;
@@ -131,8 +147,8 @@
   display: inline-flex;
   width: 100%;
   align-items: center;
-  .input
-  {
+
+  .input {
     border-radius: 15px;
     background-color: #d4d0d0;
     --padding-start: 10px;
@@ -140,6 +156,7 @@
     --padding-bottom: 5px;
     --padding-top: 5px;
   }
+
   .button {
     flex-basis: 50px;
   }

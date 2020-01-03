@@ -82,6 +82,7 @@ export class NgxWaterfallComponent
 
   ngAfterContentChecked() {
     if (this.waterfallItemList.length !== this.prevItemLength) {
+      console.log("render item")
       const lastAddItemList = this.waterfallItemList.filter((item, i) => {
         return i > this.prevItemLength - 1
       })

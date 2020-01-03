@@ -18,6 +18,11 @@ $loading-image-scale: 0.5;
 $loading-image-transition: opacity 1s linear;
 @include progressive-image-loader($loading-image-scale, $loading-image-transition);
 
+.ion-activatable {
+    position: relative;
+    overflow: hidden;
+}
+
 /*--------------icon-font---------------*/
 .icon {
     width: 1em;
@@ -39,12 +44,6 @@ a {
     text-decoration: none;
 }
 
-.swiper {
-    .swiper-wrapper {
-        align-items: Center;
-    }
-}
-
 .text-ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
@@ -58,5 +57,6 @@ a {
 
 .toast {
     --background: rgba(58, 58, 58, 0.8);
+    --ion-safe-area-bottom: 50px;
     --color: white;
 }

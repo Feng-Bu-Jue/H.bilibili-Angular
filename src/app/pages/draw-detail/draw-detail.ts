@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, DoCheck, Inject } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, DoCheck, Inject, AfterContentInit, AfterViewInit } from '@angular/core';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { DatePipe } from '@angular/common';
 import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
@@ -17,15 +17,15 @@ import { ModalService } from 'src/app/services/modalService';
   templateUrl: './draw-detail.html',
   styleUrls: ['./draw-detail.scss']
 })
-export class DrawDetailPage implements OnInit, DoCheck {
+export class DrawDetailPage implements OnInit, AfterViewInit, DoCheck {
+
   public util = util;
 
   public detailResult: LinkDrawResult;
   public replies: Array<Reply> = new Array<Reply>();
-  public replyPageInfo: ReplyPage;
+  public replyPage: ReplyPage;
 
   public commentMessage: string;
-  public commnentButtonDisabled: boolean = true;
 
   public pageNum = 1;
   public uid: number;
@@ -49,18 +49,22 @@ export class DrawDetailPage implements OnInit, DoCheck {
   async ngOnInit(): Promise<void> {
     let res = await this.linkDrawApi.getDocDetail(this.uid)
     this.detailResult = res;
-    this.loadMoreComment();
+
+  }
+
+  async ngAfterViewInit(): Promise<void> {
+    await this.loadMoreComment();
   }
 
   public ngDoCheck(): void {
-    this.commnentButtonDisabled = !(this.commentMessage && this.commentMessage.length > 0);
+
   }
 
   public async loadMoreComment(event = null): Promise<void> {
     await this.replyApi.getReplies(this.uid, this.pageNum)
       .then(res => {
         this.pageNum++;
-        this.replyPageInfo = res.page;//update count for each call
+        this.replyPage = res.page;
         if (res.replies) {
           this.replies = this.replies.concat(res.replies);
         }
