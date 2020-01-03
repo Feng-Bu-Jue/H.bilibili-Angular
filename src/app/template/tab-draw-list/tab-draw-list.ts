@@ -65,11 +65,12 @@ export class TabDrawListTemplate implements OnInit {
     private loadingService: LoadingService,
     private cookieService: CookieService,
   ) {
-
   }
+  
   ngOnInit() {
     this.loadData(null, true);
   }
+
   async loadData(event = null, loading = false) {
     const pageSize = 20;
     let doLoadData = async () => {

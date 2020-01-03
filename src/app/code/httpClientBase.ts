@@ -208,7 +208,7 @@ export class NativeHttpClient extends HttpClientBase {
 
     protected resolveHttpResponse(rawResponse: any): Response {
         let response = <HTTPResponse>rawResponse
-        let contentType = response.headers["content-Type"];
+        let contentType = response.headers["content-type"];
         if (contentType && contentType.includes("application/json")) {
             response.data = JSON.parse(response.data);
         }

@@ -7,16 +7,16 @@ const routes: Routes = [
   { path: '', redirectTo: '/app/tabs/draw', pathMatch: 'full' },
   {
     path: 'app',
-    loadChildren: './pages/tabs-page/tabs-page.module#TabsModule'
+    loadChildren: () => import('./pages/tabs-page/tabs-page.module').then(m => m.TabsModule)
   },
   {
     path: 'login',
-    loadChildren: './pages/login/login.module#LoginPageModule',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
     canActivate: [LoginGuard]
   },
   {
     path: 'space/:uid',
-    loadChildren: './pages/user-space/user-space.module#UserSpacePageModule',
+    loadChildren: () => import('./pages/user-space/user-space.module').then(m => m.UserSpacePageModule)
   }
 ];
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopoverController, ModalController, MenuController, ActionSheetController, AlertController, Platform, Events, IonTabs } from '@ionic/angular';
+import { PopoverController, ModalController, MenuController, ActionSheetController, AlertController, Platform, IonTabs } from '@ionic/angular';
 
 @Component({
   templateUrl: 'tabs-page.html',
@@ -13,7 +13,6 @@ export class TabsPage implements OnInit {
   tabsParentCanGoBack = false;
 
   constructor(public platform: Platform,
-    public events: Events,
     public router: Router,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
@@ -23,8 +22,8 @@ export class TabsPage implements OnInit {
   }
 
   ngOnInit() {
-    this.platform.backButton.subscribe(() => {
-      this.androidBackButtonHandle();
+    this.platform.backButton.subscribe(async () => {
+      await this.androidBackButtonHandle();
     });
   }
 

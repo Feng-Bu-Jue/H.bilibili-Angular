@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IonBackButton } from '@ionic/angular';
+import { IonBackButton, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -32,6 +32,7 @@ export class AppHeader implements OnInit {
 
     constructor(
         //private router: Router,
+        private navCtrl: NavController
     ) { }
 
     ngOnInit(): void {
@@ -39,10 +40,6 @@ export class AppHeader implements OnInit {
     }
 
     public goBack(): void {
-        if (history.length == 1) {
-            //this.router.navigate(['']);//go to default page
-        } else {
-            history.back();
-        }
+        this.navCtrl.back();
     }
 }
