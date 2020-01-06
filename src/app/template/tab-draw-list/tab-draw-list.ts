@@ -61,7 +61,7 @@ export class TabDrawListTemplate implements OnInit {
     private cookieService: CookieService,
   ) {
   }
-  
+
   ngOnInit() {
     this.loadData(null, true);
   }

@@ -7,7 +7,7 @@
         </tab-item>
     </tab>
 </ion-header>
-<ion-slides #slides [pager]="false" [options]="slideOpts"  style="width:100%;height:100%;"
+<ion-slides #slides [pager]="false" [options]="slideOpts" style="width:100%;height:100%;"
     (ionSlideWillChange)="ionSlideWillChange($event)" (ionSlideDrag)="ionSlideDrag($event)"
     (ionSlideTouchEnd)="ionSlideTouchEnd($event)">
     <ng-container *ngFor="let category of categories;index as i">
@@ -23,7 +23,7 @@
                 <template-draw-list [data]="data[i]"></template-draw-list>
 
                 <ion-infinite-scroll threshold="200px" (ionInfinite)="loadData($event)">
-                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                    <ion-infinite-scroll-content loadingSpinner="circular">
                     </ion-infinite-scroll-content>
                 </ion-infinite-scroll>
             </ion-content>

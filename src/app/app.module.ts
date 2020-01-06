@@ -43,7 +43,7 @@ import { IonicRouteStrategy } from './code/simpleReuseStrategy';
     {
       provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, cookieService: CookieService, plt: Platform, sotre: Store) => {
         if (plt.is("desktop") || plt.is("mobileweb")) {
-          return new AngularHttpClient(httpClient, sotre);
+          return new AngularHttpClient(httpClient, cookieService, sotre);
         }
         else {
           return new NativeHttpClient(http, cookieService, sotre);

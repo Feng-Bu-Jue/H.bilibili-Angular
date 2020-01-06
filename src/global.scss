@@ -60,3 +60,12 @@ a {
     --ion-safe-area-bottom: 50px;
     --color: white;
 }
+
+.infinite-loading {
+    margin-bottom: 0;
+}
+
+ion-infinite-scroll-content {
+    min-height: 0px;
+    padding: 5px 0;
+}

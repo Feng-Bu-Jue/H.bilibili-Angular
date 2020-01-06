@@ -61,4 +61,8 @@ export class DrawListTemplate implements OnInit {
     await this.downloadService.save(url);
     this.toastService.present(`${title} 下载完成`)
   }
+
+  public getVoteDisplay(docId: number) {
+    return this.data.find(x => x.item.doc_id == docId).item.already_voted === 0 ? "Like" : "Unlike";
+  }
 }

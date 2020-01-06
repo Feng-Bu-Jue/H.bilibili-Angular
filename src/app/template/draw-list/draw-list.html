@@ -17,7 +17,7 @@
                             Save
                         </act-box>
                         <act-box class="ops-item" (click)="vote(doc.doc_id,doc.already_voted)">
-                            {{doc.item.already_liked===0?'Like':'Unlike'}}
+                            {{getVoteDisplay(doc.doc_id)}}
                         </act-box>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                             Save
                         </act-box>
                         <act-box class="ops-item" (click)="vote(doc.item.doc_id,doc.item.already_voted)">
-                            {{doc.item.already_liked===0?'Like':'Unlike'}}
+                            {{getVoteDisplay(doc.item.doc_id)}}
                         </act-box>
                     </div>
                 </div>
