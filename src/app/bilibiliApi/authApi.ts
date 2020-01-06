@@ -24,7 +24,7 @@ export class AuthApi {
             mobi_app: 'android',
             platform: 'android',
             password: password,
-            ts: Date.now(),
+            ts: Date.now().toString().substr(0,10),
             username: username,
             captcha: ""
         };
@@ -39,7 +39,7 @@ export class AuthApi {
             "passport.api/login",
             {
                 act: 'getkey',
-                _: Date.now()
+                _: Date.now().toString().substr(0,10)
             },
             {
                 resolveProtocol: false

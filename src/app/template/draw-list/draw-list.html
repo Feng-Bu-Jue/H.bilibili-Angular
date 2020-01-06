@@ -16,8 +16,8 @@
                         <act-box class="ops-item" (click)="download(doc.pictures[0].img_src)">
                             Save
                         </act-box>
-                        <act-box class="ops-item" (click)="vote(doc.doc_id,doc.item.already_voted)">
-                            Like
+                        <act-box class="ops-item" (click)="vote(doc.doc_id,doc.already_voted)">
+                            {{doc.item.already_liked===0?'Like':'Unlike'}}
                         </act-box>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                             Save
                         </act-box>
                         <act-box class="ops-item" (click)="vote(doc.item.doc_id,doc.item.already_voted)">
-                            Like
+                            {{doc.item.already_liked===0?'Like':'Unlike'}}
                         </act-box>
                     </div>
                 </div>

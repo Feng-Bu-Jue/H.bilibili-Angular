@@ -41,7 +41,7 @@ export class ImagePlaceholderComponent implements OnInit {
   constructor(
     private sanitizer: DomSanitizer,
     private _ProgressiveImageLoader: ProgressiveImageLoaderComponent
-  ) {debugger }
+  ) { }
 
   ngOnInit() { }
 }

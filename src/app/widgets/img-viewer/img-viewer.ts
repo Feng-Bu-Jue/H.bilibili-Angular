@@ -99,7 +99,7 @@ export class ImgViewer implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.statusBar.styleDefault();
+    this.statusBar.backgroundColorByHexString("#FA7298");
   }
 
   dismiss() {

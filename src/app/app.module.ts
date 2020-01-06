@@ -9,7 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { File } from '@ionic-native/file/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { CookieService } from 'ngx-cookie-service';
-import { NgxsModule } from '@ngxs/store';
+import { NgxsModule, Store } from '@ngxs/store';
 import { UserState } from './store/user.state';
 import { AppErrorHandler } from './code/appErrorHandler';
 import { GuardModule } from './gurad/gurad.module';
@@ -20,7 +20,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Platform } from '@ionic/angular'
 import { RouteReuseStrategy } from '@angular/router';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { IonicRouteStrategy, SimpleReuseStrategy } from './code/simpleReuseStrategy';
+import { IonicRouteStrategy } from './code/simpleReuseStrategy';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { IonicRouteStrategy, SimpleReuseStrategy } from './code/simpleReuseStrat
   imports: [
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(),
+    NgxsModule.forRoot([UserState]),
     CommonModule,
     BrowserModule,
     AppRoutingModule,
@@ -36,20 +37,19 @@ import { IonicRouteStrategy, SimpleReuseStrategy } from './code/simpleReuseStrat
     HttpClientJsonpModule,
     GuardModule,
     WidgetModule,
-    NgxsModule.forRoot([UserState]),
     BrowserAnimationsModule
   ],
   providers: [
     {
-      provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, cookieService: CookieService, plt: Platform) => {
+      provide: HttpClientBase, useFactory: (httpClient: HttpClient, http: HTTP, cookieService: CookieService, plt: Platform, sotre: Store) => {
         if (plt.is("desktop") || plt.is("mobileweb")) {
-          return new AngularHttpClient(httpClient);
+          return new AngularHttpClient(httpClient, sotre);
         }
         else {
-          return new NativeHttpClient(http, cookieService);
+          return new NativeHttpClient(http, cookieService, sotre);
         }
       },
-      deps: [HttpClient, HTTP, CookieService, Platform]
+      deps: [HttpClient, HTTP, CookieService, Platform, Store]
     },
     File,
     HTTP,

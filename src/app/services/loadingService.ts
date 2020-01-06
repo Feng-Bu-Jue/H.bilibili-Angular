@@ -21,7 +21,7 @@ export class LoadingService {
             message: message
         });
         await loading.present();
-        await action().finally( ()=>this.dismiss())
+        await action().finally(() => this.dismiss())
     }
 
     dismiss() {

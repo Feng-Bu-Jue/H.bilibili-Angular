@@ -4,6 +4,8 @@ import { HTTP, HTTPResponse } from '@ionic-native/http/ngx';
 import { BiliBiliProtocol } from '../bilibiliApi/models/bilibiliProtocol';
 import { ServiceError } from './error/serviceError';
 import { CookieService } from 'ngx-cookie-service';
+import { Store } from '@ngxs/store';
+import { UserState } from '../store/user.state';
 
 export declare class Response {
     status: number;
@@ -19,6 +21,10 @@ export class ClientOptions {
 }
 
 export abstract class HttpClientBase {
+    constructor(private store: Store) {
+
+    }
+
     abstract get<TResult>(path: string, params: { [name: string]: any }, options?: ClientOptions): Promise<TResult>
     abstract post<TResult>(path: string, params: { [name: string]: any }, options?: ClientOptions): Promise<TResult>
     protected abstract resolveHttpResponse(rawResponse: any): Response
@@ -39,7 +45,16 @@ export abstract class HttpClientBase {
         return `${this.makeUrl(path)}?${this.toUrlEncode(params)}`;
     }
 
+    protected getParams(params: { [name: string]: any }) {
+        if (params) {
+            let csrf_token = this.store.selectSnapshot(UserState.getToken);
+            if (csrf_token) { params.csrf_token = csrf_token; }
+        }
+        return params;
+    }
+
     protected toUrlEncode(params: { [name: string]: any }): string {
+        params = this.getParams(params);
         let queryString = '';
         if (params) {
             const keys = Object.keys(params);
@@ -65,6 +80,11 @@ export abstract class HttpClientBase {
         switch (method) {
             case 'post':
                 headers["Content-Type"] = "application/x-www-form-urlencoded";
+                headers["ContentType"] = "application/x-www-form-urlencoded";
+                headers["content-type"] = "application/x-www-form-urlencoded";
+                headers["User-Agent"] = "";
+                headers["UserAgent"] = "";
+                headers["user-agent"] = "";
                 break;
         }
         return headers;
@@ -78,7 +98,7 @@ export abstract class HttpClientBase {
         return new Promise<TResult>(async (resolve, reject) => {
             await requestTask.then((res) => {
                 let response = this.resolveHttpResponse(res);
-                if (resolveProtocol && response.data.hasOwnProperty("code") && response.data.hasOwnProperty("message")) {
+                if (resolveProtocol && response.data.hasOwnProperty("code") && (response.data.hasOwnProperty("message") || response.data.hasOwnProperty("data"))) {
                     this.bilibiliProtocolHandle(response, resolve, reject);
                 }
                 else {
@@ -118,11 +138,11 @@ export abstract class HttpClientBase {
 }
 
 export class AngularHttpClient extends HttpClientBase {
-
     constructor(
-        private httpClient: HttpClient
+        private httpClient: HttpClient,
+        private s: Store
     ) {
-        super();
+        super(s);
     }
 
     public async get<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
@@ -178,18 +198,15 @@ export class AngularHttpClient extends HttpClientBase {
 export class NativeHttpClient extends HttpClientBase {
     constructor(
         private http: HTTP,
-        private cookieService: CookieService
+        private cookieService: CookieService,
+        private s: Store
     ) {
-        super();
-        /*
-        let cookie = Object.entries(this.cookieService.getAll()).map(([key, value]) => {
-            return `${key}=${value}`
-        }).join("; ")
-        this.http.setCookie(null, cookie);
-        */
+        super(s);
     }
 
     public async get<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
+        this.setCookie(path);
+        options = options || {}
         options.responseType = options.responseType || 'text';
         options = this.assignFromDefaultOptions(options);
         return this.responseHandle<TResult>(
@@ -206,6 +223,8 @@ export class NativeHttpClient extends HttpClientBase {
     }
 
     public async post<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
+        this.setCookie(path);
+        options = options || {}
         options.responseType = options.responseType || 'text';
         options = this.assignFromDefaultOptions(options);
         return this.responseHandle<TResult>(
@@ -213,7 +232,8 @@ export class NativeHttpClient extends HttpClientBase {
                 this.makeUrl(path),
                 {
                     method: 'post',
-                    params: params,
+                    data: this.getParams(params),
+                    serializer: 'urlencoded',
                     headers: this.getHeaders('post'),
                     responseType: options.responseType
                 }
@@ -233,6 +253,15 @@ export class NativeHttpClient extends HttpClientBase {
             headers: new HttpHeaders(response.headers),
             data: response.data
         }
+    }
+
+    private setCookie(path:string) {
+        let cookie = Object.entries(this.cookieService.getAll()).map(([key, value]) => {
+            return `${key}=${value}`
+        }).join("; ")
+        var match = this.makeUrl(path).match(/^http(s)?:\/\/(.*?)\//);
+        console.log(match[0]);
+        this.http.setCookie(match[0], cookie);
     }
 }
 
