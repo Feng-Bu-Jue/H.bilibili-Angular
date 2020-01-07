@@ -9,7 +9,7 @@ export class UserStateModel {
   mid: number
 }
 
-export class SetUserSate {
+export class SetUserState {
   static readonly type = '[user] setToken';
   constructor(public payload: { csrf_token: string, mid: number }) { }
 }
@@ -38,8 +38,8 @@ export class UserState {
     public ngZone: NgZone,
   ) { }
 
-  @Action(SetUserSate)
-  setToken(ctx: StateContext<UserStateModel>, action: SetUserSate) {
+  @Action(SetUserState)
+  setToken(ctx: StateContext<UserStateModel>, action: SetUserState) {
     ctx.patchState({
       csrf_token: action.payload.csrf_token,
       mid: action.payload.mid

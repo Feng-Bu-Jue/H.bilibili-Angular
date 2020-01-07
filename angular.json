@@ -45,6 +45,14 @@
             "es5BrowserSupport": true
           },
           "configurations": {
+            "mobileweb": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.mobileweb.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -81,6 +89,9 @@
             "proxyConfig": "proxyconfig.json"
           },
           "configurations": {
+            "mobileweb":{
+              "browserTarget": "app:build:mobileweb"
+            },
             "production": {
               "browserTarget": "app:build:production"
             },

@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { AuthApi } from '../bilibiliApi/authApi';
 import { CookieService } from 'ngx-cookie-service';
 import { Store, Select } from '@ngxs/store';
-import { SetUserSate, UserState } from '../store/user.state';
+import { SetUserState, UserState } from '../store/user.state';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,9 +26,9 @@ export class AuthService {
         let cookies = ssoResult.cookie.split("; ").filter(x => x);
         this.setCookie(cookies);
         //set token
-        let csrf_token = cookies.find(x => <boolean><unknown>(~x.search("bili_jct")));
-        let mid = parseInt(cookies.find(x => <boolean><unknown>(~x.search("DedeUserID"))));
-        return this.store.dispatch(new SetUserSate({ csrf_token, mid }))
+        let csrf_token = cookies.find(x => x.includes("bili_jct")).split("=")[1];
+        let mid = parseInt(cookies.find(x => x.includes("DedeUserID")).split("=")[1]);
+        return this.store.dispatch(new SetUserState({ csrf_token, mid }))
     }
 
     public isLoggedIn(): boolean {

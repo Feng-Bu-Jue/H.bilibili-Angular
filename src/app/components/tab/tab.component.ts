@@ -39,11 +39,11 @@ export class Tab implements OnInit, AfterContentInit {
 
     public underLineTransition: string = "";
 
-    private get width() {
+    public get width() {
         return `${100 / this.tabItems.length || 0}%`;
     }
 
-    private get left() {
+    public get left() {
         return `${(100 / this.tabItems.length) * (this.activeIndex + (this.movingPosition ? this.movingPosition : 0))}%`;
     }
 

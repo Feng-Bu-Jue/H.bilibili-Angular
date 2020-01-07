@@ -126,7 +126,7 @@ export class TabDrawListTemplate implements OnInit {
     this.movingPosition = -xRect / width;
   }
 
-  ionSlideTouchEnd() {
+  ionSlideTouchEnd(event) {
     this.isMoving = false;
   }
 

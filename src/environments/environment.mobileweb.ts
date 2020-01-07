@@ -5,11 +5,11 @@
 export const environment = {
   production: false,
   apiProfile: {
-    'api.vc': 'https://api.vc.bilibili.com',
-    'api': 'https://api.bilibili.com',
-    'passport.api': 'https://passport.bilibili.com',
-    'kaaass.net': 'https://api.kaaass.net',
-    'api.live': 'https://api.live.bilibili.com',
+    'api.vc': '/api.vc',
+    'api': '/api',
+    'passport.api': '/passport.api',
+    'kaaass.net': '/kaaass.net',
+    'api.live': '/api.live',
   }
 };
 

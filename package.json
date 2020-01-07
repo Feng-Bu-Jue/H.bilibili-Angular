@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run ng-start",
-    "ng-start": "ng serve --port 2233",
+    "ng-start": "ng serve --port 2233 --configuration=mobileweb",
     "build": "ng build --base-href ./",
     "build:lib": "ng build ngx-progressive-image-loader && npm run copy-scss && ng build ngx-waterfall",
     "copy-scss": "cpx \"./projects/ngx-progressive-image-loader/src/lib/*.scss\" \"./dist/ngx-progressive-image-loader/\" --verbose",
