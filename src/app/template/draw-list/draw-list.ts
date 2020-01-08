@@ -63,6 +63,11 @@ export class DrawListTemplate implements OnInit {
   }
 
   public getVoteDisplay(docId: number) {
-    return this.data.find(x => x.item.doc_id == docId).item.already_voted === 0 ? "Like" : "Unlike";
+    if (this.source == "space") {
+      return this.data.items.find(x => x.doc_id == docId).already_liked === 0 ? "Like" : "Unlike";
+    }
+    else {
+      return this.data.find(x => x.item.doc_id == docId).item.already_voted === 0 ? "Like" : "Unlike";
+    }
   }
 }

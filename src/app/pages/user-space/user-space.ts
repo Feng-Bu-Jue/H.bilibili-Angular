@@ -15,10 +15,12 @@ import { UesrInfoResult } from 'src/app/bilibiliApi/models/userInfoResult';
     styleUrls: ['./user-space.scss'],
     animations: [
         trigger('user-info', [
-            state('up', style({ 'height': '*', 'padding': '*', 'opacity': '1', 'visibility': 'visible' })),
-            state('down', style({ 'height': '0px', 'padding': '0px', 'opacity': '0', 'visibility': 'hidden' })),
-            transition('* => down', animate(300)),
-            transition('* => up', animate(300))
+            transition('* => void', [
+                style({ height: '*', padding: '*', opacity: '1', visibility: 'visible' }),
+                animate("120ms", style({ height: 0, padding: 0, opacity: 0, visibility: 'hidden' }))]),
+            transition('void => *', [
+                style({ height: '0px', padding: '0px', opacity: '0', visibility: 'hidden' }),
+                animate('120ms', style({ height: '*', padding: '*', opacity: 1, visibility: 'visible' }))])
         ]),
     ]
 })
@@ -28,8 +30,10 @@ export class UserSpacePage implements OnInit {
     public data: LinkDrawResultList;
     public userInfo: UesrInfoResult;
     public disableScrollEvent: boolean = false;
-    public scrollState: any;
+    public showUserDetail: boolean = true;
     @ViewChild('ionContent', { static: false }) content: IonContent;
+
+    private scrollTop;
 
     public get scorllHeight() {
         let height = this.content && this.content["el"] ? this.content["el"].clientHeight : 0;
@@ -70,17 +74,15 @@ export class UserSpacePage implements OnInit {
             this.disableScrollEvent = true;
     }
 
-    public onScroll(event) {
-        if (event.target.direction != this.scrollState) {
-            this.scrollState = event.target.direction;
-            this.ref.detectChanges();
-        }
-    }
-
     public async follow(isFollow: boolean) {
         let type = isFollow ? 1 : 0;
         await this.userApi.attention(this.uid, type);
         this.userInfo.is_followed = true;
     }
 
+
+    public ionScroll(event) {
+        this.showUserDetail = event.detail.deltaY < 0;
+        console.log(event.detail.deltaY)
+    }
 }

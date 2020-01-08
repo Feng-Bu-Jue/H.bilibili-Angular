@@ -148,7 +148,7 @@ export class AngularHttpClient extends HttpClientBase {
         private c: CookieService,
         private s: Store
     ) {
-        super(c,s);
+        super(c, s);
     }
 
     public async get<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {
@@ -207,7 +207,7 @@ export class NativeHttpClient extends HttpClientBase {
         private c: CookieService,
         private s: Store
     ) {
-        super(c,s);
+        super(c, s);
     }
 
     public async get<TResult>(path: string, params: { [name: string]: any; }, options: ClientOptions): Promise<TResult> {

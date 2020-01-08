@@ -1,6 +1,6 @@
 <ng-container *ngIf="data && userInfo">
     <app-header title="详情">
-        <div class="user-box" [@user-info]="scrollState">
+        <div class="user-box" [@user-info] *ngIf="showUserDetail">
             <div class="user-face" [style.background-image]="'url(' + userInfo.face +')'"></div>
             <div class="user-info">
                 <div class="user-name">
@@ -14,10 +14,12 @@
             </div>
         </div>
     </app-header>
-    <ion-content #ionContent style="width:100%">
-        <scroll [disableScrollEvent]="disableScrollEvent" [height]="scorllHeight" [lowerOffset]="100"
-            (onScrollLower)="loadData($event)" (onScroll)="onScroll($event)">
-            <template-draw-list [data]="data" source="space"></template-draw-list>
-        </scroll>
+    <ion-content (ionScroll)="ionScroll($event)" [scrollEvents]="true" style="width:100%">
+        <template-draw-list [data]="data" source="space"></template-draw-list>
+
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content>
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </ion-content>
 </ng-container>

@@ -31,7 +31,7 @@
             </section>
 
             <section class="reply section" *ngIf="replies && replies.length>0">
-                <div>评论{{replyPage.count}}</div>
+                <div>评论 {{replyPage.count}}</div>
                 <ion-list>
                     <ion-item class="reply-item" *ngFor="let reply of replies">
                         <act-box>
@@ -61,7 +61,7 @@
         </div>
     </ng-container>
 
-    <ion-infinite-scroll threshold="10%" (ionInfinite)="loadMoreComment($event)">
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMoreComment($event)">
         <ion-infinite-scroll-content>
         </ion-infinite-scroll-content>
     </ion-infinite-scroll>
