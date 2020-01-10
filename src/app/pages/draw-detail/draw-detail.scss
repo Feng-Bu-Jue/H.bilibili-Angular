@@ -88,11 +88,15 @@
   padding: 10px;
 
   .reply-item {
-    --padding-start:0;
-    --inner-padding-top: 10px;
-    --inner-padding-bottom: 10px;
+    --padding-start: 0;
+    --inner-padding-top: 0;
+    --inner-padding-bottom: 0;
     --inner-padding-start: 0;
     --inner-padding-end: 0;
+  }
+
+  act-box {
+    padding: 10px 0;
   }
 }
 
@@ -140,24 +144,10 @@
   }
 }
 
-.comment {
-  position: fixed;
-  bottom: 0;
-  background-color: #fff;
-  display: inline-flex;
-  width: 100%;
-  align-items: center;
+.footer {
+  display: flex;
 
-  .input {
-    border-radius: 15px;
-    background-color: #d4d0d0;
-    --padding-start: 10px;
-    --padding-end: 10px;
-    --padding-bottom: 5px;
-    --padding-top: 5px;
-  }
-
-  .button {
-    flex-basis: 50px;
+  ion-button {
+    flex-basis: 50%;
   }
 }

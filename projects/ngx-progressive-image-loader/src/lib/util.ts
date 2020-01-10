@@ -38,6 +38,7 @@ export function loadImage(renderer: Renderer2, image: HTMLElement) {
     }
   } else {
     if (image.dataset.src) {
+      console.log("loading img --- "+image.dataset.src)
       setAttribute(renderer, 'src', <HTMLImageElement>image);
     }
     if (image.dataset.srcset) {

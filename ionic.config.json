@@ -1,7 +1,8 @@
 {
   "name": "h.bilibili-angular",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

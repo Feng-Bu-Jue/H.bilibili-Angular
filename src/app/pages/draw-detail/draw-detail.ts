@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { ReplyApi } from 'src/app/bilibiliApi/replyApi';
 import { Reply, ReplyPage } from 'src/app/bilibiliApi/models/replyResult';
 import { LinkDrawResult } from 'src/app/bilibiliApi/models/LinkDrawResult';
-import { ModalController, IonInfiniteScroll } from '@ionic/angular';
+import { ModalController, IonInfiniteScroll, ActionSheetController, PopoverController } from '@ionic/angular';
 import { ImgViewer } from '../../widgets/img-viewer/img-viewer';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as util from "./util";
@@ -33,15 +33,17 @@ export class DrawDetailPage implements OnInit, AfterViewInit, DoCheck {
   @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll: IonInfiniteScroll;
 
   constructor(
-    private linkDrawApi: LinkDrawApi,
-    private replyApi: ReplyApi,
+    public linkDrawApi: LinkDrawApi,
+    public replyApi: ReplyApi,
     public datePipe: DatePipe,
     public route: ActivatedRoute,
     public router: Router,
     public modalService: ModalService,
     public toastervice: ToastService,
     public authService: AuthService,
-    private modalController: ModalController
+    public modalController: ModalController,
+    public actionSheetController: ActionSheetController,
+    public popoverController: PopoverController,
   ) {
     this.uid = Number(this.route.snapshot.paramMap.get('uid'));
   }
@@ -97,6 +99,14 @@ export class DrawDetailPage implements OnInit, AfterViewInit, DoCheck {
       (error) => {
         this.toastervice.present(error.message)
       });
+  }
+
+  public async presentCommentSheet() {
+    const popover = await this.popoverController.create({
+      component: Comment,
+      translucent: true
+    });
+    return await popover.present();
   }
 }
 

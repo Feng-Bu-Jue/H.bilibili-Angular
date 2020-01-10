@@ -83,6 +83,5 @@ export class UserSpacePage implements OnInit {
 
     public ionScroll(event) {
         this.showUserDetail = event.detail.deltaY < 0;
-        console.log(event.detail.deltaY)
     }
 }

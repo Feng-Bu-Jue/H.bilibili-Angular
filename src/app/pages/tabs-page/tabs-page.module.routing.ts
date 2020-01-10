@@ -14,10 +14,6 @@ const routes: Routes = [
         loadChildren: () => import('../draw-list/draw-list.module').then(m => m.DrawListPageModule)
       },
       {
-        path: 'draw/detail/:uid',
-        loadChildren: () => import('../draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
-      },
-      {
         path: 'photo',
         loadChildren: () => import('../photo-list/photo-list.module').then(m => m.PhotoListPageModule),
       },

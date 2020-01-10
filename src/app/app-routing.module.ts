@@ -10,6 +10,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/tabs-page/tabs-page.module').then(m => m.TabsModule)
   },
   {
+    path: 'app/tabs/draw/detail/:uid',
+    loadChildren: () => import('./pages/draw-detail/draw-detail.module').then(m => m.DrawDetailPageModule),
+  },
+  {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginPageModule),
     canActivate: [LoginGuard]

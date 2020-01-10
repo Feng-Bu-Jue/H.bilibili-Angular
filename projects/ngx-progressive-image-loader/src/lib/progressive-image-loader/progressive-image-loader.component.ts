@@ -72,10 +72,9 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
 
   onIntersectionChanged(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
     entries.forEach(
-      entry =>
-      {
+      entry => {
         entry.isIntersecting &&
-        this.onImageAppearsInViewport(entry.target as HTMLElement, observer)
+          this.onImageAppearsInViewport(entry.target as HTMLElement, observer)
       }
     );
   }
@@ -90,3 +89,4 @@ export class ProgressiveImageLoaderComponent implements OnInit, OnDestroy {
     this.intersectionObserver && this.intersectionObserver.disconnect();
   }
 }
+

@@ -85,20 +85,35 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
       // only image element need to be observe and have onload event
       if (this.imageElement instanceof HTMLImageElement) {
         this.isObserve = true;
-        this._ProgressiveImageLoader.intersectionObserver.observe(this.imageElement);
 
         this.imageElement.onload = () => {
           this.imageElement.classList.add('loaded');
         };
+
         if (!this._ImagePlaceholder && !this.noPlaceholder) {
           this.setPlaceholder();
         }
+
+        if (isElementInViewport(this.imageElement)) {
+          loadImage(this._Renderer, this.imageElement);
+          console.log()
+        }
+        else {
+          this._ProgressiveImageLoader.intersectionObserver.observe(this.imageElement);
+        }
+        console.log(this.imageElement);
       }
       else if (this._ElementRef.nativeElement instanceof HTMLElement) {
         this.bgImageElement = this._ElementRef.nativeElement;
         this.setDataSrc('data-bgsrc', this.bgsrc);
         this.isObserve = true;
-        this._ProgressiveImageLoader.intersectionObserver.observe(this.bgImageElement);
+        if (isElementInViewport(this.imageElement)) {
+          loadImage(this._Renderer, this.imageElement);
+        }
+        else {
+          this._ProgressiveImageLoader.intersectionObserver.observe(this.bgImageElement);
+        }
+        
         if (!this._ImagePlaceholder && !this.noPlaceholder) {
           this.setPlaceholder();
         }
@@ -165,4 +180,14 @@ export class ProgressiveImageDirective implements OnInit, OnChanges {
     img.src = this.placeholderImageSrc;
     return img;
   }
+}
+
+export function isElementInViewport(el) {
+  var rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+  );
 }

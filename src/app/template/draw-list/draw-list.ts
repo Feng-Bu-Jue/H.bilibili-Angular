@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewChecked, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewChecked, ElementRef, AfterViewInit } from '@angular/core';
 import { LinkDrawResult } from 'src/app/bilibiliApi/models/linkDrawResult';
 import { LinkDrawApi } from 'src/app/bilibiliApi/linkDrawApi';
 import { ToastController } from '@ionic/angular';
@@ -12,6 +12,7 @@ import { DownloadService } from 'src/app/services/dowloadservice';
   styleUrls: ['./draw-list.scss']
 })
 export class DrawListTemplate implements OnInit {
+
   @Input("data")
   public data;
   @Input("source")
