@@ -67,7 +67,7 @@ export class TabDrawListTemplate implements OnInit {
   }
 
   async loadData(event = null, loading = false) {
-    const pageSize = 6;
+    const pageSize = 20;
     let doLoadData = async () => {
       let currentCategory = this.categories[this.activeIndex];
       let res: LinkDrawResultList;
