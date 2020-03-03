@@ -13,6 +13,7 @@ import { UesrInfoResult } from 'src/app/bilibiliApi/models/userInfoResult';
     selector: "page-user-space",
     templateUrl: './user-space.html',
     styleUrls: ['./user-space.scss'],
+    /*
     animations: [
         trigger('user-info', [
             transition('* => void', [
@@ -23,6 +24,7 @@ import { UesrInfoResult } from 'src/app/bilibiliApi/models/userInfoResult';
                 animate('120ms', style({ height: '*', padding: '*', opacity: 1, visibility: 'visible' }))])
         ]),
     ]
+    */
 })
 export class UserSpacePage implements OnInit {
     public uid: number;
@@ -32,8 +34,6 @@ export class UserSpacePage implements OnInit {
     public disableScrollEvent: boolean = false;
     public showUserDetail: boolean = true;
     @ViewChild('ionContent', { static: false }) content: IonContent;
-
-    private scrollTop;
 
     public get scorllHeight() {
         let height = this.content && this.content["el"] ? this.content["el"].clientHeight : 0;
@@ -77,11 +77,12 @@ export class UserSpacePage implements OnInit {
     public async follow(isFollow: boolean) {
         let type = isFollow ? 1 : 0;
         await this.userApi.attention(this.uid, type);
-        this.userInfo.is_followed = true;
+        this.userInfo.is_followed = !this.userInfo.is_followed;
     }
 
 
     public ionScroll(event) {
+        console.log(event);
         this.showUserDetail = event.detail.deltaY < 0;
     }
 }

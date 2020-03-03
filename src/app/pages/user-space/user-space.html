@@ -1,6 +1,6 @@
 <ng-container *ngIf="data && userInfo">
     <app-header title="详情">
-        <div class="user-box" [@user-info] *ngIf="showUserDetail">
+        <div class="user-box">
             <div class="user-face" [style.background-image]="'url(' + userInfo.face +')'"></div>
             <div class="user-info">
                 <div class="user-name">
